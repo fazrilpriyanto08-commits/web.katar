@@ -1,0 +1,75 @@
+/* ==========================================================
+    STYLE PREMIUM UNTUK HALAMAN STRUKTUR PANITIA KATAR 012
+   ========================================================== */
+
+/* Impor Font Modern agar Tampilan Terlihat Mahal */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+body {
+    background-color: #fcfcfd;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #2D3748;
+}
+
+/* Mengubah Desain Card HTML Bawaan Menjadi Interaktif */
+.card {
+    border: none !important;
+    border-radius: 20px !important;
+    background: #ffffff !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02) !important;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    position: relative;
+    border-top: 4px solid #a71d2a !important; /* Garis merah mewah di atas card */
+    overflow: hidden;
+}
+
+/* Efek Sorot (Hover) saat Mouse Mendekati Kotak Panitia */
+.card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 20px 40px rgba(167, 29, 42, 0.12) !important;
+}
+
+/* Otomatis Membuat Foto Profil Menjadi Lingkaran Estetik */
+.card img {
+    width: 110px !important;
+    height: 110px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    margin: 0 auto 15px auto !important;
+    border: 4px solid #f1f3f5 !important;
+    transition: all 0.3s ease !important;
+    display: block;
+}
+
+/* Foto Profil Berubah Border Emas saat Di-hover */
+.card:hover img {
+    border-color: #ffd700 !important;
+    transform: scale(1.05);
+}
+
+/* Mempercantik Teks Nama Panitia */
+.card h5, .card .card-title {
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px !important;
+}
+
+/* Mempercantik Teks Jabatan */
+.card p, .card .card-text {
+    font-size: 0.85rem !important;
+    color: #718096 !important;
+    font-weight: 500;
+}
+
+/* Mewarnai Elemen List Anggota / Divisi Bawah */
+.card ul li {
+    padding: 8px 0;
+    border-bottom: 1px calc(255,255,255) !important;
+    transition: all 0.2s ease;
+}
+
+.card ul li:hover {
+    padding-left: 5px;
+    color: #a71d2a !important;
+}
