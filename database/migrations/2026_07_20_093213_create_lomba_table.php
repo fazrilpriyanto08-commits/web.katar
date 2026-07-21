@@ -1,39 +1,26 @@
 <?php
 
-namespace Database\Seeders;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use App\Models\Lomba;
-use Illuminate\Database\Seeder;
-
-class DatabaseSeeder extends Seeder
+return new class extends Migration
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function up(): void
     {
-        Lomba::create([
-            'nama_lomba' => 'Lomba Balap Karung',
-            'lokasi'     => 'Lapangan RT 012',
-            'waktu'      => '17 Agustus 2026, 08:00 WIB',
-            'status'     => 'Pendaftaran Dibuka',
-            'pemenang'   => null,
-        ]);
-
-        Lomba::create([
-            'nama_lomba' => 'Lomba Makan Kerupuk',
-            'lokasi'     => 'Halaman Pos RW 012',
-            'waktu'      => '17 Agustus 2026, 10:00 WIB',
-            'status'     => 'Pendaftaran Dibuka',
-            'pemenang'   => null,
-        ]);
-
-        Lomba::create([
-            'nama_lomba' => 'Lomba Tarik Tambang',
-            'lokasi'     => 'Lapangan Utama',
-            'waktu'      => '18 Agustus 2026, 15:30 WIB',
-            'status'     => 'Pendaftaran Dibuka',
-            'pemenang'   => null,
-        ]);
+        Schema::create('lombas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_lomba');
+            $table->string('lokasi');
+            $table->string('waktu');
+            $table->string('status');
+            $table->string('pemenang')->nullable();
+            $table->timestamps();
+        });
     }
-}
+
+    public function down(): void
+    {
+        Schema::dropIfExists('lombas');
+    }
+};

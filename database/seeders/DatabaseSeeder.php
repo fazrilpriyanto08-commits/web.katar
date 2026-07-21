@@ -7,28 +7,30 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // Masukkan data lomba bawaan Karang Taruna
         Lomba::create([
             'nama_lomba' => 'Lomba Balap Karung',
-            'deskripsi'  => 'Lomba ketangkasan balap karung menggunakan helm untuk kategori dewasa & remaja.',
-            'tanggal'    => '2026-08-17',
+            'lokasi'     => 'Lapangan RT 012',
+            'waktu'      => '17 Agustus 2026, 08:00 WIB',
+            'status'     => 'Pendaftaran Dibuka',
+            'pemenang'   => null,
         ]);
 
         Lomba::create([
             'nama_lomba' => 'Lomba Makan Kerupuk',
-            'deskripsi'  => 'Lomba seru makan kerupuk gantung tanpa menggunakan tangan khusus anak-anak.',
-            'tanggal'    => '2026-08-17',
+            'lokasi'     => 'Halaman Pos RW 012',
+            'waktu'      => '17 Agustus 2026, 10:00 WIB',
+            'status'     => 'Pendaftaran Dibuka',
+            'pemenang'   => null,
         ]);
 
         Lomba::create([
             'nama_lomba' => 'Lomba Tarik Tambang',
-            'deskripsi'  => 'Lomba antar-RT untuk menguji kekompakan dan kekuatan tim.',
-            'tanggal'    => '2026-08-18',
+            'lokasi'     => 'Lapangan Utama',
+            'waktu'      => '18 Agustus 2026, 15:30 WIB',
+            'status'     => 'Pendaftaran Dibuka',
+            'pemenang'   => null,
         ]);
     }
 }
