@@ -108,7 +108,6 @@
                 🎉 {{ session('sukses') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @endif
 
         <div class="text-center mb-5">
             <h2 class="fw-bold text-danger text-uppercase mb-2" style="letter-spacing: 1px;">🏆 Informasi Terbaru Perlombaan</h2>
