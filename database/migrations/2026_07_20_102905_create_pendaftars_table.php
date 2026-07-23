@@ -16,6 +16,7 @@ public function up(): void
         $table->unsignedBigInteger('lomba_id');
         $table->string('nama_warga');
         $table->string('nomor_hp');
+        $table->string('rt_rw')->default('RT 012 / RW 05');
         $table->timestamps();
     });
 }
