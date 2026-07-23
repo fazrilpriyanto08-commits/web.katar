@@ -117,62 +117,45 @@
 
         <div class="row g-4">
             @foreach($daftarLomba as $lomba)
-                <div class="col-md-4 mb-3">
-                    <!-- PERBAIKAN: Card dikasih border atas merah tebal dan bayangan lebih nyata (shadow) -->
-                    <div class="card h-100 shadow border-0 border-top border-4 border-danger hover-lift transition-all" style="border-radius: 16px; background: #ffffff;">
-                        <div class="card-body p-4 d-flex flex-column justify-content-between">
-                            
-                            <div>
-                                <!-- Badge Status -->
-                                <div class="mb-3">
-                                    @if($lomba->status == 'Terbuka' || $lomba->status == 'Pendaftaran Dibuka')
-                                        <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold" style="font-size: 0.75rem;">🟢 Pendaftaran Dibuka</span>
-                                    @elseif($lomba->status == 'Penuh')
-                                        <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill fw-bold" style="font-size: 0.75rem;">🟡 Kuota Penuh</span>
-                                    @else
-                                        <span class="badge bg-secondary-subtle text-secondary px-3 py-2 rounded-pill fw-bold" style="font-size: 0.75rem;">🔴 {{ $lomba->status }}</span>
-                                    @endif
-                                </div>
+            
+<div class="row g-4">
+    @foreach($daftarLomba as $lomba)
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow border-0 border-top border-4 border-danger hover-lift transition-all" style="border-radius: 10px;">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <!-- Badge Status -->
+                        <div class="mb-3">
+                            @if($lomba->status == 'Terbuka' || $lomba->status == 'Pendaftaran Dibuka')
+                                <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold" style="font-size: 0.75rem;">{{ $lomba->status }}</span>
+                            @elseif($lomba->status == 'Penuh')
+                                <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill fw-bold" style="font-size: 0.75rem;">{{ $lomba->status }}</span>
+                            @else
+                                <span class="badge bg-secondary-subtle text-secondary px-3 py-2 rounded-pill fw-bold" style="font-size: 0.75rem;">{{ $lomba->status }}</span>
+                            @endif
+                        </div>
 
-                                <!-- Nama Lomba -->
-                                <h5 class="card-title fw-bold text-dark mb-3 fs-5" style="line-height: 1.4;">{{ $lomba->nama_lomba }}</h5>
-                                
-                                <!-- Info Detail (Box abu-abu dibuat sedikit lebih gelap kontrasnya) -->
-                                <div class="p-3 rounded-3 mb-4" style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
-                                    <div class="d-flex align-items-center mb-2 text-secondary small">
-                                        <span class="me-2 fs-6">📍</span> 
-                                        <span>Lokasi: <strong class="text-dark">{{ $lomba->lokasi }}</strong></span>
-                                    </div>
-                                    <div class="d-flex align-items-center text-secondary small">
-                                        <span class="me-2 fs-6">⏰</span> 
-                                        <span>Waktu: <strong class="text-dark">{{ $lomba->waktu }} WIB</strong></span>
-                                    </div>
-                                </div>
-                                
-                                @if($lomba->pemenang)
-                                    <div class="alert alert-warning border-0 p-2 text-center fw-bold mb-3 small rounded-3" role="alert">
-                                        🏆 Pemenang: {{ $lomba->pemenang }}
-                                    </div>
-                                @endif
+                        <!-- Nama Lomba -->
+                        <h5 class="card-title fw-bold text-dark mb-3 fs-5" style="line-height: 1.4;">{{ $lomba->nama_lomba }}</h5>
+
+                        <!-- Info Detail -->
+                        <div class="p-3 rounded-3 mb-4" style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
+                            <div class="d-flex align-items-center mb-2 text-secondary small">
+                                <span class="me-2 fs-6">📍</span>
+                                <span>Lokasi: <strong class="text-dark">{{ $lomba->lokasi }}</strong></span>
                             </div>
-
-                            <!-- Tombol Pendaftaran -->
-                            <div>
-                                @if($lomba->status == 'Terbuka' || $lomba->status == 'Pendaftaran Dibuka')
-                                    <a href="{{ url('/daftar-lomba/'.$lomba->id) }}" class="btn btn-danger w-100 fw-bold rounded-pill py-2.5 hover-lift shadow-sm">
-                                        📝 Daftar Sekarang
-                                    </a>
-                                @else
-                                    <button class="btn btn-secondary w-100 fw-bold rounded-pill py-2.5 opacity-50" disabled>
-                                        🔒 Pendaftaran Ditutup
-                                    </button>
-                                @endif
+                            <div class="d-flex align-items-center text-secondary small">
+                                <span class="me-2 fs-6">⏰</span>
+                                <span>Waktu: <strong class="text-dark">{{ $lomba->waktu }}</strong></span>
                             </div>
-
                         </div>
                     </div>
                 </div>
-            @endforeach
+            </div>
+        </div>
+    @endforeach
+</div> <!-- End Row -->
+
         </div> <!-- End Row -->
 
     </div> <!-- End Container -->
