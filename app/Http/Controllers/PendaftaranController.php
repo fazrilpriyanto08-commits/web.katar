@@ -3,40 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lomba;
-use App\Models\Pendaftar;
 use Illuminate\Http\Request;
 
 class PendaftaranController extends Controller
 {
-    // 1. Menampilkan Form Pendaftaran
     public function formDaftar($id)
     {
-        // Cari lomba berdasarkan ID yang diklik peserta
+        // Mengambil data lomba spesifik berdasarkan ID
         $lomba = Lomba::findOrFail($id);
         
-        return view('daftar', compact('lomba'));
+        // Memanggil file view 'daftar1.blade.php'
+        return view('daftar1', compact('lomba'));
     }
 
-    // 2. Memproses data Form yang dikirim warga ke Database
     public function prosesDaftar(Request $request)
     {
-        // Validasi inputan wajib diisi
+        // Validasi dan simpan data pendaftaran
         $request->validate([
-            'nama_warga' => 'required|string|max:255',
-            'nomor_hp'   => 'required|string|max:15',
-            'rt_rw'      => 'required|string|max:50',
-            'lomba_id'   => 'required|exists:lombas,id',
+            'lomba_id' => 'required',
+            'nama'     => 'required',
+            'no_hp'    => 'required',
         ]);
 
-        // Simpan ke database tabel pendaftars
-        Pendaftar::create([
-            'nama_warga' => $request->nama_warga,
-            'nomor_hp'   => $request->nomor_hp,
-            'rt_rw'      => $request->rt_rw,
-            'lomba_id'   => $request->lomba_id,
+        // Simpan ke database (sesuaikan dengan Model Pendaftar milikmu)
+        \App\Models\Pendaftar::create([
+            'lomba_id' => $request->lomba_id,
+            'nama'     => $request->nama,
+            'no_hp'    => $request->no_hp,
         ]);
 
-        // Kembalikan ke halaman depan dengan pesan sukses
-        return redirect('/')->with('sukses', 'Pendaftaran Anda berhasil disimpan! Semangat berlomba!');
+        return redirect()->back()->with('success', 'Pendaftaran berhasil!');
     }
 }

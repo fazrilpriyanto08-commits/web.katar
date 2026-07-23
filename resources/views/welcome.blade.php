@@ -140,6 +140,9 @@
                                             <span>Waktu: <strong class="text-dark">{{ $lomba->waktu }}</strong></span>
                                         </div>
                                     </div>
+                                    <a href="/daftar-lomba/{{ $lomba->id }}" class="btn btn-danger w-100 fw-bold mt-3">
+                            📝 Daftar Lomba Ini
+                                                </a>
                                 </div>
                             </div>
                         </div>

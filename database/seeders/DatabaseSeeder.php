@@ -7,33 +7,33 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        Lomba::create([
-            'nama_lomba' => 'Lomba Balap Karung',
-            'lokasi'     => 'Lapangan RT 012',
-            'waktu'      => '17 Agustus 2026, 08:00 WIB',
-            'status'     => 'Pendaftaran Dibuka',
-            'pemenang'   => null,
-        ]);
+        $lombas = [
+            ['nama_lomba' => 'Masukin Bendera Anak-Anak', 'lokasi' => 'Lapangan Baru', 'waktu' => '07.00', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Futsal Pake Sarung', 'lokasi' => 'Lapangan Baru', 'waktu' => '16.00', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Sendok Kelereng Anak-Anak', 'lokasi' => 'Lapangan Baru', 'waktu' => '08.30', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Tali Ping-Pong', 'lokasi' => 'Lapangan Baru', 'waktu' => '14.00', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Mewarnai Anak-Anak', 'lokasi' => 'Lapangan Baru', 'waktu' => '12.00', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Joget Koran', 'lokasi' => 'Lapangan Baru', 'waktu' => '15.00', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Makan Kerupuk', 'lokasi' => 'Lapangan Baru', 'waktu' => '15.30', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Karung Helm', 'lokasi' => 'Lapangan Baru', 'waktu' => '10.00', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Masukin Paku Anak-Anak', 'lokasi' => 'Lapangan Baru', 'waktu' => '09.00', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Masukin Paku Ibu-Ibu', 'lokasi' => 'Lapangan Baru', 'waktu' => '15.30', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Tusuk Balon', 'lokasi' => 'Lapangan Baru', 'waktu' => '14.00', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Pancing Kerupuk Ibu-Ibu', 'lokasi' => 'Lapangan Baru', 'waktu' => '16.00', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Ikan Kipas Anak-Anak', 'lokasi' => 'Lapangan Baru', 'waktu' => '07.00', 'status' => 'Terbuka'],
+            ['nama_lomba' => 'Estafet Spons', 'lokasi' => 'Lapangan Baru', 'waktu' => '14.00', 'status' => 'Terbuka'],
+        ];
 
-        Lomba::create([
-            'nama_lomba' => 'Lomba Makan Kerupuk',
-            'lokasi'     => 'Halaman Pos RW 012',
-            'waktu'      => '17 Agustus 2026, 10:00 WIB',
-            'status'     => 'Pendaftaran Dibuka',
-            'pemenang'   => null,
-        ]);
-
-        Lomba::create([
-            'nama_lomba' => 'Lomba Tarik Tambang',
-            'lokasi'     => 'Lapangan Utama',
-            'waktu'      => '18 Agustus 2026, 15:30 WIB',
-            'status'     => 'Pendaftaran Dibuka',
-            'pemenang'   => null,
-        ]);
+        foreach ($lombas as $lomba) {
+            Lomba::create([
+                'nama_lomba' => $lomba['nama_lomba'],
+                'lokasi'     => $lomba['lokasi'],
+                'waktu'      => $lomba['waktu'],
+                'status'     => $lomba['status'],
+                'pemenang'   => null,
+            ]);
+        }
     }
 }
