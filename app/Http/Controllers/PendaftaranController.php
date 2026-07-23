@@ -23,6 +23,7 @@ public function prosesDaftar(Request $request)
             'lomba_id'   => $request->lomba_id,
             'nama_warga' => $request->nama,
             'nomor_hp'   => $request->no_hp,
+            'rt_rw'      => $request->rt_rw ?? 'RT 012 / RW 05',
         ]);
 
         return redirect('/')->with('success', 'Pendaftaran berhasil dikirim!');
