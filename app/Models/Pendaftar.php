@@ -9,6 +9,6 @@ class Pendaftar extends Model
 {
     use HasFactory;
 
-    // Tambahkan baris ini untuk mengizinkan kolom-kolom ini diisi data
-    protected $fillable = ['nama_warga', 'nomor_hp', 'rt_rw', 'lomba_id'];
+    // Izinkan semua kolom diisi data
+    protected $guarded = [];
 }
