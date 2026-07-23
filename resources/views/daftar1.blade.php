@@ -28,17 +28,13 @@
                             <div class="alert alert-success">{{ session('success') }}</div>
                         @endif
 
-                        <form action="/daftar" method="POST">
+                        <form action="/proses-daftar" method="POST">
                             @csrf
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Pilih Lomba</label>
-                                <select name="lomba_id" class="form-select" required>
-                                    <option value="" disabled selected>-- Pilih Lomba yang Diikuti --</option>
-                                    @foreach($daftarLomba as $lomba)
-                                        <option value="{{ $lomba->id }}">{{ $lomba->nama_lomba }} ({{ $lomba->waktu }})</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <div class="mb-3">
+                                    <label class="form-label fw-bold">Lomba yang Diikuti</label>
+                                    <input type="text" class="form-control bg-light" value="{{ $lomba->nama_lomba }} (Waktu: {{ $lomba->waktu }})" readonly>
+                                    <input type="hidden" name="lomba_id" value="{{ $lomba->id }}">
+                        </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Nama Lengkap Peserta</label>
