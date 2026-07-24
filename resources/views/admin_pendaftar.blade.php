@@ -16,7 +16,7 @@
             --card-dark: #161e2e;
             --border-dark: #2d3748;
             --text-light: #ffffff;
-            --text-muted: #cbd5e1; /* Terang dan gampang dibaca */
+            --text-muted: #cbd5e1;
         }
 
         body {
@@ -51,21 +51,26 @@
             flex-grow: 1;
         }
 
+        /* TAB LINK BTN IN SIDEBAR */
         .nav-link-admin {
             display: flex;
             align-items: center;
+            width: 100%;
             padding: 0.85rem 1.5rem;
             color: #cbd5e1;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.2s ease;
+            border: none;
+            background: transparent;
+            text-align: left;
             border-left: 3px solid transparent;
         }
 
         .nav-link-admin:hover, .nav-link-admin.active {
             color: #ffffff !important;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            border-left-color: #ffffff !important;
         }
 
         .nav-link-admin i {
@@ -123,10 +128,6 @@
             color: #ffffff;
             box-shadow: none;
         }
-
-        .text-white-bright {
-            color: #ffffff !important;
-        }
     </style>
 </head>
 <body>
@@ -144,17 +145,20 @@
                 </div>
             </div>
 
-            <!-- MENU LINKS -->
-            <div class="sidebar-menu">
-                <a href="#pendaftar" class="nav-link-admin active">
+            <!-- MENU TAB LINKS (PENGATUR MULTI-HALAMAN/TAB) -->
+            <div class="sidebar-menu nav nav-pills flex-column" id="adminTab" role="tablist">
+                <button class="nav-link-admin active" id="tab-pendaftar-btn" data-bs-toggle="pill" data-bs-target="#tab-pendaftar" type="button" role="tab">
                     <i class="bi bi-people text-white"></i> Pendaftar Lomba
-                </a>
-                <a href="#pengumuman" class="nav-link-admin">
+                </button>
+                
+                <button class="nav-link-admin" id="tab-pengumuman-btn" data-bs-toggle="pill" data-bs-target="#tab-pengumuman" type="button" role="tab">
                     <i class="bi bi-megaphone text-white"></i> Kelola Pengumuman
-                </a>
-                <a href="#doorprize" class="nav-link-admin opacity-50" style="color: #94a3b8;" title="Fitur Mendatang">
-                    <i class="bi bi-gift"></i> Wheel of Fortune <span class="badge bg-secondary ms-2 small" style="font-size:0.6rem">SOON</span>
-                </a>
+                </button>
+                
+                <button class="nav-link-admin" id="tab-doorprize-btn" data-bs-toggle="pill" data-bs-target="#tab-doorprize" type="button" role="tab">
+                    <i class="bi bi-gift text-white"></i> Wheel of Fortune <span class="badge bg-secondary ms-2 small" style="font-size:0.6rem">SOON</span>
+                </button>
+
                 <a href="/" target="_blank" class="nav-link-admin mt-3 border-top border-secondary">
                     <i class="bi bi-box-arrow-up-right text-white"></i> Lihat Beranda Utama
                 </a>
@@ -173,7 +177,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- 2. MAIN CONTENT AREA -->
+    <!-- 2. MAIN CONTENT AREA (KONTEN MULTI TAB) -->
     <!-- ========================================== -->
     <div class="main-content">
         
@@ -199,7 +203,7 @@
         @endif
 
         <!-- STATS SUMMARY CARDS -->
-        <div class="row g-3 mb-5">
+        <div class="row g-3 mb-4">
             <div class="col-md-6">
                 <div class="card-custom p-4 d-flex align-items-center justify-content-between">
                     <div>
@@ -224,110 +228,134 @@
             </div>
         </div>
 
-        <!-- SEKSI 1: DATA PENDAFTAR LOMBA -->
-        <div id="pendaftar" class="card-custom mb-5">
-            <div class="card-header bg-transparent border-bottom border-secondary py-3 d-flex justify-content-between align-items-center">
-                <h5 class="fw-bold m-0 text-white">
-                    <i class="bi bi-people-fill me-2"></i>Data Pendaftar Lomba
-                </h5>
-                <button onclick="window.print()" class="btn btn-sm btn-outline-light">
-                    <i class="bi bi-printer me-1"></i> Cetak PDF
-                </button>
-            </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-dark-custom mb-0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nama Warga</th>
-                                <th>No. WhatsApp</th>
-                                <th>RT / RW</th>
-                                <th>Lomba ID</th>
-                                <th>Tanggal Daftar</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($pendaftars as $index => $item)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td class="fw-bold text-white">{{ $item->nama_warga }}</td>
-                                    <td>
-                                        <a href="https://wa.me/{{ preg_replace('/^0/', '62', $item->nomor_hp) }}" target="_blank" class="text-decoration-none text-info">
-                                            <i class="bi bi-whatsapp me-1"></i>{{ $item->nomor_hp }}
-                                        </a>
-                                    </td>
-                                    <td><span class="badge bg-secondary">{{ $item->rt_rw ?? 'RT 012 / RW 05' }}</span></td>
-                                    <td><span class="badge bg-light text-dark">Lomba #{{ $item->lomba_id }}</span></td>
-                                    <td class="small text-white">{{ $item->created_at ? $item->created_at->format('d M Y, H:i') : '-' }}</td>
-                                    <td class="text-center">
-                                        <form action="/admin/pendaftar/{{ $item->id }}" method="POST" onsubmit="return confirm('Hapus pendaftar ini?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger border-0">
-                                                <i class="bi bi-trash"></i> Hapus
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="7" class="text-center py-4 text-white fw-semibold">Belum ada pendaftar lomba.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+        <!-- WADAH TAB CONTENT -->
+        <div class="tab-content" id="adminTabContent">
+            
+            <!-- ========================================== -->
+            <!-- TAB 1: PENDAFTAR LOMBA -->
+            <!-- ========================================== -->
+            <div class="tab-pane fade show active" id="tab-pendaftar" role="tabpanel">
+                <div class="card-custom">
+                    <div class="card-header bg-transparent border-bottom border-secondary py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold m-0 text-white">
+                            <i class="bi bi-people-fill me-2"></i>Data Pendaftar Lomba
+                        </h5>
+                        <button onclick="window.print()" class="btn btn-sm btn-outline-light">
+                            <i class="bi bi-printer me-1"></i> Cetak PDF
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-dark-custom mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nama Warga</th>
+                                        <th>No. WhatsApp</th>
+                                        <th>RT / RW</th>
+                                        <th>Lomba ID</th>
+                                        <th>Tanggal Daftar</th>
+                                        <th class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($pendaftars as $index => $item)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td class="fw-bold text-white">{{ $item->nama_warga }}</td>
+                                            <td>
+                                                <a href="https://wa.me/{{ preg_replace('/^0/', '62', $item->nomor_hp) }}" target="_blank" class="text-decoration-none text-info">
+                                                    <i class="bi bi-whatsapp me-1"></i>{{ $item->nomor_hp }}
+                                                </a>
+                                            </td>
+                                            <td><span class="badge bg-secondary">{{ $item->rt_rw ?? 'RT 012 / RW 05' }}</span></td>
+                                            <td><span class="badge bg-light text-dark">Lomba #{{ $item->lomba_id }}</span></td>
+                                            <td class="small text-white">{{ $item->created_at ? $item->created_at->format('d M Y, H:i') : '-' }}</td>
+                                            <td class="text-center">
+                                                <form action="/admin/pendaftar/{{ $item->id }}" method="POST" onsubmit="return confirm('Hapus pendaftar ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger border-0">
+                                                        <i class="bi bi-trash"></i> Hapus
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center py-5 text-white fw-semibold">Belum ada pendaftar lomba.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- SEKSI 2: KELOLA PENGUMUMAN -->
-        <div id="pengumuman" class="card-custom">
-            <div class="card-header bg-transparent border-bottom border-secondary py-3 d-flex justify-content-between align-items-center">
-                <h5 class="fw-bold m-0 text-white">
-                    <i class="bi bi-megaphone-fill me-2"></i>Kelola Pengumuman News Feed
-                </h5>
-                <button type="button" class="btn btn-light btn-sm fw-bold text-dark" data-bs-toggle="modal" data-bs-target="#modalTambahPengumuman">
-                    <i class="bi bi-plus-lg me-1"></i> + Tambah Pengumuman
-                </button>
-            </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-dark-custom mb-0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Judul</th>
-                                <th>Isi Pengumuman</th>
-                                <th>Kategori</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($pengumumans ?? [] as $index => $info)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td class="fw-bold text-white">{{ $info->judul }}</td>
-                                    <td class="text-white">{{ Str::limit($info->isi, 60) }}</td>
-                                    <td><span class="badge bg-outline-light border text-white">{{ $info->kategori }}</span></td>
-                                    <td class="text-center">
-                                        <form action="/admin/pengumuman/{{ $info->id }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus pengumuman ini?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger border-0"><i class="bi bi-trash"></i> Hapus</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-4 text-white fw-semibold">Belum ada pengumuman yang diposting.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+            <!-- ========================================== -->
+            <!-- TAB 2: KELOLA PENGUMUMAN -->
+            <!-- ========================================== -->
+            <div class="tab-pane fade" id="tab-pengumuman" role="tabpanel">
+                <div class="card-custom">
+                    <div class="card-header bg-transparent border-bottom border-secondary py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold m-0 text-white">
+                            <i class="bi bi-megaphone-fill me-2"></i>Kelola Pengumuman News Feed
+                        </h5>
+                        <button type="button" class="btn btn-light btn-sm fw-bold text-dark" data-bs-toggle="modal" data-bs-target="#modalTambahPengumuman">
+                            <i class="bi bi-plus-lg me-1"></i> + Tambah Pengumuman
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-dark-custom mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Judul</th>
+                                        <th>Isi Pengumuman</th>
+                                        <th>Kategori</th>
+                                        <th class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($pengumumans ?? [] as $index => $info)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td class="fw-bold text-white">{{ $info->judul }}</td>
+                                            <td class="text-white">{{ Str::limit($info->isi, 60) }}</td>
+                                            <td><span class="badge bg-outline-light border text-white">{{ $info->kategori }}</span></td>
+                                            <td class="text-center">
+                                                <form action="/admin/pengumuman/{{ $info->id }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus pengumuman ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger border-0"><i class="bi bi-trash"></i> Hapus</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center py-5 text-white fw-semibold">Belum ada pengumuman yang diposting.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 3: WHEEL OF FORTUNE (SOON) -->
+            <!-- ========================================== -->
+            <div class="tab-pane fade" id="tab-doorprize" role="tabpanel">
+                <div class="card-custom p-5 text-center">
+                    <i class="bi bi-gift fs-1 text-white mb-3 d-block"></i>
+                    <h4 class="fw-bold text-white">Wheel of Fortune Doorprize</h4>
+                    <p class="text-muted">Fitur undian Roda Doorprize akan segera dipasang di sini!</p>
+                </div>
+            </div>
+
         </div>
 
     </div>
