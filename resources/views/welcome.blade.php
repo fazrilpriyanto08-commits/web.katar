@@ -97,6 +97,46 @@
             </header>
 </header>
 
+<!-- TABEL & KELOLA PENGUMUMAN -->
+
+<div class="container my-5">
+    <div class="d-flex align-items-center mb-4">
+        <h3 class="fw-bold text-danger m-0">
+            <i class="bi bi-megaphone-fill me-2"></i>Pengumuman & Info Terkini
+        </h3>
+    </div>
+
+    <div class="row g-4">
+        @forelse($pengumumans ?? [] as $info)
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm rounded-3 border-start border-4 border-danger">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-danger text-white px-3 py-2 rounded-pill">
+                                {{ $info->kategori ?? 'Info' }}
+                            </span>
+                            <small class="text-muted">
+                                <i class="bi bi-clock me-1"></i>{{ $info->created_at->diffForHumans() }}
+                            </small>
+                        </div>
+                        <h5 class="fw-bold text-dark mt-3 mb-2">{{ $info->judul }}</h5>
+                        <p class="card-text text-secondary line-clamp-3">
+                            {{ $info->isi }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div class="col-12 text-center py-5">
+                <div class="p-4 rounded-3 bg-light d-inline-block">
+                    <i class="bi bi-info-circle text-muted fs-1 d-block mb-2"></i>
+                    <p class="text-muted mb-0 fw-semibold">Belum ada pengumuman terbaru saat ini.</p>
+                </div>
+            </div>
+        @endforelse
+    </div>
+</div>
+
 
 <!-- SECTION DAFTAR LOMBA -->
     <section id="lomba" class="py-5" style="background-color: #f1f3f5;">
