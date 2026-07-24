@@ -28,4 +28,21 @@ public function prosesDaftar(Request $request)
 
         return redirect('/')->with('success', 'Pendaftaran berhasil dikirim!');
     }
+
+// Menampilkan halaman admin data pendaftar
+    public function adminIndex()
+    {
+        // Mengambil semua data pendaftar beserta relasi lombanya
+        $pendaftars = \App\Models\Pendaftar::latest()->get();
+        return view('admin_pendaftar', compact('pendaftars'));
+    }
+
+    // Menghapus data pendaftar
+    public function destroyPendaftar($id)
+    {
+        $pendaftar = \App\Models\Pendaftar::findOrFail($id);
+        $pendaftar->delete();
+
+        return redirect()->back()->with('success', 'Data pendaftar berhasil dihapus!');
+    }
 }

@@ -21,3 +21,7 @@ Route::get('/galeri', function () {
 // 4. Fitur Pendaftaran Online
 Route::get('/daftar-lomba/{id}', [PendaftaranController::class, 'formDaftar']);
 Route::post('/proses-daftar', [PendaftaranController::class, 'prosesDaftar']);
+
+// Route untuk Halaman Admin Panitia
+Route::get('/admin/pendaftar', [\App\Http\Controllers\PendaftaranController::class, 'adminIndex']);
+Route::delete('/admin/pendaftar/{id}', [\App\Http\Controllers\PendaftaranController::class, 'destroyPendaftar']);
