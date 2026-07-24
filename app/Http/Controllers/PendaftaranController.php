@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lomba;
+use App\Models\Pendaftar;
+use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 
 class PendaftaranController extends Controller
@@ -16,10 +18,10 @@ class PendaftaranController extends Controller
         return view('daftar1', compact('lomba'));
     }
 
-public function prosesDaftar(Request $request)
+    public function prosesDaftar(Request $request)
     {
         // Simpan data pendaftaran ke database
-        \App\Models\Pendaftar::create([
+        Pendaftar::create([
             'lomba_id'   => $request->lomba_id,
             'nama_warga' => $request->nama,
             'nomor_hp'   => $request->no_hp,
@@ -29,20 +31,21 @@ public function prosesDaftar(Request $request)
         return redirect('/')->with('success', 'Pendaftaran berhasil dikirim!');
     }
 
-// Menampilkan halaman admin data pendaftar
-    public function adminIndex()
-    {
-        // Mengambil semua data pendaftar beserta relasi lombanya
-        $pendaftars = \App\Models\Pendaftar::latest()->get();
-        return view('admin_pendaftar', compact('pendaftars'));
-    }
-
     // Menghapus data pendaftar
     public function destroyPendaftar($id)
     {
-        $pendaftar = \App\Models\Pendaftar::findOrFail($id);
+        $pendaftar = Pendaftar::findOrFail($id);
         $pendaftar->delete();
 
         return redirect()->back()->with('success', 'Data pendaftar berhasil dihapus!');
+    }
+
+    // Menampilkan halaman admin data pendaftar & pengumuman
+    public function adminIndex()
+    {
+        $pendaftars  = Pendaftar::latest()->get();
+        $pengumumans = Pengumuman::latest()->get();
+
+        return view('admin_pendaftar', compact('pendaftars', 'pengumumans'));
     }
 }
