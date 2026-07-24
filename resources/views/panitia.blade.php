@@ -3,146 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Susunan Panitia - 17an</title>
-    
-    <!-- 1. Link Bootstrap CSS -->
+    <title>Struktur Panitia - KATAR RT 012</title>
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
-    <!-- 2. Link ke file CSS terpisah kamu -->
-    <link rel="stylesheet" href="{{ asset('panitia.css') }}">
-</head>
-<body class="bg-light">
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
 
-    <!-- Navbar Atas -->
-    <nav class="navbar navbar-dark bg-danger sticky-top">
+        .navbar-katar {
+            background-color: #0f172a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* CARD STYLING */
+        .card-panitia {
+            border: none;
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.25 ease;
+            overflow: hidden;
+        }
+
+        .card-panitia:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-leader {
+            border-top: 4px solid #dc2626;
+        }
+
+        .card-subleader {
+            border-top: 4px solid #475569;
+        }
+
+        .avatar-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .member-list-item {
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed #e2e8f0;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        .member-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .badge-divisi {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 1rem;
+            border-radius: 50rem;
+            font-weight: 700;
+        }
+
+        /* RESPONSIVE OPTIMIZATION FOR MOBILE */
+        @media (max-width: 576px) {
+            .display-6 {
+                font-size: 1.75rem;
+            }
+            .card-panitia {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR RESPONSIF -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-katar sticky-top py-3">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/">Katar 012</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand d-flex align-items-center fw-bold text-white" href="/">
+                <i class="bi bi-flag-fill text-danger fs-3 me-2"></i>
+                <span>KATAR <span class="text-warning">RT 012</span></span>
+            </a>
+            <div class="ms-auto">
+                <a href="/" class="btn btn-outline-light btn-sm rounded-pill px-3 fw-bold">
+                    <i class="bi bi-arrow-left me-1"></i> Beranda
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- Menu Garis Tiga (Sidebar) -->
-    <div class="offcanvas offcanvas-end bg-danger text-white" tabindex="-1" id="offcanvasNavbar">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-bold" id="offcanvasNavbarLabel">Navigasi</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    <!-- HEADER TITLE -->
+    <section class="py-5 text-center">
+        <div class="container">
+            <span class="badge bg-danger text-white px-3 py-2 rounded-pill fw-bold text-uppercase mb-2">
+                HUT RI KE-81
+            </span>
+            <h1 class="fw-bold display-6 mb-2">Struktur Organisasi Panitia</h1>
+            <p class="text-muted">Semangat Gotong Royong Menuju Hari Kemerdekaan RT 012</p>
         </div>
-        <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="nav-item"><a class="nav-link text-white fw-semibold" href="/">🏠 Home & Lomba</a></li>
-                <li class="nav-item"><a class="nav-link text-white-50 fw-semibold" href="/panitia">👥 Susunan Panitia</a></li>
-            </ul>
+    </section>
+
+    <!-- BAGIAN STRUKTUR PANITIA -->
+    <section class="pb-5">
+        <div class="container">
+            
+            <!-- 1. KETUA & WAKIL KETUA PANITIA -->
+            <div class="row g-4 justify-content-center mb-4">
+                
+                <!-- KETUA -->
+                <div class="col-md-5 col-lg-4">
+                    <div class="card-panitia card-leader p-4 text-center h-100">
+                        <div class="avatar-circle bg-danger bg-opacity-10 text-danger">
+                            👑
+                        </div>
+                        <h4 class="fw-bold mb-1 text-dark">Revi Firmansyah</h4>
+                        <span class="badge bg-danger text-white rounded-pill px-3 py-1 fw-bold">Ketua Panitia</span>
+                    </div>
+                </div>
+
+                <!-- WAKIL KETUA -->
+                <div class="col-md-5 col-lg-4">
+                    <div class="card-panitia card-subleader p-4 text-center h-100">
+                        <div class="avatar-circle bg-secondary bg-opacity-10 text-dark">
+                            🎖️
+                        </div>
+                        <h4 class="fw-bold mb-1 text-dark">Mochammad Yafi</h4>
+                        <span class="badge bg-secondary text-white rounded-pill px-3 py-1 fw-bold">Wakil Ketua</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 2. SEKRETARIS & BENDAHARA -->
+            <div class="row g-4 justify-content-center mb-4">
+                
+                <!-- SEKRETARIS -->
+                <div class="col-md-6 col-lg-5">
+                    <div class="card-panitia p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-warning text-dark badge-divisi me-2">📝 Divisi Sekretaris</span>
+                        </div>
+                        <div class="member-list">
+                            <div class="member-list-item"><i class="bi bi-person-fill text-warning me-2 fs-5"></i> Salva Eka Ramadhani</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-warning me-2 fs-5"></i> Jasmine Najwa Maulida Hasri</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BENDAHARA -->
+                <div class="col-md-6 col-lg-5">
+                    <div class="card-panitia p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-success text-white badge-divisi me-2">💰 Divisi Bendahara</span>
+                        </div>
+                        <div class="member-list">
+                            <div class="member-list-item"><i class="bi bi-person-fill text-success me-2 fs-5"></i> Rasya Sefita</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-success me-2 fs-5"></i> Alika Putri Aryani</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 3. DIVISI OPERASIONAL (ACARA, KONSUMSI, PERLENGKAPAN, PDD) -->
+            <div class="row g-4 justify-content-center">
+                
+                <!-- DIVISI ACARA -->
+                <div class="col-md-6 col-lg-5">
+                    <div class="card-panitia p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-danger text-white badge-divisi me-2">🎯 Divisi Acara</span>
+                        </div>
+                        <div class="member-list">
+                            <div class="member-list-item"><i class="bi bi-person-fill text-danger me-2 fs-5"></i> Almira Ramadhani Buana</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-danger me-2 fs-5"></i> Shafa Meliyani Sabirina</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-danger me-2 fs-5"></i> Vito Dewangga Maheswara</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-danger me-2 fs-5"></i> Keisha Anafiu</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIVISI KONSUMSI -->
+                <div class="col-md-6 col-lg-5">
+                    <div class="card-panitia p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary text-white badge-divisi me-2">🧃 Divisi Konsumsi</span>
+                        </div>
+                        <div class="member-list">
+                            <div class="member-list-item"><i class="bi bi-person-fill text-primary me-2 fs-5"></i> Dimas Mahendra</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-primary me-2 fs-5"></i> Pauzi Adhil Pratama</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIVISI PERLENGKAPAN -->
+                <div class="col-md-6 col-lg-5">
+                    <div class="card-panitia p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-dark text-white badge-divisi me-2">📦 Divisi Perlengkapan</span>
+                        </div>
+                        <div class="member-list">
+                            <div class="member-list-item text-muted"><i class="bi bi-info-circle me-2"></i> Tim Panitia RT 012</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIVISI PDD -->
+                <div class="col-md-6 col-lg-5">
+                    <div class="card-panitia p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-info text-dark badge-divisi me-2">📷 Divisi PDD (Pubdok)</span>
+                        </div>
+                        <div class="member-list">
+                            <div class="member-list-item text-muted"><i class="bi bi-info-circle me-2"></i> Tim Panitia RT 012</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-    </div>
+    </section>
 
-    <!-- Konten Struktur Panitia -->
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-danger">Struktur Organisasi Panitia 17-an</h2>
-            <p class="text-muted">Semangat Gotong Royong Menuju Hari Kemerdekaan</p>
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-4 border-top border-secondary text-center">
+        <div class="container">
+            <small class="text-white-50">Panitia Peringatan HUT RI Ke-81 • Karang Taruna RT 012</small>
         </div>
-
-        <!-- Pucuk Pimpinan (Ketua & Wakil) -->
-        <div class="row g-4 justify-content-center mb-5">
-            <div class="col-md-5 text-center">
-                <div class="card shadow border-0 border-top border-danger border-4 p-4">
-                    <div class="bg-danger text-white avatar-circle d-inline-block mx-auto mb-3">👑</div>
-                    <h4 class="fw-bold mb-1">Revi Firmansyah</h4>
-                    <p class="text-danger fw-semibold mb-0">Ketua Panitia</p>
-                </div>
-            </div>
-            <div class="col-md-5 text-center">
-                <div class="card shadow border-0 border-top border-secondary border-4 p-4">
-                    <div class="bg-secondary text-white avatar-circle d-inline-block mx-auto mb-3">🎖️</div>
-                    <h4 class="fw-bold mb-1">Mochammad Yafi</h4>
-                    <p class="text-secondary fw-semibold mb-0">Wakil Ketua</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Baris Divisi Administrasi (Sekretaris & Bendahara) -->
-        <div class="row g-4 justify-content-center mb-5">
-            <!-- Sekretaris -->
-            <div class="col-md-5">
-                <div class="card shadow border-0 h-100 p-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-warning text-dark rounded p-2 fw-bold divisi-title w-100 text-center">📝 Divisi Sekretaris</div>
-                    </div>
-                    <div class="text-start">
-                        <div class="custom-list-name border-secretary">Salva Eka Ramadhani</div>
-                        <div class="custom-list-name border-secretary">Jasmine Najwa Maulida Hasri</div>
-                    </div>
-                </div>
-            </div>
-            <!-- Bendahara -->
-            <div class="col-md-5">
-                <div class="card shadow border-0 h-100 p-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-success text-white rounded p-2 fw-bold divisi-title w-100 text-center">💰 Divisi Bendahara</div>
-                    </div>
-                    <div class="text-start">
-                        <div class="custom-list-name border-treasurer">Rasya Sefita</div>
-                        <div class="custom-list-name border-treasurer">Alika Putri Aryani</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Baris Divisi Operasional -->
-        <div class="row g-4 text-start">
-            <!-- Divisi Acara -->
-            <div class="col-md-6">
-                <div class="card shadow border-0 h-100 p-4">
-                    <h5 class="fw-bold text-danger mb-3 border-bottom pb-2 divisi-title">🎯 Divisi Acara</h5>
-                    <div>
-                        <div class="custom-list-name">Almira Ramadhani Buana</div>
-                        <div class="custom-list-name">Shafa Meliyani Sabirina</div>
-                        <div class="custom-list-name">Vito Dewangga Maheswara</div>
-                        <div class="custom-list-name">Keisha Anafiu</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Divisi Konsumsi -->
-            <div class="col-md-6">
-                <div class="card shadow border-0 h-100 p-4">
-                    <h5 class="fw-bold text-danger mb-3 border-bottom pb-2 divisi-title">🍹 Divisi Konsumsi</h5>
-                    <div>
-                        <div class="custom-list-name">Dimas Mahendra</div>
-                        <div class="custom-list-name">Pauzi adhil Pratama</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Divisi Perlengkapan -->
-            <div class="col-md-6">
-                <div class="card shadow border-0 h-100 p-4">
-                    <h5 class="fw-bold text-danger mb-3 border-bottom pb-2 divisi-title">📦 Divisi Perlengkapan</h5>
-                    <div>
-                        <div class="custom-list-name">Nur Aini Salsabila</div>
-                        <div class="custom-list-name">Muhammad Fazril Nur Priyanto</div>
-                        <div class="custom-list-name">Nyimas Kalamsyah Al Maira Kalzetta Rainhard</div>
-                        <div class="custom-list-name">Satria Ramadhan</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Divisi PDD -->
-            <div class="col-md-6">
-                <div class="card shadow border-0 h-100 p-4">
-                    <h5 class="fw-bold text-danger mb-3 border-bottom pb-2 divisi-title">📸 Divisi PDD</h5>
-                    <div>
-                        <div class="custom-list-name">Revalina Dwi Zunianty</div>
-                        <div class="custom-list-name">Naysila Abiela Darwis</div>
-                        <div class="custom-list-name">Rayya Faiza Ranna</div>
-                        <div class="custom-list-name">Reza Fachizilal Ariansyah</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
