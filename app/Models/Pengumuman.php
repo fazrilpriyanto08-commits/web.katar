@@ -9,6 +9,6 @@ class Pengumuman extends Model
 {
     use HasFactory;
 
-    protected $table = 'pengumumen';
+    protected $table = 'pengumumans';
     protected $guarded = [];
 }
