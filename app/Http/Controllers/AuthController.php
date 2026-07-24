@@ -20,8 +20,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'admin',
-            'password' => 'katar012',
+            'username' => 'required',
+            'password' => 'required',
         ]);
 
         // Kredensial khusus Admin Panitia (bisa disesuaikan password-nya)
