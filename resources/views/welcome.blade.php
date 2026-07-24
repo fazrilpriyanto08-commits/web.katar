@@ -23,7 +23,6 @@
             color: #1e293b;
         }
 
-        /* NAVBAR STYLING */
         .navbar-katar {
             background-color: #0f172a;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -31,7 +30,6 @@
 
         .navbar-brand {
             font-weight: 800;
-            letter-spacing: 0.5px;
         }
 
         .nav-link {
@@ -43,10 +41,8 @@
 
         .nav-link:hover, .nav-link.active {
             color: #ffffff !important;
-            transform: translateY(-1px);
         }
 
-        /* HERO BANNER & COUNTDOWN */
         .hero-banner {
             background: linear-gradient(135deg, var(--katar-red) 0%, var(--katar-dark-red) 100%);
             position: relative;
@@ -74,31 +70,15 @@
             background-color: #d97706;
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(245, 158, 11, 0.3);
         }
 
-        /* CARDS & SECTIONS */
         .card-custom {
             border: none;
             border-radius: 16px;
             background: #ffffff;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .card-custom:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-        }
-
-        .badge-category {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 700;
-        }
-
-        /* RESPONSIVE FIXES FOR MOBILE */
         @media (max-width: 768px) {
             .display-5 {
                 font-size: 2.1rem;
@@ -135,7 +115,7 @@
                         <a class="nav-link active" href="/"><i class="bi bi-house-door me-1"></i> Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#daftar-lomba"><i class="bi bi-trophy me-1"></i> Daftar Lomba</a>
+                        <a class="nav-link" href="/daftar-lomba"><i class="bi bi-trophy me-1"></i> Daftar Lomba</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/panitia"><i class="bi bi-people me-1"></i> Struktur Panitia</a>
@@ -200,8 +180,8 @@
 
                     <!-- TOMBOL AJAKAN -->
                     <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
-                        <a href="#daftar-lomba" class="btn btn-warning-custom btn-lg px-4 py-3 rounded-pill">
-                            🔥 Ikut Lomba Sekarang
+                        <a href="/daftar-lomba" class="btn btn-warning-custom btn-lg px-4 py-3 rounded-pill">
+                            🔥 Lihat & Ikut Lomba
                         </a>
                         <a href="#pengumuman" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
                             📢 Lihat Pengumuman
@@ -209,7 +189,7 @@
                     </div>
                 </div>
 
-                <!-- KANAN: FOTO PANITIA / HIGHLIGHT -->
+                <!-- KANAN: FOTO PANITIA -->
                 <div class="col-lg-5 text-center">
                     <div class="card-custom p-2 bg-white text-dark shadow-lg">
                         <img src="{{ asset('katar11.jpg') }}" alt="Panitia Karang Taruna" class="img-fluid rounded-3" style="max-height: 350px; width: 100%; object-fit: cover;">
@@ -241,7 +221,7 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="card-custom h-100 p-4 border-top border-4 border-danger">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="badge bg-danger bg-opacity-10 text-danger badge-category px-3 py-2 rounded-pill">
+                                <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill fw-bold" style="font-size:0.75rem">
                                     {{ $info->kategori ?? 'Informasi' }}
                                 </span>
                                 <small class="text-muted">{{ $info->created_at ? $info->created_at->diffForHumans() : 'Baru saja' }}</small>
@@ -262,78 +242,6 @@
         </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- 4. SEKSI DAFTAR LOMBA INTERAKTIF -->
-    <!-- ========================================== -->
-    <section id="daftar-lomba" class="py-5 bg-white border-top">
-        <div class="container py-2">
-            <div class="text-center max-w-xl mx-auto mb-5">
-                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-2">Ayo Berpartisipasi</span>
-                <h2 class="fw-bold">Daftar Perlombaan Kemerdekaan</h2>
-                <p class="text-muted">Pilih lomba yang ingin kamu ikuti dan daftarkan dirimu secara online!</p>
-            </div>
-
-            <div class="row g-4">
-                <!-- LOMBA 1 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-custom h-100 overflow-hidden">
-                        <div class="bg-danger text-white p-4 text-center">
-                            <i class="bi bi-trophy-fill fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Lomba Makan Kerupuk</h5>
-                            <small class="text-white-50">Kategori: Anak-Anak</small>
-                        </div>
-                        <div class="card-body p-4 d-flex flex-column justify-content-between">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-calendar-event text-danger me-2"></i> 17 Agustus 2026</li>
-                                <li class="mb-2"><i class="bi bi-geo-alt text-danger me-2"></i> Lapangan RT 012</li>
-                                <li><i class="bi bi-person-badge text-danger me-2"></i> Usia 5 - 12 Tahun</li>
-                            </ul>
-                            <a href="/daftar-lomba/1" class="btn btn-danger w-100 fw-bold py-2 rounded-pill">Daftar Lomba Ini</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- LOMBA 2 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-custom h-100 overflow-hidden">
-                        <div class="bg-dark text-white p-4 text-center">
-                            <i class="bi bi-controller fs-1 text-warning"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Turnamen Mobile Legends</h5>
-                            <small class="text-white-50">Kategori: Remaja / Umum</small>
-                        </div>
-                        <div class="card-body p-4 d-flex flex-column justify-content-between">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-calendar-event text-warning me-2"></i> 16 Agustus 2026</li>
-                                <li class="mb-2"><i class="bi bi-geo-alt text-warning me-2"></i> Balai Warga RT 012</li>
-                                <li><i class="bi bi-people text-warning me-2"></i> Tim (5 Orang)</li>
-                            </ul>
-                            <a href="/daftar-lomba/2" class="btn btn-dark w-100 fw-bold py-2 rounded-pill">Daftar Lomba Ini</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- LOMBA 3 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-custom h-100 overflow-hidden">
-                        <div class="bg-warning text-dark p-4 text-center">
-                            <i class="bi bi-dribbble fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Futsal Pakai Sarung</h5>
-                            <small class="text-dark-50">Kategori: Bapak-Bapak</small>
-                        </div>
-                        <div class="card-body p-4 d-flex flex-column justify-content-between">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-calendar-event text-warning me-2"></i> 17 Agustus 2026</li>
-                                <li class="mb-2"><i class="bi bi-geo-alt text-warning me-2"></i> Lapangan Bulutangkis</li>
-                                <li><i class="bi bi-person-check text-warning me-2"></i> Khusus Warga RT 012</li>
-                            </ul>
-                            <a href="/daftar-lomba/3" class="btn btn-warning text-dark w-100 fw-bold py-2 rounded-pill">Daftar Lomba Ini</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- FOOTER -->
     <footer class="bg-dark text-white py-4 border-top border-secondary">
         <div class="container text-center">
@@ -345,9 +253,8 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- COUNTDOWN TIMER SCRIPT AUTOMATIS -->
+    <!-- COUNTDOWN TIMER SCRIPT -->
     <script>
-        // Tanggal Target: 17 Agustus 2026 Jam 08:00 WIB
         const targetDate = new Date("August 17, 2026 08:00:00").getTime();
 
         function updateCountdown() {
@@ -364,11 +271,6 @@
                 document.getElementById("cd-hours").innerText = hours < 10 ? '0' + hours : hours;
                 document.getElementById("cd-minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
                 document.getElementById("cd-seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
-            } else {
-                document.getElementById("cd-days").innerText = "00";
-                document.getElementById("cd-hours").innerText = "00";
-                document.getElementById("cd-minutes").innerText = "00";
-                document.getElementById("cd-seconds").innerText = "00";
             }
         }
 

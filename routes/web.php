@@ -45,3 +45,7 @@ Route::middleware(['web'])->group(function () {
         return app(LombaController::class)->adminIndex();
     });
 });
+
+Route::get('/daftar-lomba', function () {
+    return view('daftar');
+});
