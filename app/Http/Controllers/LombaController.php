@@ -23,5 +23,5 @@ class LombaController extends Controller
         $pendaftars = \App\Models\Pendaftar::latest()->get();
         $pengumumans = Pengumuman::latest()->get();
         return view('admin_pendaftar', compact('pendaftars', 'pengumumans'));
-    }
-}   
+        }
+    }   
