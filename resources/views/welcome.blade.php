@@ -118,7 +118,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($pengumumans as $index => $info)
+                    @forelse($pengumumans ?? [] as $index => $info)
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td class="fw-bold">{{ $info->judul }}</td>
