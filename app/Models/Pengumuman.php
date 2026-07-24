@@ -11,4 +11,5 @@ class Pengumuman extends Model
 
     // Izinkan semua kolom diisi secara mass-assignment
     protected $guarded = [];
+    protected $table = 'pengumumen';
 }
