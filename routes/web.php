@@ -20,6 +20,11 @@ Route::get('/galeri', function () {
     return view('galeri');
 });
 
+// Route Halaman Slide Daftar Lomba
+Route::get('/daftar-lomba', function () {
+    return view('daftar');
+});
+
 // 4. Fitur Pendaftaran Online
 Route::get('/daftar-lomba/{id}', [PendaftaranController::class, 'formDaftar']);
 Route::post('/proses-daftar', [PendaftaranController::class, 'prosesDaftar']);
@@ -44,8 +49,4 @@ Route::middleware(['web'])->group(function () {
         }
         return app(LombaController::class)->adminIndex();
     });
-});
-
-Route::get('/daftar-lomba', function () {
-    return view('daftar');
 });
