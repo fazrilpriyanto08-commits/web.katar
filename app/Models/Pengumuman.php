@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pengumuman extends Model
 {
     use HasFactory;
+
+    // Izinkan semua kolom diisi secara mass-assignment
     protected $guarded = [];
 }

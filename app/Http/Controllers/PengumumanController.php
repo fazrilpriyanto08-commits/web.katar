@@ -15,11 +15,11 @@ class PengumumanController extends Controller
             'isi' => 'required',
         ]);
 
-        Pengumuman::create([
-            'judul' => $request->judul,
-            'isi' => $request->isi,
-            'kategori' => $request->kategori ?? 'Info',
-        ]);
+\App\Models\Pengumuman::create([
+    'judul'    => $request->judul,
+    'isi'      => $request->isi,
+    'kategori' => $request->kategori ?? 'Info',
+]);
 
         return redirect()->back()->with('success', 'Pengumuman berhasil ditambahkan!');
     }
