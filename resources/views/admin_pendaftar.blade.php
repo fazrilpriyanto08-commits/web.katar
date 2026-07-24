@@ -12,11 +12,11 @@
     <style>
         :root {
             --sidebar-width: 260px;
-            --bg-dark: #0f172a;
-            --card-dark: #1e293b;
-            --border-dark: #334155;
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
+            --bg-dark: #0b0f19;
+            --card-dark: #161e2e;
+            --border-dark: #2d3748;
+            --text-light: #ffffff;
+            --text-muted: #cbd5e1; /* Terang dan gampang dibaca */
         }
 
         body {
@@ -55,7 +55,7 @@
             display: flex;
             align-items: center;
             padding: 0.85rem 1.5rem;
-            color: var(--text-muted);
+            color: #cbd5e1;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.2s ease;
@@ -63,8 +63,8 @@
         }
 
         .nav-link-admin:hover, .nav-link-admin.active {
-            color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.1);
             border-left-color: #ffffff;
         }
 
@@ -83,19 +83,22 @@
             background-color: var(--card-dark);
             border: 1px solid var(--border-dark);
             border-radius: 12px;
+            overflow: hidden;
         }
 
+        /* --- TABLE STYLING --- */
         .table-dark-custom {
-            color: var(--text-light);
-            background-color: transparent;
+            color: #ffffff !important;
+            background-color: var(--card-dark) !important;
+            margin-bottom: 0;
         }
 
         .table-dark-custom th {
-            background-color: #0f172a;
-            color: var(--text-muted);
+            background-color: #0b0f19 !important;
+            color: #ffffff !important;
             border-bottom: 1px solid var(--border-dark);
             text-transform: uppercase;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             letter-spacing: 0.5px;
             padding: 1rem;
         }
@@ -104,20 +107,25 @@
             padding: 1rem;
             border-bottom: 1px solid var(--border-dark);
             vertical-align: middle;
-            color: #e2e8f0;
+            color: #f1f5f9 !important;
+            background-color: var(--card-dark) !important;
         }
 
         .form-control-dark, .form-select-dark {
-            background-color: #0f172a;
+            background-color: #0b0f19;
             border: 1px solid var(--border-dark);
             color: #ffffff;
         }
 
         .form-control-dark:focus, .form-select-dark:focus {
-            background-color: #0f172a;
+            background-color: #0b0f19;
             border-color: #ffffff;
             color: #ffffff;
             box-shadow: none;
+        }
+
+        .text-white-bright {
+            color: #ffffff !important;
         }
     </style>
 </head>
@@ -132,23 +140,23 @@
             <div class="sidebar-brand d-flex align-items-center justify-content-between">
                 <div>
                     <h5 class="fw-bold m-0 text-white"><i class="bi bi-shield-lock-fill me-2"></i>KATAR PANEL</h5>
-                    <small class="text-muted">Admin Control Center</small>
+                    <small style="color: #94a3b8;">Admin Control Center</small>
                 </div>
             </div>
 
             <!-- MENU LINKS -->
             <div class="sidebar-menu">
                 <a href="#pendaftar" class="nav-link-admin active">
-                    <i class="bi bi-people"></i> Pendaftar Lomba
+                    <i class="bi bi-people text-white"></i> Pendaftar Lomba
                 </a>
                 <a href="#pengumuman" class="nav-link-admin">
-                    <i class="bi bi-megaphone"></i> Kelola Pengumuman
+                    <i class="bi bi-megaphone text-white"></i> Kelola Pengumuman
                 </a>
-                <a href="#doorprize" class="nav-link-admin text-muted opacity-50" title="Fitur Mendatang">
+                <a href="#doorprize" class="nav-link-admin opacity-50" style="color: #94a3b8;" title="Fitur Mendatang">
                     <i class="bi bi-gift"></i> Wheel of Fortune <span class="badge bg-secondary ms-2 small" style="font-size:0.6rem">SOON</span>
                 </a>
                 <a href="/" target="_blank" class="nav-link-admin mt-3 border-top border-secondary">
-                    <i class="bi bi-box-arrow-up-right"></i> Lihat Beranda Utama
+                    <i class="bi bi-box-arrow-up-right text-white"></i> Lihat Beranda Utama
                 </a>
             </div>
         </div>
@@ -157,7 +165,7 @@
         <div class="p-3 border-top border-secondary">
             <form action="/logout" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-outline-light w-100 btn-sm text-start ps-3 py-2">
+                <button type="submit" class="btn btn-outline-light w-100 btn-sm text-start ps-3 py-2 fw-bold">
                     <i class="bi bi-box-arrow-left me-2"></i> Keluar / Logout
                 </button>
             </form>
@@ -172,11 +180,11 @@
         <!-- HEADER DASHBOARD -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h3 class="fw-bold mb-1">Dashboard Panitia</h3>
-                <p class="text-muted mb-0">Kelola informasi lomba dan pengumuman warga RT 012</p>
+                <h3 class="fw-bold mb-1 text-white">Dashboard Panitia</h3>
+                <p class="mb-0" style="color: #cbd5e1;">Kelola informasi lomba dan pengumuman warga RT 012</p>
             </div>
             <div>
-                <span class="badge bg-outline-light border px-3 py-2 rounded-pill text-muted">
+                <span class="badge bg-outline-light border px-3 py-2 rounded-pill text-white">
                     <i class="bi bi-person-circle me-1"></i> Logged as: Admin
                 </span>
             </div>
@@ -195,8 +203,8 @@
             <div class="col-md-6">
                 <div class="card-custom p-4 d-flex align-items-center justify-content-between">
                     <div>
-                        <small class="text-muted text-uppercase fw-bold">Total Pendaftar Lomba</small>
-                        <h2 class="fw-bold m-0 mt-1">{{ count($pendaftars ?? []) }} <span class="fs-6 text-muted font-normal">orang</span></h2>
+                        <small class="text-uppercase fw-bold" style="color: #cbd5e1;">Total Pendaftar Lomba</small>
+                        <h2 class="fw-bold m-0 mt-1 text-white">{{ count($pendaftars ?? []) }} <span class="fs-6 font-normal" style="color: #94a3b8;">orang</span></h2>
                     </div>
                     <div class="bg-dark p-3 rounded-circle border border-secondary">
                         <i class="bi bi-person-lines-fill fs-3 text-white"></i>
@@ -206,8 +214,8 @@
             <div class="col-md-6">
                 <div class="card-custom p-4 d-flex align-items-center justify-content-between">
                     <div>
-                        <small class="text-muted text-uppercase fw-bold">Total Pengumuman Aktif</small>
-                        <h2 class="fw-bold m-0 mt-1">{{ count($pengumumans ?? []) }} <span class="fs-6 text-muted font-normal">postingan</span></h2>
+                        <small class="text-uppercase fw-bold" style="color: #cbd5e1;">Total Pengumuman Aktif</small>
+                        <h2 class="fw-bold m-0 mt-1 text-white">{{ count($pengumumans ?? []) }} <span class="fs-6 font-normal" style="color: #94a3b8;">postingan</span></h2>
                     </div>
                     <div class="bg-dark p-3 rounded-circle border border-secondary">
                         <i class="bi bi-broadcast fs-3 text-white"></i>
@@ -252,7 +260,7 @@
                                     </td>
                                     <td><span class="badge bg-secondary">{{ $item->rt_rw ?? 'RT 012 / RW 05' }}</span></td>
                                     <td><span class="badge bg-light text-dark">Lomba #{{ $item->lomba_id }}</span></td>
-                                    <td class="small text-muted">{{ $item->created_at ? $item->created_at->format('d M Y, H:i') : '-' }}</td>
+                                    <td class="small text-white">{{ $item->created_at ? $item->created_at->format('d M Y, H:i') : '-' }}</td>
                                     <td class="text-center">
                                         <form action="/admin/pendaftar/{{ $item->id }}" method="POST" onsubmit="return confirm('Hapus pendaftar ini?')">
                                             @csrf
@@ -265,7 +273,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted py-4">Belum ada pendaftar lomba.</td>
+                                    <td colspan="7" class="text-center py-4 text-white fw-semibold">Belum ada pendaftar lomba.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -280,7 +288,7 @@
                 <h5 class="fw-bold m-0 text-white">
                     <i class="bi bi-megaphone-fill me-2"></i>Kelola Pengumuman News Feed
                 </h5>
-                <button type="button" class="btn btn-light btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#modalTambahPengumuman">
+                <button type="button" class="btn btn-light btn-sm fw-bold text-dark" data-bs-toggle="modal" data-bs-target="#modalTambahPengumuman">
                     <i class="bi bi-plus-lg me-1"></i> + Tambah Pengumuman
                 </button>
             </div>
@@ -301,7 +309,7 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td class="fw-bold text-white">{{ $info->judul }}</td>
-                                    <td>{{ Str::limit($info->isi, 60) }}</td>
+                                    <td class="text-white">{{ Str::limit($info->isi, 60) }}</td>
                                     <td><span class="badge bg-outline-light border text-white">{{ $info->kategori }}</span></td>
                                     <td class="text-center">
                                         <form action="/admin/pengumuman/{{ $info->id }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus pengumuman ini?')">
@@ -313,7 +321,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center text-muted py-4">Belum ada pengumuman yang diposting.</td>
+                                    <td colspan="5" class="text-center py-4 text-white fw-semibold">Belum ada pengumuman yang diposting.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -329,18 +337,18 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content card-custom text-white border-secondary">
                 <div class="modal-header border-secondary">
-                    <h5 class="modal-title fw-bold"><i class="bi bi-megaphone me-2"></i>Tambah Pengumuman</h5>
+                    <h5 class="modal-title fw-bold text-white"><i class="bi bi-megaphone me-2"></i>Tambah Pengumuman</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="/admin/pengumuman" method="POST">
                     @csrf
                     <div class="modal-body p-4">
                         <div class="mb-3">
-                            <label class="form-label small text-muted fw-bold">Judul Pengumuman</label>
+                            <label class="form-label small text-white fw-bold">Judul Pengumuman</label>
                             <input type="text" name="judul" class="form-control form-control-dark" placeholder="Contoh: Kerja Bakti RT" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small text-muted fw-bold">Kategori</label>
+                            <label class="form-label small text-white fw-bold">Kategori</label>
                             <select name="kategori" class="form-select form-select-dark" required>
                                 <option value="Info">Info</option>
                                 <option value="Penting">Penting</option>
@@ -349,13 +357,13 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small text-muted fw-bold">Isi Informasi</label>
+                            <label class="form-label small text-white fw-bold">Isi Informasi</label>
                             <textarea name="isi" class="form-control form-control-dark" rows="4" placeholder="Tuliskan detail informasi..." required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer border-secondary">
                         <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-light fw-bold px-4">Terbitkan</button>
+                        <button type="submit" class="btn btn-light fw-bold text-dark px-4">Terbitkan</button>
                     </div>
                 </form>
             </div>
