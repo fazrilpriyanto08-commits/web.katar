@@ -3,223 +3,379 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeri Premium Panitia - Karang Taruna RW 012</title>
-    <!-- Bootstrap CSS -->
+    <title>Galeri Memori Panitia - KATAR RT 012</title>
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts untuk Tampilan Lebih Mahal -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <style>
+        :root {
+            --bg-dark: #0f172a;
+            --katar-red: #b91c1c;
+            --katar-dark-red: #7f1d1d;
+        }
+
         body {
-            background-color: #fcfcfd;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #2D3748;
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
         }
 
-        /* Hero Text Gradient */
-        .text-gradient {
-            background: linear-gradient(135deg, #fff 30%, #ffd700 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .navbar-katar {
+            background-color: var(--bg-dark);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        /* Card Galeri Premium */
-        .premium-gallery-card {
+        /* HERO HEADER STYLE */
+        .hero-galeri {
+            background: linear-gradient(135deg, var(--katar-red) 0%, var(--katar-dark-red) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card-memori {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            min-width: 120px;
+        }
+
+        /* GALLERY CARD STYLE */
+        .gallery-card {
             border: none;
-            border-radius: 24px;
+            border-radius: 20px;
             overflow: hidden;
             background: #ffffff;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
             position: relative;
         }
 
-        /* Pembungkus Gambar & Efek Overlay */
-        .img-wrapper {
+        .gallery-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 16px 32px rgba(185, 28, 28, 0.15);
+        }
+
+        .gallery-img-wrapper {
             position: relative;
+            width: 100%;
+            height: 260px;
             overflow: hidden;
-            height: 280px;
-            background-color: #f7fafc;
+            background-color: #e2e8f0;
         }
 
-        .img-wrapper img {
+        .gallery-img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: transform 0.5s ease;
         }
 
-        /* Lapisan Merah Transparan Saat Di-Hover */
-        .img-overlay {
+        .gallery-card:hover .gallery-img-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .badge-memori {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(220, 53, 69, 0) 40%, rgba(167, 29, 42, 0.7) 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            top: 15px;
+            left: 15px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50rem;
+            letter-spacing: 0.5px;
             z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Aksi Aktor Hover */
-        .premium-gallery-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(167, 29, 42, 0.12) !important;
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.8) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.25rem;
+            z-index: 1;
         }
 
-        .premium-gallery-card:hover .img-wrapper img {
-            transform: scale(1.08) rotate(1deg);
-        }
-
-        .premium-gallery-card:hover .img-overlay {
+        .gallery-card:hover .gallery-overlay {
             opacity: 1;
         }
 
-        /* Badge Momen Kreatif */
-        .moment-badge {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
-            color: #a71d2a;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            z-index: 10;
-        }
-
-        /* Desain Glassmorphism untuk Stat Box */
-        .stat-glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 12px 24px;
+        /* RESPONSIVE OPTIMIZATION FOR MOBILE */
+        @media (max-width: 576px) {
+            .gallery-img-wrapper {
+                height: 220px;
+            }
+            .hero-galeri .display-5 {
+                font-size: 1.8rem;
+            }
+            .gallery-overlay {
+                opacity: 1; /* Selalu terlihat di HP supaya estetik */
+                background: linear-gradient(to top, rgba(15, 23, 42, 0.7) 0%, transparent 70%);
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navbar Minimalis Berkelas -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-3">
+    <!-- NAVBAR RESPONSIF -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-katar sticky-top py-3">
         <div class="container">
-            <a class="navbar-brand fw-bold text-uppercase tracking-wider fs-5" href="{{ url('/') }}">🇮🇩 KATAR 012</a>
+            <a class="navbar-brand d-flex align-items-center fw-bold text-white" href="/">
+                <i class="bi bi-flag-fill text-danger fs-3 me-2"></i>
+                <span>KATAR <span class="text-warning">RT 012</span></span>
+            </a>
+            
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav gap-3 align-items-center">
-                    <li class="nav-item"><a class="nav-link fw-medium text-white-50" href="{{ url('/') }}">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link fw-medium text-white-50" href="{{ url('/#lomba') }}">Daftar Lomba</a></li>
-                    <li class="nav-item"><a class="nav-link fw-bold text-white active" href="{{ url('/galeri') }}">Galeri Panitia</a></li>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-2 mt-3 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="bi bi-house-door me-1"></i> Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/daftar-lomba"><i class="bi bi-trophy me-1"></i> Daftar Lomba</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/galeri"><i class="bi bi-images me-1"></i> Galeri Panitia</a>
+                    </li>
                     <li class="nav-item ms-lg-2">
-                        <a class="btn btn-warning btn-sm fw-bold text-dark px-4 py-2 rounded-pill shadow-sm" href="{{ url('/panitia') }}">👥 Struktur Panitia</a>
+                        <a href="/panitia" class="btn btn-warning btn-sm px-3 py-2 rounded-pill fw-bold text-dark w-100 w-lg-auto">
+                            👥 Struktur Panitia
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Header Agensi Kreatif (Mewah & Sinematik) -->
-    <header class="py-5 text-white" style="background: radial-gradient(circle at top right, #c32f3c 0%, #17171b 100%);">
-        <div class="container py-4 text-center">
-            <span class="badge bg-danger text-white fw-bold px-3 py-2 rounded-pill text-uppercase mb-3 shadow-sm" style="font-size: 0.75rem; letter-spacing: 2px;">Dibalik Layar HUT RI</span>
-            <h1 class="display-4 fw-extrabold text-uppercase tracking-tight mb-3"><span class="text-gradient">Jejak Bakti</span> Panitia</h1>
-            <p class="text-white-50 fs-5 mx-auto mb-4" style="max-width: 650px; font-weight: 400; line-height: 1.6;">
-                Setiap peluh, tawa, dan malam-malam panjang yang dikorbankan demi merajut kebahagiaan warga RW 012. Dirgahayu Republik Indonesia!
+    <!-- HERO HEADER BANNER -->
+    <section class="hero-galeri text-white py-5 text-center">
+        <div class="container py-3">
+            <span class="badge bg-white bg-opacity-20 border border-white border-opacity-25 text-warning px-3 py-2 rounded-pill fw-bold text-uppercase mb-3">
+                📸 DIBALIK LAYAR HUT RI KE-81
+            </span>
+            <h1 class="display-5 fw-black text-uppercase text-white mb-3" style="font-weight: 900;">
+                Jejak <span class="text-warning">Bakti</span> Panitia
+            </h1>
+            <p class="lead text-white-50 mx-auto mb-4" style="max-width: 680px; font-size: 1.05rem;">
+                Setiap peluh, tawa, dan malam-malam panjang yang dikorbankan demi merajut kebahagiaan warga RT 012. Kenangan indah ini milik kita bersama!
             </p>
-            
-            <!-- Statistik Interaktif -->
-            <div class="d-flex justify-content-center gap-3 mt-2">
-                <div class="stat-glass text-center">
-                    <h3 class="fw-bold text-warning mb-0">13</h3>
-                    <small class="text-white-50 small" style="font-size: 0.7rem;">Momen Emas</small>
+
+            <!-- STATS COUNTER MEMORI -->
+            <div class="d-flex justify-content-center gap-3">
+                <div class="stat-card-memori text-center">
+                    <span class="h2 fw-bold text-warning d-block mb-0">9+</span>
+                    <small class="text-white-50 text-uppercase" style="font-size: 0.65rem;">Momen Emas</small>
                 </div>
-                <div class="stat-glass text-center">
-                    <h3 class="fw-bold text-warning mb-0">1</h3>
-                    <small class="text-white-50 small" style="font-size: 0.7rem;">Visi Bersama</small>
+                <div class="stat-card-memori text-center">
+                    <span class="h2 fw-bold text-white d-block mb-0">1</span>
+                    <small class="text-white-50 text-uppercase" style="font-size: 0.65rem;">Visi Bersama</small>
                 </div>
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- Ruang Grid Dokumentasi Utama -->
-    <main class="py-5">
+    <!-- GALERI FOTO GRID -->
+    <section class="py-5">
         <div class="container">
-            
-            <div class="row g-4 justify-content-center">
-                
-                <!-- PROGRAM LOOPING OTOMATIS FOTO DARI KODE KAMU -->
-                @for ($i = 1; $i <= 13; $i++)
-                    @php
-                        // Memastikan nama file sesuai struktur folder public kamu
-                        $fileName = $i == 1 ? 'katar.jpg' : 'katar' . $i . '.jpg';
-                        
-                        // Kumpulan judul kustom bernarasi tinggi agar warga bangga membaca perjuangan kalian
-                        $titles = [
-                            1 => 'Rapat Pleno Konsep Besar', 2 => 'Pemasangan Bendera Lingkungan', 3 => 'Sterilisasi & Dekorasi Lapangan',
-                            4 => 'Uji Coba Teknis Alat Lomba', 5 => 'Briefing Subuh Sebelum Tempur', 6 => 'Kekompakan Divisi Lapangan',
-                            7 => 'Evaluasi Kilat & Manajemen Konflik', 8 => 'Dapur Umum & Logistik Energi', 9 => 'Canda Tawa di Sela Kelelahan',
-                            10 => 'Sinergi Antar Anggota Pemuda', 11 => 'Tim Dokumentasi Pemburu Momen', 12 => 'Lembur Malam Finishing Atribut',
-                            13 => 'Senyum Kemenangan Karang Taruna'
-                        ];
-                    @endphp
+            <div class="row g-4">
 
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card premium-gallery-card">
-                            <!-- Label Penanda Momen Premium -->
-                            <div class="moment-badge">MEMORI #{{ sprintf('%02d', $i) }}</div>
-                            
-                            <!-- Gambar Bermutu Tinggi + Lapisan Gradasi -->
-                            <div class="img-wrapper">
-                                <div class="img-overlay"></div>
-                                <img src="{{ asset($fileName) }}" alt="Dokumentasi Karang Taruna Momen {{ $i }}" loading="lazy">
-                            </div>
-                            
-                            <!-- Deskripsi Cantik Minimalis -->
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold text-dark mb-2 fs-5 transition-all" style="letter-spacing: -0.3px;">
-                                    {{ $titles[$i] ?? 'Dokumentasi Khusus Panitia' }}
-                                </h5>
-                                <div class="d-flex align-items-center justify-content-between text-muted small border-top pt-2 mt-2">
-                                    <span>📍 Wilayah RW 012</span>
-                                    <span class="fw-semibold text-danger">Katar Aktif</span>
+                <!-- MEMORI #01 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-card" onclick="openLightbox('{{ asset('katar11.jpg') }}', 'Kekompakan Panitia RT 012')">
+                        <span class="badge-memori">MEMORI #01</span>
+                        <div class="gallery-img-wrapper">
+                            <img src="{{ asset('katar11.jpg') }}" alt="Panitia RT 012" loading="lazy">
+                            <div class="gallery-overlay">
+                                <div class="text-white">
+                                    <h6 class="fw-bold mb-0"><i class="bi bi-zoom-in me-1"></i> Kebersamaan Panitia</h6>
+                                    <small class="text-white-50">Semarak Kemerdekaan RT 012</small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endfor
+                </div>
 
-            </div> <!-- End Row -->
+                <!-- MEMORI #02 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-card" onclick="openLightbox('{{ asset('katar5.jpg') }}', 'Makan Bersama Lesehan Panitia')">
+                        <span class="badge-memori">MEMORI #02</span>
+                        <div class="gallery-img-wrapper">
+                            <img src="{{ asset('katar5.jpg') }}" alt="Makan Bersama Panitia" loading="lazy">
+                            <div class="gallery-overlay">
+                                <div class="text-white">
+                                    <h6 class="fw-bold mb-0"><i class="bi bi-zoom-in me-1"></i> Tradisi Lesehan</h6>
+                                    <small class="text-white-50">Kehangatan Syukuran Panitia</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Navigasi Aksi Akhir -->
-            <div class="text-center mt-5 pt-4">
-                <a href="{{ url('/') }}" class="btn btn-danger btn-lg rounded-pill px-5 py-3 fw-bold shadow border-0 me-3 hover-lift" style="background-color: #a71d2a; font-size: 0.95rem;">
-                    🏠 Kembali ke Beranda Utama
-                </a>
-                <a href="{{ url('/panitia') }}" class="btn btn-outline-dark btn-lg rounded-pill px-5 py-3 fw-bold" style="font-size: 0.95rem;">
-                    👥 Kenali Struktur Panitia
-                </a>
+                <!-- MEMORI #03 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-card" onclick="openLightbox('{{ asset('katar6.jpg') }}', 'Kumpul Santai Panitia Outdoor')">
+                        <span class="badge-memori">MEMORI #03</span>
+                        <div class="gallery-img-wrapper">
+                            <img src="{{ asset('katar6.jpg') }}" alt="Kumpul Panitia" loading="lazy">
+                            <div class="gallery-overlay">
+                                <div class="text-white">
+                                    <h6 class="fw-bold mb-0"><i class="bi bi-zoom-in me-1"></i> Gelak Tawa Bersama</h6>
+                                    <small class="text-white-50">Momen Santai Luar Ruangan</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MEMORI #04 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-card" onclick="openLightbox('{{ asset('katar7.jpg') }}', 'Rapat Persiapan Perlombaan')">
+                        <span class="badge-memori">MEMORI #04</span>
+                        <div class="gallery-img-wrapper">
+                            <img src="{{ asset('katar7.jpg') }}" alt="Rapat Panitia" loading="lazy">
+                            <div class="gallery-overlay">
+                                <div class="text-white">
+                                    <h6 class="fw-bold mb-0"><i class="bi bi-zoom-in me-1"></i> Diskusi & Perencanaan</h6>
+                                    <small class="text-white-50">Persiapan Matang Lomba</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MEMORI #05 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-card" onclick="openLightbox('{{ asset('katar8.jpg') }}', 'Gotong Royong Dekorasi Lapangan')">
+                        <span class="badge-memori">MEMORI #05</span>
+                        <div class="gallery-img-wrapper">
+                            <img src="{{ asset('katar8.jpg') }}" alt="Dekorasi Lapangan" loading="lazy">
+                            <div class="gallery-overlay">
+                                <div class="text-white">
+                                    <h6 class="fw-bold mb-0"><i class="bi bi-zoom-in me-1"></i> Kerja Keras Perlengkapan</h6>
+                                    <small class="text-white-50">Menghias Lapangan RT 012</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MEMORI #06 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-card" onclick="openLightbox('{{ asset('katar9.jpg') }}', 'Dokumentasi Divisi Acara')">
+                        <span class="badge-memori">MEMORI #06</span>
+                        <div class="gallery-img-wrapper">
+                            <img src="{{ asset('katar9.jpg') }}" alt="Divisi Acara" loading="lazy">
+                            <div class="gallery-overlay">
+                                <div class="text-white">
+                                    <h6 class="fw-bold mb-0"><i class="bi bi-zoom-in me-1"></i> Semangat Tim Acara</h6>
+                                    <small class="text-white-50">Mengawal Jalannya Lomba</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MEMORI #07 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-card" onclick="openLightbox('{{ asset('katar10.jpg') }}', 'Momen Evaluasi Malam Panitia')">
+                        <span class="badge-memori">MEMORI #07</span>
+                        <div class="gallery-img-wrapper">
+                            <img src="{{ asset('katar10.jpg') }}" alt="Evaluasi Malam" loading="lazy">
+                            <div class="gallery-overlay">
+                                <div class="text-white">
+                                    <h6 class="fw-bold mb-0"><i class="bi bi-zoom-in me-1"></i> Evaluasi Bersama</h6>
+                                    <small class="text-white-50">Setiap Malam Penuh Cerita</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MEMORI #08 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-card" onclick="openLightbox('{{ asset('katar12.jpg') }}', 'Foto Puncak Acara Kemerdekaan')">
+                        <span class="badge-memori">MEMORI #08</span>
+                        <div class="gallery-img-wrapper">
+                            <img src="{{ asset('katar12.jpg') }}" alt="Puncak Acara" loading="lazy">
+                            <div class="gallery-overlay">
+                                <div class="text-white">
+                                    <h6 class="fw-bold mb-0"><i class="bi bi-zoom-in me-1"></i> Panggung Kemerdekaan</h6>
+                                    <small class="text-white-50">Malam Puncak Pembagian Hadiah</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MEMORI #09 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="gallery-card" onclick="openLightbox('{{ asset('katar13.jpg') }}', 'Senyum Bahagia Seluruh Panitia')">
+                        <span class="badge-memori">MEMORI #09</span>
+                        <div class="gallery-img-wrapper">
+                            <img src="{{ asset('katar13.jpg') }}" alt="Senyum Panitia" loading="lazy">
+                            <div class="gallery-overlay">
+                                <div class="text-white">
+                                    <h6 class="fw-bold mb-0"><i class="bi bi-zoom-in me-1"></i> Senyum Kemenangan</h6>
+                                    <small class="text-white-50">Suksesnya Pesta Rakyat RT 012</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
         </div>
-    </main>
+    </section>
 
-    <!-- Footer Berkelas -->
-    <footer class="py-4 bg-dark text-white-50 text-center small border-top border-secondary mt-5">
-        <div class="container py-2">
-            Made with 🔥 & Pride by **Karang Taruna RW 012** &copy; 2026. Seluruh hak cipta dokumentasi dilindungi.
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-4 border-top border-secondary text-center">
+        <div class="container">
+            <p class="mb-1 fw-bold">Karang Taruna RT 012 / RW 05</p>
+            <small class="text-white-50">Kenangan Indah Peringatan HUT RI Ke-81</small>
         </div>
     </footer>
 
+    <!-- LIGHTBOX MODAL FULLSCREEN FOTO -->
+    <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark text-white border-secondary rounded-4 overflow-hidden">
+                <div class="modal-header border-secondary py-2">
+                    <h6 class="modal-title fw-bold text-warning" id="lightboxTitle"><i class="bi bi-image me-2"></i>Foto Memori</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0 text-center bg-black">
+                    <img id="lightboxImage" src="" class="img-fluid" style="max-height: 80vh; object-fit: contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SCRIPT LIGHTBOX POPUP -->
+    <script>
+        function openLightbox(imageSrc, caption) {
+            document.getElementById('lightboxImage').src = imageSrc;
+            document.getElementById('lightboxTitle').innerText = caption;
+            var myModal = new bootstrap.Modal(document.getElementById('lightboxModal'));
+            myModal.show();
+        }
+    </script>
 </body>
 </html>
