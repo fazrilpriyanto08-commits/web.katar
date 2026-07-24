@@ -28,7 +28,7 @@
             border-radius: 16px;
             background: #ffffff;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            transition: all 0.25 ease;
+            transition: all 0.25s ease;
             overflow: hidden;
         }
 
@@ -179,7 +179,7 @@
 
             </div>
 
-            <!-- 3. DIVISI OPERASIONAL (ACARA, KONSUMSI, PERLENGKAPAN, PDD) -->
+            <!-- 3. DIVISI OPERASIONAL -->
             <div class="row g-4 justify-content-center">
                 
                 <!-- DIVISI ACARA -->
@@ -217,7 +217,10 @@
                             <span class="badge bg-dark text-white badge-divisi me-2">📦 Divisi Perlengkapan</span>
                         </div>
                         <div class="member-list">
-                            <div class="member-list-item text-muted"><i class="bi bi-info-circle me-2"></i> Tim Panitia RT 012</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-dark me-2 fs-5"></i> Nur Aini Salsabila</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-dark me-2 fs-5"></i> Muhammad Fazril Nur Priyanto</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-dark me-2 fs-5"></i> Nyimas Kalamsyah Al Maira Kalzetta Rainhard</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-dark me-2 fs-5"></i> Satria Ramadhan</div>
                         </div>
                     </div>
                 </div>
@@ -229,7 +232,10 @@
                             <span class="badge bg-info text-dark badge-divisi me-2">📷 Divisi PDD (Pubdok)</span>
                         </div>
                         <div class="member-list">
-                            <div class="member-list-item text-muted"><i class="bi bi-info-circle me-2"></i> Tim Panitia RT 012</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-info me-2 fs-5"></i> Revalina Dwi Zunianty</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-info me-2 fs-5"></i> Naysila Abiela Darwis</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-info me-2 fs-5"></i> Rayya Faiza Ranna</div>
+                            <div class="member-list-item"><i class="bi bi-person-fill text-info me-2 fs-5"></i> Reza Fachrizal Ariansyah</div>
                         </div>
                     </div>
                 </div>
