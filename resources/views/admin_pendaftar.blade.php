@@ -155,9 +155,9 @@
                     <i class="bi bi-megaphone text-white"></i> Kelola Pengumuman
                 </button>
                 
-                <button class="nav-link-admin" id="tab-doorprize-btn" data-bs-toggle="pill" data-bs-target="#tab-doorprize" type="button" role="tab">
-                    <i class="bi bi-gift text-white"></i> Wheel of Fortune <span class="badge bg-secondary ms-2 small" style="font-size:0.6rem">SOON</span>
-                </button>
+                <a href="/admin/doorprize" class="nav-link-admin text-decoration-none">
+                    <i class="bi bi-gift text-warning me-2"></i> Wheel of Fortune <span class="badge bg-warning text-dark ms-2 small" style="font-size:0.6rem">READY</span>
+                </a>
 
                 <a href="/" target="_blank" class="nav-link-admin mt-3 border-top border-secondary">
                     <i class="bi bi-box-arrow-up-right text-white"></i> Lihat Beranda Utama
