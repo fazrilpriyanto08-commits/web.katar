@@ -50,3 +50,8 @@ Route::middleware(['web'])->group(function () {
         return app(LombaController::class)->adminIndex();
     });
 });
+
+// Route Roda Doorprize
+Route::get('/admin/doorprize', function () {
+    return view('doorprize');
+});
