@@ -67,3 +67,7 @@ Route::get('/donasi', function () {
     return view('donasi');
 });
 Route::post('/donasi', [DonasiController::class, 'store']);
+
+// Admin Donasi
+Route::get('/admin/donasi', [DonasiController::class, 'indexAdmin']);
+Route::post('/admin/donasi/{id}/status', [DonasiController::class, 'updateStatus']);

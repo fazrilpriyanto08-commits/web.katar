@@ -34,4 +34,22 @@ class DonasiController extends Controller
 
         return redirect()->back()->with('success', 'Terima kasih atas partisipasi dan donasinya!');
     }
+
+    // Tampilkan List Donasi di Dashboard Admin
+    public function indexAdmin()
+    {
+        $donasis = Donasi::latest()->get();
+        $totalDonasi = Donasi::where('status', 'Diterima')->sum('nominal_donasi');
+        
+        return view('admin_donasi', compact('donasis', 'totalDonasi'));
+    }
+
+    // Update Status Donasi (Diterima / Ditolak)
+    public function updateStatus(Request $request, $id)
+    {
+        $donasi = Donasi::findOrFail($id);
+        $donasi->update(['status' => $request->status]);
+
+        return redirect()->back()->with('success', 'Status donasi berhasil diperbarui!');
+    }
 }

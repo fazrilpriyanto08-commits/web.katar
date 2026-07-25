@@ -163,6 +163,12 @@
                     <i class="bi bi-box-seam text-warning me-2"></i> Inventaris Perlap
                 </a>
 
+                <!-- Menu Donasi & Pendataan Anak -->
+                <a href="/admin/donasi" class="nav-link text-white d-flex align-items-center gap-2 py-2 px-3 rounded-3 mb-1 {{ Request::is('admin/donasi*') ? 'bg-warning text-dark fw-bold' : 'hover-bg-slate' }}">
+                    <i class="bi bi-wallet2 text-warning fs-5"></i>
+                    <span>Donasi & Data Anak</span>
+                </a>
+
                 <a href="/" target="_blank" class="nav-link-admin mt-3 border-top border-secondary">
                     <i class="bi bi-box-arrow-up-right text-white"></i> Lihat Beranda Utama
                 </a>
