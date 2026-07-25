@@ -159,6 +159,10 @@
                     <i class="bi bi-gift text-warning me-2"></i> Wheel of Fortune <span class="badge bg-warning text-dark ms-2 small" style="font-size:0.6rem">READY</span>
                 </a>
 
+                <a href="/admin/inventaris" class="nav-link-admin text-decoration-none mt-2">
+                    <i class="bi bi-box-seam text-warning me-2"></i> Inventaris Perlap
+                </a>
+
                 <a href="/" target="_blank" class="nav-link-admin mt-3 border-top border-secondary">
                     <i class="bi bi-box-arrow-up-right text-white"></i> Lihat Beranda Utama
                 </a>

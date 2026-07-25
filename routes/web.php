@@ -55,3 +55,8 @@ Route::middleware(['web'])->group(function () {
 Route::get('/admin/doorprize', function () {
     return view('doorprize');
 });
+
+// Route Inventaris Perlap
+Route::get('/admin/inventaris', function () {
+    return view('inventaris');
+});
