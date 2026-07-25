@@ -6,6 +6,7 @@ use App\Http\Controllers\PendaftaranController;
 use App\Models\Lomba;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DonasiController;
 
 // 1. Halaman Beranda (Utama)
 Route::get('/', [LombaController::class, 'index']);
@@ -60,3 +61,9 @@ Route::get('/admin/doorprize', function () {
 Route::get('/admin/inventaris', function () {
     return view('inventaris');
 });
+
+// Form Donasi Publik
+Route::get('/donasi', function () {
+    return view('donasi');
+});
+Route::post('/donasi', [DonasiController::class, 'store']);
