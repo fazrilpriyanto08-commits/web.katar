@@ -32,9 +32,20 @@ class DonasiController extends Controller
             'bukti_transfer' => $buktiPath,
             'catatan'        => $request->catatan,
         ]);
-// AUTO-SYNC KE GOOGLE SHEETS TAB DONASI
+
+        // AUTO-SYNC KE GOOGLE SHEETS TAB DONASI
         try {
-            Sheets::spreadsheet(env('GOOGLE_SHEETS_SPREADSHEET_ID'))
+            $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID');
+            
+            // Cek kredensial dari Railway atau file lokal
+            if (env('GOOGLE_SERVICE_ACCOUNT_JSON')) {
+                $config = json_decode(env('GOOGLE_SERVICE_ACCOUNT_JSON'), true);
+                $sheet = (new \Revolution\Google\Sheets\Sheets())->setServiceAccountCredentials($config);
+            } else {
+                $sheet = Sheets::spreadsheet($spreadsheetId);
+            }
+
+            $sheet->spreadsheet($spreadsheetId)
                 ->sheet('Donasi')
                 ->append([
                     [
@@ -48,6 +59,7 @@ class DonasiController extends Controller
         } catch (\Exception $e) {
             \Log::error('Google Sheet Donasi Sync Error: ' . $e->getMessage());
         }
+
         return redirect()->back()->with('success', 'Terima kasih atas partisipasi dan donasinya!');
     }
 

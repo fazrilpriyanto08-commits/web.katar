@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lomba;
 use App\Models\Pendaftar;
-use App\Models\Pengumuman;
+use App\Models\Lomba;
 use Illuminate\Http\Request;
 use Revolution\Google\Sheets\Facades\Sheets;
 
@@ -14,12 +13,12 @@ class PendaftaranController extends Controller
     {
         // Mengambil data lomba spesifik berdasarkan ID
         $lomba = Lomba::findOrFail($id);
-        
+
         // Memanggil file view 'daftar1.blade.php'
         return view('daftar1', compact('lomba'));
     }
 
-public function prosesDaftar(Request $request)
+    public function prosesDaftar(Request $request)
     {
         // Simpan data pendaftaran ke database
         Pendaftar::create([
@@ -31,12 +30,22 @@ public function prosesDaftar(Request $request)
 
         // OTOMATIS KIRIM KE GOOGLE SHEETS
         try {
-            Sheets::spreadsheet(env('GOOGLE_SHEETS_SPREADSHEET_ID'))
+            $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID');
+            
+            // Cek kredensial dari Railway atau file lokal
+            if (env('GOOGLE_SERVICE_ACCOUNT_JSON')) {
+                $config = json_decode(env('GOOGLE_SERVICE_ACCOUNT_JSON'), true);
+                $sheet = (new \Revolution\Google\Sheets\Sheets())->setServiceAccountCredentials($config);
+            } else {
+                $sheet = Sheets::spreadsheet($spreadsheetId);
+            }
+
+            $sheet->spreadsheet($spreadsheetId)
                 ->sheet('Pendaftar')
                 ->append([
                     [
                         $request->nama,
-                        "'" . $request->no_hp, // Tanda petik agar angka 0 di depan nomor HP tidak hilang
+                        "'" . $request->no_hp,
                         $request->rt_rw ?? 'RT 012 / RW 05',
                         $request->lomba_id,
                         now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
@@ -56,14 +65,5 @@ public function prosesDaftar(Request $request)
         $pendaftar->delete();
 
         return redirect()->back()->with('success', 'Data pendaftar berhasil dihapus!');
-    }
-
-    // Menampilkan halaman admin data pendaftar & pengumuman
-    public function adminIndex()
-    {
-        $pendaftars  = Pendaftar::latest()->get();
-        $pengumumans = Pengumuman::latest()->get();
-
-        return view('admin_pendaftar', compact('pendaftars', 'pengumumans'));
     }
 }
