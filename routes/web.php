@@ -7,6 +7,7 @@ use App\Models\Lomba;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\KeuanganController;
 
 // 1. Halaman Beranda (Utama)
 Route::get('/', [LombaController::class, 'index']);
@@ -71,3 +72,8 @@ Route::post('/donasi', [DonasiController::class, 'store']);
 // Admin Donasi
 Route::get('/admin/donasi', [DonasiController::class, 'indexAdmin']);
 Route::post('/admin/donasi/{id}/status', [DonasiController::class, 'updateStatus']);
+
+// Admin Keuangan
+Route::get('/admin/keuangan', [KeuanganController::class, 'index']);
+Route::post('/admin/keuangan', [KeuanganController::class, 'store']);
+Route::delete('/admin/keuangan/{id}', [KeuanganController::class, 'destroy']);

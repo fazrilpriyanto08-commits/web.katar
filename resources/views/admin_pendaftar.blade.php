@@ -167,6 +167,13 @@
                 <a href="/admin/donasi" class="nav-link text-white d-flex align-items-center gap-2 py-2 px-3 rounded-3 mb-1 {{ Request::is('admin/donasi*') ? 'bg-warning text-dark fw-bold' : 'hover-bg-slate' }}">
                     <i class="bi bi-wallet2 text-warning fs-5"></i>
                     <span>Donasi & Data Anak</span>
+
+
+                    <!-- Menu Keuangan Kas -->
+                <a href="/admin/keuangan" class="nav-link text-white d-flex align-items-center gap-2 py-2 px-3 rounded-3 mb-1 {{ Request::is('admin/keuangan*') ? 'bg-warning text-dark fw-bold' : 'hover-bg-slate' }}">
+    <i class="bi bi-cash-stack text-warning fs-5"></i>
+    <span>Keuangan Kas Acara</span>
+                </a>
                 </a>
 
                 <a href="/" target="_blank" class="nav-link-admin mt-3 border-top border-secondary">
