@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Donasi;
 use Illuminate\Http\Request;
+use Revolution\Google\Sheets\Facades\Sheets;
 
 class DonasiController extends Controller
 {
@@ -31,7 +32,22 @@ class DonasiController extends Controller
             'bukti_transfer' => $buktiPath,
             'catatan'        => $request->catatan,
         ]);
-
+// AUTO-SYNC KE GOOGLE SHEETS TAB DONASI
+        try {
+            Sheets::spreadsheet(env('GOOGLE_SHEETS_SPREADSHEET_ID'))
+                ->sheet('Donasi')
+                ->append([
+                    [
+                        $request->nama_orang_tua,
+                        "'" . $request->no_wa, // Biar angka 0 depan di WA gak hilang
+                        $request->nama_anak ?? '-',
+                        'Rp ' . number_format($request->nominal_donasi, 0, ',', '.'),
+                        now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
+                    ]
+                ]);
+        } catch (\Exception $e) {
+            \Log::error('Google Sheet Donasi Sync Error: ' . $e->getMessage());
+        }
         return redirect()->back()->with('success', 'Terima kasih atas partisipasi dan donasinya!');
     }
 

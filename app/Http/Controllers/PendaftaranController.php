@@ -6,6 +6,7 @@ use App\Models\Lomba;
 use App\Models\Pendaftar;
 use App\Models\Pengumuman;
 use Illuminate\Http\Request;
+use Revolution\Google\Sheets\Facades\Sheets;
 
 class PendaftaranController extends Controller
 {
@@ -18,7 +19,7 @@ class PendaftaranController extends Controller
         return view('daftar1', compact('lomba'));
     }
 
-    public function prosesDaftar(Request $request)
+public function prosesDaftar(Request $request)
     {
         // Simpan data pendaftaran ke database
         Pendaftar::create([
@@ -27,6 +28,23 @@ class PendaftaranController extends Controller
             'nomor_hp'   => $request->no_hp,
             'rt_rw'      => $request->rt_rw ?? 'RT 012 / RW 05',
         ]);
+
+        // OTOMATIS KIRIM KE GOOGLE SHEETS
+        try {
+            Sheets::spreadsheet(env('GOOGLE_SHEETS_SPREADSHEET_ID'))
+                ->sheet('Pendaftar')
+                ->append([
+                    [
+                        $request->nama,
+                        "'" . $request->no_hp, // Tanda petik agar angka 0 di depan nomor HP tidak hilang
+                        $request->rt_rw ?? 'RT 012 / RW 05',
+                        $request->lomba_id,
+                        now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
+                    ]
+                ]);
+        } catch (\Exception $e) {
+            \Log::error('Google Sheet Sync Error: ' . $e->getMessage());
+        }
 
         return redirect('/')->with('success', 'Pendaftaran berhasil dikirim!');
     }
