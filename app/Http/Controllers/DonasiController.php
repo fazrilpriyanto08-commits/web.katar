@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Donasi;
 use Illuminate\Http\Request;
-use Revolution\Google\Sheets\Sheets;
+use Revolution\Google\Sheets\Facades\Sheets;
 
 class DonasiController extends Controller
 {
+    // Simpan Form dari Warga
     public function store(Request $request)
     {
         $request->validate([
@@ -36,23 +37,17 @@ class DonasiController extends Controller
         try {
             $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
             
-            $credentialsPath = storage_path('app/credentials.json');
-            
-            $sheets = new Sheets();
-
             if (env('GOOGLE_SERVICE_ACCOUNT_JSON')) {
                 $jsonCredentials = json_decode(env('GOOGLE_SERVICE_ACCOUNT_JSON'), true);
-                $sheets->setServiceAccountCredentials($jsonCredentials);
-            } elseif (file_exists($credentialsPath)) {
-                $sheets->setServiceAccountCredentials($credentialsPath);
+                Sheets::setServiceAccountCredentials($jsonCredentials);
             }
 
-            $sheets->spreadsheet($spreadsheetId)
+            Sheets::spreadsheet($spreadsheetId)
                 ->sheet('Donasi')
                 ->append([
                     [
                         $request->nama_orang_tua,
-                        "'" . $request->no_wa,
+                        "'" . $request->no_wa, // Biar angka 0 depan di WA gak hilang
                         $request->nama_anak ?? '-',
                         'Rp ' . number_format($request->nominal_donasi, 0, ',', '.'),
                         now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
@@ -65,6 +60,7 @@ class DonasiController extends Controller
         return redirect()->back()->with('success', 'Terima kasih atas partisipasi dan donasinya!');
     }
 
+    // Tampilkan List Donasi di Dashboard Admin
     public function indexAdmin()
     {
         $donasis = Donasi::latest()->get();
@@ -73,6 +69,7 @@ class DonasiController extends Controller
         return view('admin_donasi', compact('donasis', 'totalDonasi'));
     }
 
+    // Update Status Donasi (Diterima / Ditolak)
     public function updateStatus(Request $request, $id)
     {
         $donasi = Donasi::findOrFail($id);

@@ -5,19 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Pendaftar;
 use App\Models\Lomba;
 use Illuminate\Http\Request;
-use Revolution\Google\Sheets\Sheets;
+use Revolution\Google\Sheets\Facades\Sheets;
 
 class PendaftaranController extends Controller
 {
     public function formDaftar($id)
     {
+        // Mengambil data lomba spesifik berdasarkan ID
         $lomba = Lomba::findOrFail($id);
+
+        // Memanggil file view 'daftar1.blade.php'
         return view('daftar1', compact('lomba'));
     }
 
     public function prosesDaftar(Request $request)
     {
-        // 1. Simpan data pendaftaran ke database
+        // Simpan data pendaftaran ke database
         Pendaftar::create([
             'lomba_id'   => $request->lomba_id,
             'nama_warga' => $request->nama,
@@ -25,23 +28,16 @@ class PendaftaranController extends Controller
             'rt_rw'      => $request->rt_rw ?? 'RT 012 / RW 05',
         ]);
 
-        // 2. OTOMATIS KIRIM KE GOOGLE SHEETS
+        // OTOMATIS KIRIM KE GOOGLE SHEETS
         try {
             $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
             
-            // Baca file credentials.json lokal atau dari variable Railway
-            $credentialsPath = storage_path('app/credentials.json');
-            
-            $sheets = new Sheets();
-            
             if (env('GOOGLE_SERVICE_ACCOUNT_JSON')) {
                 $jsonCredentials = json_decode(env('GOOGLE_SERVICE_ACCOUNT_JSON'), true);
-                $sheets->setServiceAccountCredentials($jsonCredentials);
-            } elseif (file_exists($credentialsPath)) {
-                $sheets->setServiceAccountCredentials($credentialsPath);
+                Sheets::setServiceAccountCredentials($jsonCredentials);
             }
 
-            $sheets->spreadsheet($spreadsheetId)
+            Sheets::spreadsheet($spreadsheetId)
                 ->sheet('Pendaftar')
                 ->append([
                     [
@@ -59,6 +55,7 @@ class PendaftaranController extends Controller
         return redirect('/')->with('success', 'Pendaftaran berhasil dikirim!');
     }
 
+    // Menghapus data pendaftar
     public function destroyPendaftar($id)
     {
         $pendaftar = Pendaftar::findOrFail($id);
