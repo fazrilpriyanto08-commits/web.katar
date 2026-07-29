@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Donasi;
 use Illuminate\Http\Request;
 use Revolution\Google\Sheets\Facades\Sheets;
-use Google\Client;
-use Google\Service\Sheets as GoogleSheetsService;
 
 class DonasiController extends Controller
 {
@@ -35,39 +33,32 @@ class DonasiController extends Controller
         ]);
 
         // AUTO-SYNC KE GOOGLE SHEETS
-        try {
-            $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
+        $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
+        
+        $credentialsRaw = env('GOOGLE_SERVICE_ACCOUNT_JSON');
+        $credentialsPath = storage_path('app/credentials.json');
+
+        if (!empty($credentialsRaw)) {
+            $decoded = base64_decode($credentialsRaw, true);
+            $jsonString = ($decoded && json_decode($decoded)) ? $decoded : $credentialsRaw;
             
-            $client = new Client();
-            $client->setScopes([GoogleSheetsService::SPREADSHEETS]);
-
-            $credentialsJson = env('GOOGLE_SERVICE_ACCOUNT_JSON');
-            $credentialsPath = storage_path('app/credentials.json');
-
-            if (!empty($credentialsJson)) {
-                $authConfig = json_decode($credentialsJson, true);
-                $client->setAuthConfig($authConfig);
-            } elseif (file_exists($credentialsPath)) {
-                $client->setAuthConfig($credentialsPath);
-            }
-
-            // Gunakan setClient
-            Sheets::setClient($client);
-
-            Sheets::spreadsheet($spreadsheetId)
-                ->sheet('Donasi')
-                ->append([
-                    [
-                        $request->nama_orang_tua,
-                        "'" . $request->no_wa,
-                        $request->nama_anak ?? '-',
-                        'Rp ' . number_format($request->nominal_donasi, 0, ',', '.'),
-                        now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
-                    ]
-                ]);
-        } catch (\Exception $e) {
-            \Log::error('Google Sheet Donasi Sync Error: ' . $e->getMessage());
+            $authConfig = json_decode($jsonString, true);
+            Sheets::setServiceAccountCredentials($authConfig);
+        } elseif (file_exists($credentialsPath)) {
+            Sheets::setServiceAccountCredentials($credentialsPath);
         }
+
+        Sheets::spreadsheet($spreadsheetId)
+            ->sheet('Donasi')
+            ->append([
+                [
+                    $request->nama_orang_tua,
+                    "'" . $request->no_wa,
+                    $request->nama_anak ?? '-',
+                    'Rp ' . number_format($request->nominal_donasi, 0, ',', '.'),
+                    now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
+                ]
+            ]);
 
         return redirect()->back()->with('success', 'Terima kasih atas partisipasi dan donasinya!');
     }
