@@ -32,33 +32,24 @@ class DonasiController extends Controller
             'catatan'        => $request->catatan,
         ]);
 
-        // AUTO-SYNC KE GOOGLE SHEETS
-        $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
-        
-        $credentialsRaw = env('GOOGLE_SERVICE_ACCOUNT_JSON');
-        $credentialsPath = storage_path('app/credentials.json');
+        // Auto-sync ke Google Sheets
+        try {
+            $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
 
-        if (!empty($credentialsRaw)) {
-            $decoded = base64_decode($credentialsRaw, true);
-            $jsonString = ($decoded && json_decode($decoded)) ? $decoded : $credentialsRaw;
-            
-            $authConfig = json_decode($jsonString, true);
-            Sheets::setServiceAccountCredentials($authConfig);
-        } elseif (file_exists($credentialsPath)) {
-            Sheets::setServiceAccountCredentials($credentialsPath);
+            Sheets::spreadsheet($spreadsheetId)
+                ->sheet('Donasi')
+                ->append([
+                    [
+                        $request->nama_orang_tua,
+                        "'" . $request->no_wa,
+                        $request->nama_anak ?? '-',
+                        'Rp ' . number_format($request->nominal_donasi, 0, ',', '.'),
+                        now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
+                    ]
+                ]);
+        } catch (\Exception $e) {
+            \Log::error('Google Sheet Donasi Sync Error: ' . $e->getMessage());
         }
-
-        Sheets::spreadsheet($spreadsheetId)
-            ->sheet('Donasi')
-            ->append([
-                [
-                    $request->nama_orang_tua,
-                    "'" . $request->no_wa,
-                    $request->nama_anak ?? '-',
-                    'Rp ' . number_format($request->nominal_donasi, 0, ',', '.'),
-                    now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
-                ]
-            ]);
 
         return redirect()->back()->with('success', 'Terima kasih atas partisipasi dan donasinya!');
     }
