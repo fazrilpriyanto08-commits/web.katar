@@ -20,7 +20,7 @@ class PendaftaranController extends Controller
 
     public function prosesDaftar(Request $request)
     {
-        // Simpan data pendaftaran ke database
+        // 1. Simpan data pendaftaran ke database
         Pendaftar::create([
             'lomba_id'   => $request->lomba_id,
             'nama_warga' => $request->nama,
@@ -28,29 +28,31 @@ class PendaftaranController extends Controller
             'rt_rw'      => $request->rt_rw ?? 'RT 012 / RW 05',
         ]);
 
-        // OTOMATIS KIRIM KE GOOGLE SHEETS
-        try {
-            $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
-            
-            if (env('GOOGLE_SERVICE_ACCOUNT_JSON')) {
-                $jsonCredentials = json_decode(env('GOOGLE_SERVICE_ACCOUNT_JSON'), true);
-                Sheets::setServiceAccountCredentials($jsonCredentials);
+        // 2. KIRIM LANGSUNG KE GOOGLE SHEETS
+        $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
+        
+        if (env('GOOGLE_SERVICE_ACCOUNT_JSON')) {
+            $jsonCredentials = json_decode(env('GOOGLE_SERVICE_ACCOUNT_JSON'), true);
+            Sheets::setServiceAccountCredentials($jsonCredentials);
+        } else {
+            // Fallback ke file fisik lokal jika ada
+            $credentialsPath = storage_path('app/credentials.json');
+            if (file_exists($credentialsPath)) {
+                Sheets::setServiceAccountCredentials($credentialsPath);
             }
-
-            Sheets::spreadsheet($spreadsheetId)
-                ->sheet('Pendaftar')
-                ->append([
-                    [
-                        $request->nama,
-                        "'" . $request->no_hp,
-                        $request->rt_rw ?? 'RT 012 / RW 05',
-                        $request->lomba_id,
-                        now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
-                    ]
-                ]);
-        } catch (\Exception $e) {
-            \Log::error('Google Sheet Sync Error: ' . $e->getMessage());
         }
+
+        Sheets::spreadsheet($spreadsheetId)
+            ->sheet('Pendaftar')
+            ->append([
+                [
+                    $request->nama,
+                    "'" . $request->no_hp,
+                    $request->rt_rw ?? 'RT 012 / RW 05',
+                    $request->lomba_id,
+                    now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
+                ]
+            ]);
 
         return redirect('/')->with('success', 'Pendaftaran berhasil dikirim!');
     }
