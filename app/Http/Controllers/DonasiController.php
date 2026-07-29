@@ -51,7 +51,8 @@ class DonasiController extends Controller
                 $client->setAuthConfig($credentialsPath);
             }
 
-            Sheets::setService($client);
+            // Gunakan setClient
+            Sheets::setClient($client);
 
             Sheets::spreadsheet($spreadsheetId)
                 ->sheet('Donasi')

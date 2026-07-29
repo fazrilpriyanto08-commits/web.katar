@@ -31,7 +31,6 @@ class PendaftaranController extends Controller
         try {
             $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
             
-            // Inisialisasi Google Client secara eksplisit
             $client = new Client();
             $client->setScopes([GoogleSheetsService::SPREADSHEETS]);
 
@@ -45,8 +44,8 @@ class PendaftaranController extends Controller
                 $client->setAuthConfig($credentialsPath);
             }
 
-            // Set client ke Facade Sheets
-            Sheets::setService($client);
+            // Gunakan setClient agar tipe data Google Client cocok
+            Sheets::setClient($client);
 
             Sheets::spreadsheet($spreadsheetId)
                 ->sheet('Pendaftar')
