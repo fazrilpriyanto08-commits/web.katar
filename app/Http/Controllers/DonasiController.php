@@ -32,24 +32,29 @@ class DonasiController extends Controller
             'catatan'        => $request->catatan,
         ]);
 
-        // Auto-sync ke Google Sheets
-        try {
-            $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
+        // Decode Base64 ke File JSON
+        $credentialsPath = storage_path('app/credentials.json');
+        $rawBase64 = env('GOOGLE_SERVICE_ACCOUNT_JSON');
 
-            Sheets::spreadsheet($spreadsheetId)
-                ->sheet('Donasi')
-                ->append([
-                    [
-                        $request->nama_orang_tua,
-                        "'" . $request->no_wa,
-                        $request->nama_anak ?? '-',
-                        'Rp ' . number_format($request->nominal_donasi, 0, ',', '.'),
-                        now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
-                    ]
-                ]);
-        } catch (\Exception $e) {
-            \Log::error('Google Sheet Donasi Sync Error: ' . $e->getMessage());
+        if (!empty($rawBase64)) {
+            $decoded = base64_decode($rawBase64, true);
+            $jsonContent = ($decoded && json_decode($decoded)) ? $decoded : $rawBase64;
+            file_put_contents($credentialsPath, $jsonContent);
         }
+
+        $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
+
+        Sheets::spreadsheet($spreadsheetId)
+            ->sheet('Donasi')
+            ->append([
+                [
+                    $request->nama_orang_tua,
+                    "'" . $request->no_wa,
+                    $request->nama_anak ?? '-',
+                    'Rp ' . number_format($request->nominal_donasi, 0, ',', '.'),
+                    now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
+                ]
+            ]);
 
         return redirect()->back()->with('success', 'Terima kasih atas partisipasi dan donasinya!');
     }

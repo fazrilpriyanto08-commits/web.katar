@@ -17,7 +17,7 @@ class PendaftaranController extends Controller
 
     public function prosesDaftar(Request $request)
     {
-        // 1. Simpan ke Database
+        // 1. Simpan data pendaftaran ke database
         Pendaftar::create([
             'lomba_id'   => $request->lomba_id,
             'nama_warga' => $request->nama,
@@ -25,24 +25,30 @@ class PendaftaranController extends Controller
             'rt_rw'      => $request->rt_rw ?? 'RT 012 / RW 05',
         ]);
 
-        // 2. Kirim ke Google Sheets
-        try {
-            $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
+        // 2. PASTE KREDENSIAL BASE64 MENJADI FILE JSON
+        $credentialsPath = storage_path('app/credentials.json');
+        $rawBase64 = env('GOOGLE_SERVICE_ACCOUNT_JSON');
 
-            Sheets::spreadsheet($spreadsheetId)
-                ->sheet('Pendaftar')
-                ->append([
-                    [
-                        $request->nama,
-                        "'" . $request->no_hp,
-                        $request->rt_rw ?? 'RT 012 / RW 05',
-                        $request->lomba_id,
-                        now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
-                    ]
-                ]);
-        } catch (\Exception $e) {
-            \Log::error('Google Sheet Sync Error: ' . $e->getMessage());
+        if (!empty($rawBase64)) {
+            $decoded = base64_decode($rawBase64, true);
+            $jsonContent = ($decoded && json_decode($decoded)) ? $decoded : $rawBase64;
+            file_put_contents($credentialsPath, $jsonContent);
         }
+
+        // 3. KIRIM LANGSUNG KE GOOGLE SHEETS
+        $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
+
+        Sheets::spreadsheet($spreadsheetId)
+            ->sheet('Pendaftar')
+            ->append([
+                [
+                    $request->nama,
+                    "'" . $request->no_hp,
+                    $request->rt_rw ?? 'RT 012 / RW 05',
+                    $request->lomba_id,
+                    now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
+                ]
+            ]);
 
         return redirect('/')->with('success', 'Pendaftaran berhasil dikirim!');
     }
