@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Donasi;
 use Illuminate\Http\Request;
-use Revolution\Google\Sheets\Facades\Sheets;
+use Google\Client;
+use Google\Service\Sheets as GoogleSheets;
 
 class DonasiController extends Controller
 {
@@ -32,21 +33,28 @@ class DonasiController extends Controller
             'catatan'        => $request->catatan,
         ]);
 
-        // Decode Base64 ke File JSON
-        $credentialsPath = storage_path('app/credentials.json');
-        $rawBase64 = env('GOOGLE_SERVICE_ACCOUNT_JSON');
+        // Kirim ke Google Sheets via Native Client
+        try {
+            $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
+            $rawBase64 = env('GOOGLE_SERVICE_ACCOUNT_JSON');
 
-        if (!empty($rawBase64)) {
-            $decoded = base64_decode($rawBase64, true);
-            $jsonContent = ($decoded && json_decode($decoded)) ? $decoded : $rawBase64;
-            file_put_contents($credentialsPath, $jsonContent);
-        }
+            $client = new Client();
+            $client->setScopes([GoogleSheets::SPREADSHEETS]);
 
-        $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
+            if (!empty($rawBase64)) {
+                $decoded = base64_decode($rawBase64, true);
+                $jsonContent = ($decoded && json_decode($decoded)) ? $decoded : $rawBase64;
+                $client->setAuthConfig(json_decode($jsonContent, true));
+            } else {
+                $credentialsPath = storage_path('app/credentials.json');
+                if (file_exists($credentialsPath)) {
+                    $client->setAuthConfig($credentialsPath);
+                }
+            }
 
-        Sheets::spreadsheet($spreadsheetId)
-            ->sheet('Donasi')
-            ->append([
+            $service = new GoogleSheets($client);
+
+            $values = [
                 [
                     $request->nama_orang_tua,
                     "'" . $request->no_wa,
@@ -54,7 +62,19 @@ class DonasiController extends Controller
                     'Rp ' . number_format($request->nominal_donasi, 0, ',', '.'),
                     now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
                 ]
+            ];
+
+            $body = new GoogleSheets\ValueRange([
+                'values' => $values
             ]);
+
+            $params = ['valueInputOption' => 'USER_ENTERED'];
+
+            $service->spreadsheets_values->append($spreadsheetId, 'Donasi', $body, $params);
+
+        } catch (\Exception $e) {
+            \Log::error('Google Sheet Donasi Sync Error: ' . $e->getMessage());
+        }
 
         return redirect()->back()->with('success', 'Terima kasih atas partisipasi dan donasinya!');
     }
