@@ -33,7 +33,6 @@ class DonasiController extends Controller
             'catatan'        => $request->catatan,
         ]);
 
-        // Kirim ke Google Sheets via Native Client
         try {
             $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
             $rawBase64 = env('GOOGLE_SERVICE_ACCOUNT_JSON');
@@ -44,7 +43,14 @@ class DonasiController extends Controller
             if (!empty($rawBase64)) {
                 $decoded = base64_decode($rawBase64, true);
                 $jsonContent = ($decoded && json_decode($decoded)) ? $decoded : $rawBase64;
-                $client->setAuthConfig(json_decode($jsonContent, true));
+                
+                $authConfig = json_decode($jsonContent, true);
+
+                if (isset($authConfig['private_key'])) {
+                    $authConfig['private_key'] = str_replace('\n', "\n", $authConfig['private_key']);
+                }
+
+                $client->setAuthConfig($authConfig);
             } else {
                 $credentialsPath = storage_path('app/credentials.json');
                 if (file_exists($credentialsPath)) {

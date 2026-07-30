@@ -26,44 +26,56 @@ class PendaftaranController extends Controller
             'rt_rw'      => $request->rt_rw ?? 'RT 012 / RW 05',
         ]);
 
-        // 2. Kirim ke Google Sheets
-        $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
-        $rawBase64 = env('GOOGLE_SERVICE_ACCOUNT_JSON');
+        // 2. Kirim ke Google Sheets via Native Client
+        try {
+            $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
+            $rawBase64 = env('GOOGLE_SERVICE_ACCOUNT_JSON');
 
-        $client = new Client();
-        $client->setScopes([GoogleSheets::SPREADSHEETS]);
+            $client = new Client();
+            $client->setScopes([GoogleSheets::SPREADSHEETS]);
 
-        if (!empty($rawBase64)) {
-            $decoded = base64_decode($rawBase64, true);
-            $jsonContent = ($decoded && json_decode($decoded)) ? $decoded : $rawBase64;
-            $client->setAuthConfig(json_decode($jsonContent, true));
-        } else {
-            $credentialsPath = storage_path('app/credentials.json');
-            if (file_exists($credentialsPath)) {
-                $client->setAuthConfig($credentialsPath);
+            if (!empty($rawBase64)) {
+                $decoded = base64_decode($rawBase64, true);
+                $jsonContent = ($decoded && json_decode($decoded)) ? $decoded : $rawBase64;
+                
+                $authConfig = json_decode($jsonContent, true);
+
+                // FIX JWT SIGNATURE: Perbaiki format newline (\n) di Private Key
+                if (isset($authConfig['private_key'])) {
+                    $authConfig['private_key'] = str_replace('\n', "\n", $authConfig['private_key']);
+                }
+
+                $client->setAuthConfig($authConfig);
+            } else {
+                $credentialsPath = storage_path('app/credentials.json');
+                if (file_exists($credentialsPath)) {
+                    $client->setAuthConfig($credentialsPath);
+                }
             }
+
+            $service = new GoogleSheets($client);
+
+            $values = [
+                [
+                    $request->nama,
+                    "'" . $request->no_hp,
+                    $request->rt_rw ?? 'RT 012 / RW 05',
+                    $request->lomba_id,
+                    now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
+                ]
+            ];
+
+            $body = new GoogleSheets\ValueRange([
+                'values' => $values
+            ]);
+
+            $params = ['valueInputOption' => 'USER_ENTERED'];
+
+            $service->spreadsheets_values->append($spreadsheetId, 'Pendaftar', $body, $params);
+
+        } catch (\Exception $e) {
+            \Log::error('Google Sheet Sync Error: ' . $e->getMessage());
         }
-
-        $service = new GoogleSheets($client);
-
-        $values = [
-            [
-                $request->nama,
-                "'" . $request->no_hp,
-                $request->rt_rw ?? 'RT 012 / RW 05',
-                $request->lomba_id,
-                now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
-            ]
-        ];
-
-        $body = new GoogleSheets\ValueRange([
-            'values' => $values
-        ]);
-
-        $params = ['valueInputOption' => 'USER_ENTERED'];
-
-        // Eksekusi Append
-        $service->spreadsheets_values->append($spreadsheetId, 'Pendaftar', $body, $params);
 
         return redirect('/')->with('success', 'Pendaftaran berhasil dikirim!');
     }
