@@ -26,7 +26,7 @@ class PendaftaranController extends Controller
             'rt_rw'      => $request->rt_rw ?? 'RT 012 / RW 05',
         ]);
 
-        // 2. Kirim ke Google Sheets via Native Client
+        // 2. Kirim ke Google Sheets
         try {
             $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
             $rawBase64 = env('GOOGLE_SERVICE_ACCOUNT_JSON');
@@ -40,7 +40,6 @@ class PendaftaranController extends Controller
                 
                 $authConfig = json_decode($jsonContent, true);
 
-                // FIX JWT SIGNATURE: Perbaiki format newline (\n) di Private Key
                 if (isset($authConfig['private_key'])) {
                     $authConfig['private_key'] = str_replace('\n', "\n", $authConfig['private_key']);
                 }
@@ -74,7 +73,8 @@ class PendaftaranController extends Controller
             $service->spreadsheets_values->append($spreadsheetId, 'Pendaftar', $body, $params);
 
         } catch (\Exception $e) {
-            \Log::error('Google Sheet Sync Error: ' . $e->getMessage());
+            // JIKA GAGAL, TAMPILKAN DENGAN JELAS DI LAYAR BROWSER!
+            dd('KENDALA GOOGLE SHEETS:', $e->getMessage());
         }
 
         return redirect('/')->with('success', 'Pendaftaran berhasil dikirim!');
