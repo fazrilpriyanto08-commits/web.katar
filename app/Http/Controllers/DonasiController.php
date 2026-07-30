@@ -33,6 +33,7 @@ class DonasiController extends Controller
             'catatan'        => $request->catatan,
         ]);
 
+        // Auto-sync ke Google Sheets
         try {
             $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
             $rawBase64 = env('GOOGLE_SERVICE_ACCOUNT_JSON');
