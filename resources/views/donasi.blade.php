@@ -3,95 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Partisipasi & Donasi - KATAR RT 012</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <title>Form Donasi - Karang Taruna RT 012</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', sans-serif; }
-        .card-custom { background-color: #1e293b; border: 1px solid #334155; border-radius: 16px; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="py-5">
-    <div class="container" style="max-width: 650px;">
+<body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center p-4 relative overflow-x-hidden my-6">
+
+    <!-- Background Glow Effect -->
+    <div class="absolute -top-20 -left-20 w-72 h-72 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-20 -right-20 w-72 h-72 bg-teal-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="w-full max-w-lg bg-slate-800/80 backdrop-blur-xl border border-slate-700/60 rounded-3xl p-6 sm:p-8 shadow-2xl relative z-10">
         
-        <div class="text-center mb-4">
-            <h2 class="fw-bold text-warning"><i class="bi bi-heart-fill me-2"></i>Form Partisipasi & Donasi</h2>
-            <p class="text-white-50">Pengumpulan Dana Acara & Pendataan Anak Warga RT 012</p>
+        <!-- Header & Tombol Kembali -->
+        <div class="flex items-center justify-between mb-6">
+            <a href="/" class="w-10 h-10 rounded-full bg-slate-700/50 hover:bg-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition-all">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
+                Karang Taruna RT 012
+            </span>
         </div>
 
+        <!-- Judul Form -->
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-white mb-1">Form Donasi Acara</h1>
+            <p class="text-slate-400 text-sm">
+                Partisipasi warga untuk menyukseskan kegiatan RT 012.
+            </p>
+        </div>
+
+        <!-- Alert Pesan Sukses jika ada -->
         @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <div class="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center gap-3 text-emerald-400 text-sm">
+                <i class="fa-solid fa-circle-check text-lg"></i>
+                <div>{{ session('success') }}</div>
             </div>
         @endif
 
-        <div class="card-custom p-4 shadow-lg">
-            <form action="/donasi" method="POST" enctype="multipart/form-data">
-                @csrf
-                
-                <!-- INFORMASI ORANG TUA / DONATUR -->
-                <h5 class="fw-bold text-warning mb-3"><i class="bi bi-person-fill me-2"></i>Data Orang Tua / Donatur</h5>
-                
-                <div class="mb-3">
-                    <label class="form-label small text-white-50 fw-bold">Nama Lengkap Orang Tua / Warga</label>
-                    <input type="text" name="nama_orang_tua" class="form-control bg-dark text-white border-secondary" placeholder="Contoh: Pak Budi Santoso" required>
-                </div>
+        <!-- Form Utama Donasi -->
+        <form action="/donasi" method="POST" enctype="multipart/form-data" id="formDonasi" class="space-y-4">
+            @csrf
 
-                <div class="mb-3">
-                    <label class="form-label small text-white-50 fw-bold">Nomor WhatsApp</label>
-                    <input type="text" name="no_wa" class="form-control bg-dark text-white border-secondary" placeholder="08123456789" required>
-                </div>
-
-                <hr class="border-secondary my-4">
-
-                <!-- INFORMASI ANAK -->
-                <h5 class="fw-bold text-warning mb-3"><i class="bi bi-emoji-smile-fill me-2"></i>Data Anak (Optional)</h5>
-                
-                <div class="row g-2 mb-3">
-                    <div class="col-8">
-                        <label class="form-label small text-white-50 fw-bold">Nama Anak</label>
-                        <input type="text" name="nama_anak" class="form-control bg-dark text-white border-secondary" placeholder="Contoh: Rehan">
+            <!-- Input 1: Nama Orang Tua / Donatur -->
+            <div>
+                <label for="nama_orang_tua" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                    Nama Donatur / Orang Tua <span class="text-emerald-500">*</span>
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-user text-sm"></i>
                     </div>
-                    <div class="col-4">
-                        <label class="form-label small text-white-50 fw-bold">Umur (Tahun)</label>
-                        <input type="number" name="umur_anak" class="form-control bg-dark text-white border-secondary" placeholder="Contoh: 7" min="1" max="17">
+                    <input type="text" id="nama_orang_tua" name="nama_orang_tua" required placeholder="Contoh: Bpk. Ahmad"
+                        class="w-full pl-10 pr-4 py-3 bg-slate-900/80 border border-slate-700 rounded-2xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
+                </div>
+            </div>
+
+            <!-- Grid 2 Kolom: No WA & Nama Anak -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Input No WA -->
+                <div>
+                    <label for="no_wa" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                        No. WhatsApp <span class="text-emerald-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                        </div>
+                        <input type="tel" inputmode="numeric" id="no_wa" name="no_wa" required placeholder="081234567890"
+                            class="w-full pl-10 pr-4 py-3 bg-slate-900/80 border border-slate-700 rounded-2xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
                     </div>
                 </div>
 
-                <hr class="border-secondary my-4">
-
-                <!-- INFORMASI DONASI -->
-                <h5 class="fw-bold text-warning mb-3"><i class="bi bi-wallet2 me-2"></i>Nominal Partisipasi / Donasi</h5>
-                
-                <!-- INFO REKENING -->
-                <div class="p-3 mb-3 rounded" style="background-color: #0f172a; border: 1px dashed #f59e0b;">
-                    <small class="text-white-50 d-block mb-1">Transfer Bank / QRIS :</small>
-                    <div class="fw-bold text-white">BCA: <span class="text-warning">1234-5678-90</span> a/n Karang Taruna RT 012</div>
-                    <div class="fw-bold text-white">DANA / GoPay: <span class="text-warning">0812-9999-8888</span></div>
+                <!-- Input Nama Anak -->
+                <div>
+                    <label for="nama_anak" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                        Nama Anak <span class="text-slate-500">(Opsional)</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-child text-sm"></i>
+                        </div>
+                        <input type="text" id="nama_anak" name="nama_anak" placeholder="Nama anak"
+                            class="w-full pl-10 pr-4 py-3 bg-slate-900/80 border border-slate-700 rounded-2xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
+                    </div>
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label small text-white-50 fw-bold">Nominal Donasi (Rp)</label>
-                    <input type="number" name="nominal_donasi" class="form-control bg-dark text-white border-secondary" placeholder="Contoh: 50000" min="10000" required>
+            <!-- Input Nominal Donasi -->
+            <div>
+                <label for="nominal_donasi" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                    Nominal Donasi (Rp) <span class="text-emerald-500">*</span>
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 font-bold text-sm">
+                        Rp
+                    </div>
+                    <input type="number" inputmode="numeric" id="nominal_donasi" name="nominal_donasi" required min="10000" step="5000" placeholder="50000"
+                        class="w-full pl-10 pr-4 py-3 bg-slate-900/80 border border-slate-700 rounded-2xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label small text-white-50 fw-bold">Upload Bukti Transfer (Opsional)</label>
-                    <input type="file" name="bukti_transfer" class="form-control bg-dark text-white border-secondary" accept="image/*">
+            <!-- Upload Bukti Transfer -->
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                    Bukti Transfer / Foto Donasi
+                </label>
+                <div class="relative">
+                    <input type="file" id="bukti_transfer" name="bukti_transfer" accept="image/*" class="hidden" onchange="previewImage(event)">
+                    <label for="bukti_transfer" class="w-full py-4 px-4 bg-slate-900/80 border-2 border-dashed border-slate-700 hover:border-emerald-500 rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all group">
+                        <i class="fa-solid fa-cloud-arrow-up text-2xl text-slate-400 group-hover:text-emerald-400 mb-1 transition-colors"></i>
+                        <span id="fileName" class="text-xs text-slate-400 group-hover:text-slate-200">Klik untuk upload foto / bukti transfer</span>
+                    </label>
                 </div>
-
-                <div class="mb-3">
-                    <label class="form-label small text-white-50 fw-bold">Pesan / Ucapan Semangat</label>
-                    <textarea name="catatan" class="form-control bg-dark text-white border-secondary" rows="2" placeholder="Semoga acara 17-an RT 012 sukses dan meriah!"></textarea>
+                <!-- Preview Gambar -->
+                <div id="imagePreviewContainer" class="hidden mt-3">
+                    <img id="imagePreview" src="" alt="Preview Bukti" class="w-full h-32 object-cover rounded-2xl border border-slate-700">
                 </div>
+            </div>
 
-                <button type="submit" class="btn btn-warning w-100 fw-bold text-dark py-3 mt-2 fs-5">
-                    <i class="bi bi-send-fill me-2"></i> Kirim Form & Donasi
-                </button>
-            </form>
-        </div>
+            <!-- Catatan / Doa -->
+            <div>
+                <label for="catatan" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+                    Pesan / Catatan <span class="text-slate-500">(Opsional)</span>
+                </label>
+                <textarea id="catatan" name="catatan" rows="2" placeholder="Tuliskan ucapan atau doa untuk kelancaran acara..."
+                    class="w-full p-3 bg-slate-900/80 border border-slate-700 rounded-2xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"></textarea>
+            </div>
 
+            <!-- Tombol Kirim -->
+            <button type="submit" id="btnSubmitDonasi"
+                class="w-full mt-2 py-3.5 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold rounded-2xl shadow-lg shadow-emerald-600/30 hover:shadow-emerald-600/50 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                <i class="fa-solid fa-heart text-sm" id="btnIconDonasi"></i>
+                <span id="btnTextDonasi">Kirim Donasi</span>
+            </button>
+        </form>
+
+        <!-- Footer -->
+        <p class="text-center text-xs text-slate-500 mt-6">
+            Karang Taruna RT 012 &copy; {{ date('Y') }}
+        </p>
     </div>
+
+    <!-- Script Preview Gambar & Loading Spinner -->
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const fileName = document.getElementById('fileName');
+            const previewContainer = document.getElementById('imagePreviewContainer');
+            const previewImage = document.getElementById('imagePreview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                fileName.textContent = input.files[0].name;
+
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        const form = document.getElementById('formDonasi');
+        const btnSubmit = document.getElementById('btnSubmitDonasi');
+        const btnText = document.getElementById('btnTextDonasi');
+        const btnIcon = document.getElementById('btnIconDonasi');
+
+        form.addEventListener('submit', function() {
+            btnSubmit.disabled = true;
+            btnSubmit.classList.add('opacity-80', 'cursor-not-allowed');
+            btnIcon.className = 'fa-solid fa-spinner fa-spin text-sm';
+            btnText.innerText = 'Memproses Donasi...';
+        });
+    </script>
 </body>
 </html>
