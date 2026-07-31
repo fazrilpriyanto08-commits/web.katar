@@ -8,6 +8,7 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\KeuanganController;
+use App\Http\Controllers\UserController;
 
 // 1. Halaman Beranda (Utama)
 Route::get('/', [LombaController::class, 'index']);
@@ -79,3 +80,8 @@ Route::post('/admin/donasi/{id}/status', [DonasiController::class, 'updateStatus
 Route::get('/admin/keuangan', [KeuanganController::class, 'index']);
 Route::post('/admin/keuangan', [KeuanganController::class, 'store']);
 Route::delete('/admin/keuangan/{id}', [KeuanganController::class, 'destroy']);
+
+// Route Management User Panitia
+Route::get('/admin/users', [UserController::class, 'index']);
+Route::post('/admin/users', [UserController::class, 'store']);
+Route::delete('/admin/users/{id}', [UserController::class, 'destroy']);

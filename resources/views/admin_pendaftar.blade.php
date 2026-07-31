@@ -53,6 +53,12 @@
                     <span>Laporan Keuangan</span>
                 </a>
 
+                <!-- 6. Kelola User Panitia -->
+                <a href="/admin/users" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/50 text-xs font-bold transition-all">
+                    <i class="fa-solid fa-user-gear text-sm"></i>
+                    <span>Kelola User Panitia</span>
+                </a>
+
                 <div class="pt-4 border-t border-slate-800/80 mt-4">
                     <a href="/" target="_blank" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 hover:text-slate-300 text-xs font-medium transition-all">
                         <i class="fa-solid fa-globe text-sm"></i>
