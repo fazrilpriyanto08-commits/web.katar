@@ -3,419 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - KATAR RT 012</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
+    <title>Dashboard Admin - Karang Taruna RT 012</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --sidebar-width: 260px;
-            --bg-dark: #0b0f19;
-            --card-dark: #161e2e;
-            --border-dark: #2d3748;
-            --text-light: #ffffff;
-            --text-muted: #cbd5e1;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-        }
-
-        /* --- SIDEBAR STYLE --- */
-        .sidebar {
-            width: var(--sidebar-width);
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: var(--card-dark);
-            border-right: 1px solid var(--border-dark);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            z-index: 100;
-        }
-
-        .sidebar-brand {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-dark);
-        }
-
-        .sidebar-menu {
-            padding: 1rem 0;
-            flex-grow: 1;
-        }
-
-        /* TAB LINK BTN IN SIDEBAR */
-        .nav-link-admin {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            padding: 0.85rem 1.5rem;
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border: none;
-            background: transparent;
-            text-align: left;
-            border-left: 3px solid transparent;
-        }
-
-        .nav-link-admin:hover, .nav-link-admin.active {
-            color: #ffffff !important;
-            background-color: rgba(255, 255, 255, 0.1) !important;
-            border-left-color: #ffffff !important;
-        }
-
-        .nav-link-admin i {
-            font-size: 1.2rem;
-            margin-right: 0.75rem;
-        }
-
-        /* --- MAIN CONTENT AREA --- */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 2rem;
-        }
-
-        .card-custom {
-            background-color: var(--card-dark);
-            border: 1px solid var(--border-dark);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        /* --- TABLE STYLING --- */
-        .table-dark-custom {
-            color: #ffffff !important;
-            background-color: var(--card-dark) !important;
-            margin-bottom: 0;
-        }
-
-        .table-dark-custom th {
-            background-color: #0b0f19 !important;
-            color: #ffffff !important;
-            border-bottom: 1px solid var(--border-dark);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-            padding: 1rem;
-        }
-
-        .table-dark-custom td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-dark);
-            vertical-align: middle;
-            color: #f1f5f9 !important;
-            background-color: var(--card-dark) !important;
-        }
-
-        .form-control-dark, .form-select-dark {
-            background-color: #0b0f19;
-            border: 1px solid var(--border-dark);
-            color: #ffffff;
-        }
-
-        .form-control-dark:focus, .form-select-dark:focus {
-            background-color: #0b0f19;
-            border-color: #ffffff;
-            color: #ffffff;
-            box-shadow: none;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col md:flex-row">
 
-    <!-- ========================================== -->
-    <!-- 1. SIDEBAR NAVIGATION -->
-    <!-- ========================================== -->
-    <div class="sidebar">
+    <!-- Overlay Mobile Sidebar -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-slate-950/80 z-40 hidden md:hidden transition-opacity" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar Admin -->
+    <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
         <div>
-            <!-- BRAND LOGO -->
-            <div class="sidebar-brand d-flex align-items-center justify-content-between">
-                <div>
-                    <h5 class="fw-bold m-0 text-white"><i class="bi bi-shield-lock-fill me-2"></i>KATAR PANEL</h5>
-                    <small style="color: #94a3b8;">Admin Control Center</small>
+            <!-- Header Sidebar -->
+            <div class="p-6 border-b border-slate-800/80 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-red-600/20 border border-red-500/30 flex items-center justify-center text-red-500 font-bold text-lg">
+                        KT
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-white text-sm">KATAR PANEL</h2>
+                        <p class="text-[10px] text-slate-400">Admin Control Center</p>
+                    </div>
                 </div>
+                <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white p-2">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
             </div>
 
-            <!-- MENU TAB LINKS (PENGATUR MULTI-HALAMAN/TAB) -->
-            <div class="sidebar-menu nav nav-pills flex-column" id="adminTab" role="tablist">
-                <button class="nav-link-admin active" id="tab-pendaftar-btn" data-bs-toggle="pill" data-bs-target="#tab-pendaftar" type="button" role="tab">
-                    <i class="bi bi-people text-white"></i> Pendaftar Lomba
-                </button>
-                
-                <button class="nav-link-admin" id="tab-pengumuman-btn" data-bs-toggle="pill" data-bs-target="#tab-pengumuman" type="button" role="tab">
-                    <i class="bi bi-megaphone text-white"></i> Kelola Pengumuman
-                </button>
-                
-                <a href="/admin/doorprize" class="nav-link-admin text-decoration-none">
-                    <i class="bi bi-gift text-warning me-2"></i> Wheel of Fortune <span class="badge bg-warning text-dark ms-2 small" style="font-size:0.6rem">READY</span>
+            <!-- Menu Navigasi -->
+            <nav class="p-4 space-y-1.5">
+                <a href="/admin/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-600/10 text-red-400 font-semibold border border-red-500/20 text-sm transition-all">
+                    <i class="fa-solid fa-users w-5"></i>
+                    <span>Pendaftar Lomba</span>
                 </a>
-
-                <a href="/admin/inventaris" class="nav-link-admin text-decoration-none mt-2">
-                    <i class="bi bi-box-seam text-warning me-2"></i> Inventaris Perlap
-                </a>
-
-                <!-- Menu Donasi & Pendataan Anak -->
-                <a href="/admin/donasi" class="nav-link text-white d-flex align-items-center gap-2 py-2 px-3 rounded-3 mb-1 {{ Request::is('admin/donasi*') ? 'bg-warning text-dark fw-bold' : 'hover-bg-slate' }}">
-                    <i class="bi bi-wallet2 text-warning fs-5"></i>
+                <a href="/admin/donasi" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 font-medium text-sm transition-all">
+                    <i class="fa-solid fa-hand-holding-dollar w-5"></i>
                     <span>Donasi & Data Anak</span>
-
-
-                    <!-- Menu Keuangan Kas -->
-                <a href="/admin/keuangan" class="nav-link text-white d-flex align-items-center gap-2 py-2 px-3 rounded-3 mb-1 {{ Request::is('admin/keuangan*') ? 'bg-warning text-dark fw-bold' : 'hover-bg-slate' }}">
-    <i class="bi bi-cash-stack text-warning fs-5"></i>
-    <span>Keuangan Kas Acara</span>
                 </a>
+                <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 font-medium text-sm transition-all">
+                    <i class="fa-solid fa-globe w-5"></i>
+                    <span>Lihat Beranda Utama</span>
                 </a>
-
-                <a href="/" target="_blank" class="nav-link-admin mt-3 border-top border-secondary">
-                    <i class="bi bi-box-arrow-up-right text-white"></i> Lihat Beranda Utama
-                </a>
-            </div>
+            </nav>
         </div>
 
-        <!-- LOGOUT BUTTON -->
-        <div class="p-3 border-top border-secondary">
+        <!-- Tombol Keluar / Logout -->
+        <div class="p-4 border-t border-slate-800/80">
             <form action="/logout" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-outline-light w-100 btn-sm text-start ps-3 py-2 fw-bold">
-                    <i class="bi bi-box-arrow-left me-2"></i> Keluar / Logout
+                <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-red-500/20 text-slate-300 hover:text-red-400 border border-slate-700 hover:border-red-500/30 font-medium text-xs transition-all">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Keluar / Logout</span>
                 </button>
             </form>
         </div>
-    </div>
+    </aside>
 
-    <!-- ========================================== -->
-    <!-- 2. MAIN CONTENT AREA (KONTEN MULTI TAB) -->
-    <!-- ========================================== -->
-    <div class="main-content">
+    <!-- Content Utama -->
+    <main class="flex-1 min-w-0 flex flex-col min-h-screen">
         
-        <!-- HEADER DASHBOARD -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h3 class="fw-bold mb-1 text-white">Dashboard Panitia</h3>
-                <p class="mb-0" style="color: #cbd5e1;">Kelola informasi lomba dan pengumuman warga RT 012</p>
+        <!-- Navbar Top Mobile -->
+        <header class="bg-slate-900 border-b border-slate-800 p-4 flex items-center justify-between md:hidden sticky top-0 z-30">
+            <div class="flex items-center gap-3">
+                <button onclick="toggleSidebar()" class="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+                <span class="font-bold text-white text-sm">Dashboard Panitia</span>
             </div>
-            <div>
-                <span class="badge bg-outline-light border px-3 py-2 rounded-pill text-white">
-                    <i class="bi bi-person-circle me-1"></i> Logged as: Admin
-                </span>
-            </div>
-        </div>
+            <span class="text-[10px] bg-red-500/10 border border-red-500/20 text-red-400 font-semibold px-2.5 py-1 rounded-full">
+                RT 012
+            </span>
+        </header>
 
-        <!-- NOTIFIKASI SUCCESS -->
-        @if(session('success'))
-            <div class="alert alert-success border-0 bg-success text-white alert-dismissible fade show mb-4" role="alert">
-                <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-
-        <!-- STATS SUMMARY CARDS -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-6">
-                <div class="card-custom p-4 d-flex align-items-center justify-content-between">
-                    <div>
-                        <small class="text-uppercase fw-bold" style="color: #cbd5e1;">Total Pendaftar Lomba</small>
-                        <h2 class="fw-bold m-0 mt-1 text-white">{{ count($pendaftars ?? []) }} <span class="fs-6 font-normal" style="color: #94a3b8;">orang</span></h2>
-                    </div>
-                    <div class="bg-dark p-3 rounded-circle border border-secondary">
-                        <i class="bi bi-person-lines-fill fs-3 text-white"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card-custom p-4 d-flex align-items-center justify-content-between">
-                    <div>
-                        <small class="text-uppercase fw-bold" style="color: #cbd5e1;">Total Pengumuman Aktif</small>
-                        <h2 class="fw-bold m-0 mt-1 text-white">{{ count($pengumumans ?? []) }} <span class="fs-6 font-normal" style="color: #94a3b8;">postingan</span></h2>
-                    </div>
-                    <div class="bg-dark p-3 rounded-circle border border-secondary">
-                        <i class="bi bi-broadcast fs-3 text-white"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- WADAH TAB CONTENT -->
-        <div class="tab-content" id="adminTabContent">
+        <!-- Area Isian Dashboard -->
+        <div class="p-4 sm:p-6 lg:p-8 space-y-6 flex-1">
             
-            <!-- ========================================== -->
-            <!-- TAB 1: PENDAFTAR LOMBA -->
-            <!-- ========================================== -->
-            <div class="tab-pane fade show active" id="tab-pendaftar" role="tabpanel">
-                <div class="card-custom">
-                    <div class="card-header bg-transparent border-bottom border-secondary py-3 d-flex justify-content-between align-items-center">
-                        <h5 class="fw-bold m-0 text-white">
-                            <i class="bi bi-people-fill me-2"></i>Data Pendaftar Lomba
-                        </h5>
-                        <button onclick="window.print()" class="btn btn-sm btn-outline-light">
-                            <i class="bi bi-printer me-1"></i> Cetak PDF
-                        </button>
+            <!-- Welcome Header & Quick Action -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 backdrop-blur-xl">
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold text-white mb-1">Dashboard Panitia</h1>
+                    <p class="text-slate-400 text-xs sm:text-sm">Kelola informasi lomba dan pendaftaran warga RT 012.</p>
+                </div>
+                <a href="/" target="_blank" class="inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    <span>Buka Form Warga</span>
+                </a>
+            </div>
+
+            <!-- Stats Card Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Total Pendaftar Lomba</p>
+                        <p class="text-2xl sm:text-3xl font-extrabold text-white">{{ count($pendaftar ?? []) }} <span class="text-sm font-normal text-slate-400">orang</span></p>
                     </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-dark-custom mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nama Warga</th>
-                                        <th>No. WhatsApp</th>
-                                        <th>RT / RW</th>
-                                        <th>Lomba ID</th>
-                                        <th>Tanggal Daftar</th>
-                                        <th class="text-center">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($pendaftars as $index => $item)
-                                        <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td class="fw-bold text-white">{{ $item->nama_warga }}</td>
-                                            <td>
-                                                <a href="https://wa.me/{{ preg_replace('/^0/', '62', $item->nomor_hp) }}" target="_blank" class="text-decoration-none text-info">
-                                                    <i class="bi bi-whatsapp me-1"></i>{{ $item->nomor_hp }}
-                                                </a>
-                                            </td>
-                                            <td><span class="badge bg-secondary">{{ $item->rt_rw ?? 'RT 012 / RW 05' }}</span></td>
-                                            <td><span class="badge bg-light text-dark">Lomba #{{ $item->lomba_id }}</span></td>
-                                            <td class="small text-white">{{ $item->created_at ? $item->created_at->format('d M Y, H:i') : '-' }}</td>
-                                            <td class="text-center">
-                                                <form action="/admin/pendaftar/{{ $item->id }}" method="POST" onsubmit="return confirm('Hapus pendaftar ini?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger border-0">
-                                                        <i class="bi bi-trash"></i> Hapus
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="7" class="text-center py-5 text-white fw-semibold">Belum ada pendaftar lomba.</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl">
+                        <i class="fa-solid fa-user-group"></i>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Status Sistem</p>
+                        <p class="text-lg font-bold text-emerald-400 flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Terhubung Sheets
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl">
+                        <i class="fa-solid fa-file-excel"></i>
                     </div>
                 </div>
             </div>
 
-            <!-- ========================================== -->
-            <!-- TAB 2: KELOLA PENGUMUMAN -->
-            <!-- ========================================== -->
-            <div class="tab-pane fade" id="tab-pengumuman" role="tabpanel">
-                <div class="card-custom">
-                    <div class="card-header bg-transparent border-bottom border-secondary py-3 d-flex justify-content-between align-items-center">
-                        <h5 class="fw-bold m-0 text-white">
-                            <i class="bi bi-megaphone-fill me-2"></i>Kelola Pengumuman News Feed
-                        </h5>
-                        <button type="button" class="btn btn-light btn-sm fw-bold text-dark" data-bs-toggle="modal" data-bs-target="#modalTambahPengumuman">
-                            <i class="bi bi-plus-lg me-1"></i> + Tambah Pengumuman
-                        </button>
+            <!-- Tabel Data Pendaftar (Responsive Scroll) -->
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-red-400 text-sm"></i>
+                        <h3 class="font-bold text-white text-sm sm:text-base">Data Pendaftar Lomba</h3>
                     </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-dark-custom mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Judul</th>
-                                        <th>Isi Pengumuman</th>
-                                        <th>Kategori</th>
-                                        <th class="text-center">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($pengumumans ?? [] as $index => $info)
-                                        <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td class="fw-bold text-white">{{ $info->judul }}</td>
-                                            <td class="text-white">{{ Str::limit($info->isi, 60) }}</td>
-                                            <td><span class="badge bg-outline-light border text-white">{{ $info->kategori }}</span></td>
-                                            <td class="text-center">
-                                                <form action="/admin/pengumuman/{{ $info->id }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus pengumuman ini?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger border-0"><i class="bi bi-trash"></i> Hapus</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center py-5 text-white fw-semibold">Belum ada pengumuman yang diposting.</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <span class="text-xs text-slate-400">Geser ke samping jika kepotong &rarr;</span>
                 </div>
-            </div>
 
-            <!-- ========================================== -->
-            <!-- TAB 3: WHEEL OF FORTUNE (SOON) -->
-            <!-- ========================================== -->
-            <div class="tab-pane fade" id="tab-doorprize" role="tabpanel">
-                <div class="card-custom p-5 text-center">
-                    <i class="bi bi-gift fs-1 text-white mb-3 d-block"></i>
-                    <h4 class="fw-bold text-white">Wheel of Fortune Doorprize</h4>
-                    <p class="text-muted">Fitur undian Roda Doorprize akan segera dipasang di sini!</p>
+                <!-- Wrapper Scroll Horizontal -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm text-slate-300">
+                        <thead class="bg-slate-950/60 uppercase text-[11px] font-semibold text-slate-400 tracking-wider border-b border-slate-800">
+                            <tr>
+                                <th class="py-3.5 px-4">#</th>
+                                <th class="py-3.5 px-4">Nama Warga</th>
+                                <th class="py-3.5 px-4">No. WhatsApp</th>
+                                <th class="py-3.5 px-4">RT / RW</th>
+                                <th class="py-3.5 px-4">ID Lomba</th>
+                                <th class="py-3.5 px-4">Tanggal Daftar</th>
+                                <th class="py-3.5 px-4 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60">
+                            @forelse($pendaftar ?? [] as $index => $item)
+                                <tr class="hover:bg-slate-800/40 transition-colors">
+                                    <td class="py-3.5 px-4 text-slate-500 font-mono">{{ $index + 1 }}</td>
+                                    <td class="py-3.5 px-4 font-semibold text-white whitespace-nowrap">{{ $item->nama_warga }}</td>
+                                    <td class="py-3.5 px-4 whitespace-nowrap">
+                                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $item->nomor_hp) }}" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1.5">
+                                            <i class="fa-brands fa-whatsapp"></i>
+                                            {{ $item->nomor_hp }}
+                                        </a>
+                                    </td>
+                                    <td class="py-3.5 px-4 whitespace-nowrap text-slate-400">{{ $item->rt_rw ?? 'RT 012 / RW 05' }}</td>
+                                    <td class="py-3.5 px-4 whitespace-nowrap">
+                                        <span class="bg-slate-800 border border-slate-700 text-slate-300 px-2.5 py-1 rounded-lg text-xs">
+                                            Lomba #{{ $item->lomba_id }}
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 whitespace-nowrap text-slate-400 text-xs">
+                                        {{ $item->created_at ? $item->created_at->format('d M Y, H:i') : '-' }}
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                                        <form action="/pendaftar/{{ $item->id }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus pendaftar ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 p-2 rounded-lg transition-all">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="py-8 text-center text-slate-500">
+                                        Belum ada data pendaftar yang masuk.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
         </div>
 
-    </div>
+        <!-- Footer -->
+        <footer class="p-4 text-center text-xs text-slate-600 border-t border-slate-900 mt-auto">
+            Karang Taruna RT 012 Panel &copy; {{ date('Y') }}
+        </footer>
+    </main>
 
-    <!-- MODAL POP-UP FORM TAMBAH PENGUMUMAN -->
-    <div class="modal fade" id="modalTambahPengumuman" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content card-custom text-white border-secondary">
-                <div class="modal-header border-secondary">
-                    <h5 class="modal-title fw-bold text-white"><i class="bi bi-megaphone me-2"></i>Tambah Pengumuman</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="/admin/pengumuman" method="POST">
-                    @csrf
-                    <div class="modal-body p-4">
-                        <div class="mb-3">
-                            <label class="form-label small text-white fw-bold">Judul Pengumuman</label>
-                            <input type="text" name="judul" class="form-control form-control-dark" placeholder="Contoh: Kerja Bakti RT" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small text-white fw-bold">Kategori</label>
-                            <select name="kategori" class="form-select form-select-dark" required>
-                                <option value="Info">Info</option>
-                                <option value="Penting">Penting</option>
-                                <option value="Jadwal">Jadwal</option>
-                                <option value="Lomba">Lomba</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label small text-white fw-bold">Isi Informasi</label>
-                            <textarea name="isi" class="form-control form-control-dark" rows="4" placeholder="Tuliskan detail informasi..." required></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-secondary">
-                        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-light fw-bold text-dark px-4">Terbitkan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script Toggle Mobile Sidebar -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html>
