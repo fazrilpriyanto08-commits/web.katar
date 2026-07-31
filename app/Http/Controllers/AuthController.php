@@ -3,45 +3,50 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // 1. Menampilkan halaman form login
+    // Menampilkan halaman login
     public function showLoginForm()
     {
-        // Jika sudah login, langsung lempar ke dashboard admin
-        if (session('is_admin')) {
-            return redirect('/admin/dashboard');
-        }
         return view('login');
     }
 
-    // 2. Memproses input login
+    // Memproses Login
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required',
+            'email'    => 'required|email',
             'password' => 'required',
         ]);
 
-        // Kredensial khusus Admin Panitia (bisa disesuaikan password-nya)
-        if ($request->username === 'admin' && $request->password === 'katar012') {
-            // Simpan status login ke Session
-            session(['is_admin' => true, 'admin_name' => 'Panitia KATAR']);
+        // Cari user berdasarkan email di database
+        $user = User::where('email', $request->email)->first();
+
+        // Cek apakah user ada dan password-nya cocok
+        if ($user && Hash::check($request->password, $user->password)) {
             
-            return redirect('/admin/dashboard')->with('success', 'Selamat datang kembali, Panitia!');
+            // Set session login untuk admin/panitia
+            session([
+                'is_admin'   => true,
+                'user_id'    => $user->id,
+                'user_name'  => $user->name,
+                'user_role'  => $user->role ?? 'Panitia',
+            ]);
+
+            return redirect('/admin/pendaftar')->with('success', 'Berhasil masuk ke Dashboard!');
         }
 
-        // Jika salah, kembalikan dengan pesan error
-        return back()->withErrors(['login_error' => 'Username atau Password salah!']);
+        return redirect('/login')->withErrors(['login_error' => 'Email atau Password salah!']);
     }
 
-    // 3. Memproses Logout
-    public function logout()
+    // Logout
+    public function logout(Request $request)
     {
-        // Hapus session admin
-        session()->forget(['is_admin', 'admin_name']);
-        
-        return redirect('/login')->with('success', 'Berhasil keluar dari sistem.');
+        $request->session()->flush();
+        return redirect('/login')->with('success', 'Berhasil keluar!');
     }
 }
