@@ -28,6 +28,7 @@ Route::get('/daftar-lomba', function () {
 });
 
 // 4. Fitur Pendaftaran Online
+Route::get('/daftar/{id}', [PendaftaranController::class, 'formDaftar']);
 Route::get('/daftar-lomba/{id}', [PendaftaranController::class, 'formDaftar']);
 Route::post('/proses-daftar', [PendaftaranController::class, 'prosesDaftar']);
 
