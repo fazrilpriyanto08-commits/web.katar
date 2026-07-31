@@ -12,10 +12,10 @@
 <body class="bg-slate-950 text-slate-100 min-h-screen flex">
 
     <!-- SIDEBAR -->
-    <aside class="w-64 bg-slate-900 border-r border-slate-800 p-6 flex flex-col justify-between hidden md:flex">
+    <aside class="w-64 bg-slate-900 border-r border-slate-800 p-6 flex flex-col justify-between hidden md:flex min-h-screen">
         <div>
             <div class="flex items-center gap-3 mb-8">
-                <div class="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center text-white font-black">KT</div>
+                <div class="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center text-white font-black shadow-lg shadow-red-600/30">KT</div>
                 <div>
                     <h1 class="font-black text-sm text-white">KATAR PANEL</h1>
                     <p class="text-[10px] text-slate-400">Admin Control Center</p>
@@ -23,30 +23,55 @@
             </div>
 
             <nav class="space-y-2">
-                <a href="/admin/pendaftar" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-600/10 text-red-400 border border-red-500/20 text-xs font-bold">
-                    <i class="fa-solid fa-users"></i> Pendaftar Lomba
+                <!-- 1. Pendaftar Lomba (Active) -->
+                <a href="/admin/pendaftar" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-600/10 text-red-400 border border-red-500/20 text-xs font-bold transition-all">
+                    <i class="fa-solid fa-users text-sm"></i>
+                    <span>Pendaftar Lomba</span>
                 </a>
-                <a href="/admin/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white text-xs font-bold transition-colors">
-                    <i class="fa-solid fa-trophy"></i> Kelola Lomba
+
+                <!-- 2. Donasi & Data Anak -->
+                <a href="/admin/donasi" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/50 text-xs font-bold transition-all">
+                    <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
+                    <span>Donasi & Data Anak</span>
                 </a>
-                <a href="/admin/donasi" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white text-xs font-bold transition-colors">
-                    <i class="fa-solid fa-hand-holding-dollar"></i> Donasi
+
+                <!-- 3. Spin Wheel (Doorprize) -->
+                <a href="/admin/doorprize" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/50 text-xs font-bold transition-all">
+                    <i class="fa-solid fa-compact-disc text-sm text-amber-400"></i>
+                    <span>Spin Wheel (Doorprize)</span>
                 </a>
-                <a href="/admin/keuangan" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white text-xs font-bold transition-colors">
-                    <i class="fa-solid fa-wallet"></i> Laporan Keuangan
+
+                <!-- 4. Inventaris Perlap -->
+                <a href="/admin/inventaris" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/50 text-xs font-bold transition-all">
+                    <i class="fa-solid fa-boxes-stacked text-sm"></i>
+                    <span>Inventaris Perlap</span>
                 </a>
+
+                <!-- 5. Laporan Keuangan -->
+                <a href="/admin/keuangan" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/50 text-xs font-bold transition-all">
+                    <i class="fa-solid fa-wallet text-sm"></i>
+                    <span>Laporan Keuangan</span>
+                </a>
+
+                <div class="pt-4 border-t border-slate-800/80 mt-4">
+                    <a href="/" target="_blank" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-500 hover:text-slate-300 text-xs font-medium transition-all">
+                        <i class="fa-solid fa-globe text-sm"></i>
+                        <span>Lihat Web Utama</span>
+                    </a>
+                </div>
             </nav>
         </div>
 
-        <form action="/logout" method="POST">
+        <form action="/logout" method="POST" class="pt-6 border-t border-slate-800">
             @csrf
             <button type="submit" class="w-full text-left px-4 py-3 rounded-xl text-slate-500 hover:text-red-400 text-xs font-bold transition-colors flex items-center gap-2">
-                <i class="fa-solid fa-right-from-bracket"></i> Keluar / Logout
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Keluar / Logout</span>
             </button>
         </form>
     </aside>
 
-    <!-- CONTENT -->
+    <!-- CONTENT UTAMA -->
     <main class="flex-1 p-6 lg:p-10">
         
         <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-8">
@@ -59,7 +84,7 @@
             </a>
         </div>
 
-        <!-- STATS -->
+        <!-- STATS KARTU -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex items-center justify-between">
                 <div>
