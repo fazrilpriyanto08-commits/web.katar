@@ -24,7 +24,7 @@ Route::get('/galeri', function () {
 
 // Route Halaman Slide Daftar Lomba
 Route::get('/daftar-lomba', function () {
-    return view('daftar1');
+    return view('daftar');
 });
 
 // 4. Fitur Pendaftaran Online

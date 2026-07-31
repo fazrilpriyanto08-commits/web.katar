@@ -3,332 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Perlombaan - KATAR RT 012</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
+    <title>Daftar Lomba RT 012 - Karang Taruna RT 012</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background-color: #f8fafc;
-            color: #1e293b;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-        }
-
-        .navbar-katar {
-            background-color: #0f172a;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .card-lomba {
-            border: none;
-            border-radius: 16px;
-            background: #ffffff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.2s ease-in-out;
-        }
-
-        .card-lomba:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .badge-kategori {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-red-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- Ambient Glow Effects Background -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-red-600/15 via-rose-600/5 to-transparent blur-3xl pointer-events-none z-0"></div>
+    <div class="fixed top-1/3 -right-32 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none z-0"></div>
+    <div class="fixed bottom-10 -left-32 w-80 h-80 bg-rose-600/10 rounded-full blur-3xl pointer-events-none z-0"></div>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-katar sticky-top py-3">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center fw-bold text-white" href="/">
-                <i class="bi bi-flag-fill text-danger fs-3 me-2"></i>
-                <span>KATAR <span class="text-warning">RT 012</span></span>
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center text-white shadow-lg shadow-red-600/30 group-hover:scale-105 transition-all">
+                    <i class="fa-solid fa-flag text-base"></i>
+                </div>
+                <div>
+                    <span class="font-black text-xl tracking-tight text-white flex items-center gap-1.5">
+                        KATAR <span class="text-red-500">RT 012</span>
+                    </span>
+                    <p class="text-[10px] text-slate-400 font-medium tracking-widest uppercase">Portal Warga Resmi</p>
+                </div>
             </a>
-            <div class="ms-auto">
-                <a href="/" class="btn btn-outline-light btn-sm rounded-pill px-3 fw-bold">
-                    <i class="bi bi-arrow-left me-1"></i> Kembali ke Beranda
-                </a>
-            </div>
-        </div>
-    </nav>
 
-    <!-- KONTEN DAFTAR LOMBA -->
-    <section class="py-5">
-        <div class="container py-2">
+            <a href="/" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-200 text-xs font-bold transition-all hover:border-red-500/50">
+                <i class="fa-solid fa-arrow-left text-red-400"></i>
+                <span>Kembali ke Beranda</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- CONTENT UTAMA -->
+    <main class="flex-1 z-10 py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        
+        <!-- Header Judul -->
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-wider mb-3">
+                <i class="fa-solid fa-trophy text-amber-400"></i> SEMARAK KEMERDEKAAN
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">Daftar Lomba RT 012</h1>
+            <p class="text-slate-400 text-xs sm:text-sm mt-3 leading-relaxed">
+                Pilih dari 14 perlombaan seru Kemerdekaan RT 012 dan daftarkan dirimu secara online!
+            </p>
+        </div>
+
+        @php
+            // Array 14 Lomba Asli Versi Kamu
+            $defaultLombas = [
+                ['id' => 1,  'nama' => 'Masukin Bendera Anak-Anak', 'kat' => 'ANAK-ANAK', 'icon' => 'fa-flag', 'desc' => 'Lomba adu kecepatan memasukkan bendera ke dalam botol.', 'lokasi' => 'Lapangan Utama RT 012', 'peserta' => 'Anak-Anak (Usia 4-8 Thn)'],
+                ['id' => 2,  'nama' => 'Futsal Pake Sarung',        'kat' => 'BAPAK / UMUM', 'icon' => 'fa-futbol', 'desc' => 'Pertandingan futsal ceria menggunakan sarung antar warga.', 'lokasi' => 'Lapangan Bulutangkis', 'peserta' => 'Bapak-Bapak & Remaja'],
+                ['id' => 3,  'nama' => 'Sendok Kelereng Anak-Anak', 'kat' => 'ANAK-ANAK', 'icon' => 'fa-spoon', 'desc' => 'Uji keseimbangan membawa kelereng menggunakan sendok.', 'lokasi' => 'Area Balai Warga', 'peserta' => 'Anak-Anak (Usia 5-10 Thn)'],
+                ['id' => 4,  'nama' => 'Tali Ping-Pong',            'kat' => 'ANAK / REMAJA', 'icon' => 'fa-table-tennis-paddle-ball', 'desc' => 'Lomba ketangkasan menggoyangkan bola ping-pong dari wadah di pinggang.', 'lokasi' => 'Lapangan Utama RT 012', 'peserta' => 'Anak-Anak & Remaja'],
+                ['id' => 5,  'nama' => 'Mewarnai Anak-Anak',       'kat' => 'PAUD / TK', 'icon' => 'fa-palette', 'desc' => 'Lomba kreasi seni mewarnai sketsa tema Kemerdekaan.', 'lokasi' => 'Posyandu RT 012', 'peserta' => 'Anak PAUD & TK'],
+                ['id' => 6,  'nama' => 'Joget Koran',              'kat' => 'UMUM / IBU-IBU', 'icon' => 'fa-newspaper', 'desc' => 'Lomba joget berpasangan di atas selembar koran yang makin dilipat mengecil.', 'lokasi' => 'Panggung Utama RT 012', 'peserta' => 'Ibu-Ibu & Remaja'],
+                ['id' => 7,  'nama' => 'Makan Kerupuk',            'kat' => 'ANAK-ANAK', 'icon' => 'fa-utensils', 'desc' => 'Adu cepat menghabiskan kerupuk gantung tanpa menggunakan tangan.', 'lokasi' => 'Lapangan Utama RT 012', 'peserta' => 'Anak-Anak & Remaja'],
+                ['id' => 8,  'nama' => 'Karung Helm',              'kat' => 'REMAJA / UMUM', 'icon' => 'fa-person-running', 'desc' => 'Balap karung heboh dan kocak dengan mengenakan helm keselamatan.', 'lokasi' => 'Lapangan Utama RT 012', 'peserta' => 'Remaja & Pemuda'],
+                ['id' => 9,  'nama' => 'Masukin Paku Anak-Anak',   'kat' => 'ANAK-ANAK', 'icon' => 'fa-bullseye', 'desc' => 'Lomba konsentrasi memasukkan paku terikat tali ke dalam botol.', 'lokasi' => 'Area Balai Warga', 'peserta' => 'Anak-Anak'],
+                ['id' => 10, 'nama' => 'Masukin Paku Ibu-Ibu',     'kat' => 'IBU-IBU', 'icon' => 'fa-bullseye', 'desc' => 'Lomba kehebohan dan ketepatan memasukkan paku ke botol khusus ibu-ibu.', 'lokasi' => 'Area Balai Warga', 'peserta' => 'Ibu-Ibu RT 012'],
+                ['id' => 11, 'nama' => 'Tusuk Balon',              'kat' => 'UMUM', 'icon' => 'fa-circle-dot', 'desc' => 'Lomba ketangkasan memecahkan balon dengan mata tertutup.', 'lokasi' => 'Panggung Utama RT 012', 'peserta' => 'Umum / Warga'],
+                ['id' => 12, 'nama' => 'Pancing Kerupuk Ibu-Ibu',   'kat' => 'IBU-IBU', 'icon' => 'fa-fish-fins', 'desc' => 'Lomba memancing kerupuk unik dan penuh kehebohan khusus ibu-ibu.', 'lokasi' => 'Lapangan Utama RT 012', 'peserta' => 'Ibu-Ibu RT 012'],
+                ['id' => 13, 'nama' => 'Ikan Kipas Anak-Anak',     'kat' => 'ANAK-ANAK', 'icon' => 'fa-fan', 'desc' => 'Lomba mengipas gambar ikan kertas sampai garis finish paling cepat.', 'lokasi' => 'Area Balai Warga', 'peserta' => 'Anak-Anak'],
+                ['id' => 14, 'nama' => 'Estafet Spons',            'kat' => 'ANAK / REMAJA', 'icon' => 'fa-water', 'desc' => 'Lomba basah-basahan memindahkan air menggunakan spons secara estafet.', 'lokasi' => 'Lapangan Utama RT 012', 'peserta' => 'Tim Anak / Remaja']
+            ];
+
+            // Gunakan data dari controller jika ada, jika tidak pakai 14 daftar asli
+            $lombaList = (isset($lomba) && count($lomba) > 0) ? $lomba : ((isset($lombas) && count($lombas) > 0) ? $lombas : $defaultLombas);
+        @endphp
+
+        <!-- Grid Kartu 14 Lomba -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             
-            <div class="text-center max-w-xl mx-auto mb-5">
-                <span class="badge bg-danger text-white px-3 py-2 rounded-pill fw-bold text-uppercase mb-2">Semarak Kemerdekaan</span>
-                <h2 class="fw-bold display-6">Daftar Lomba RT 012</h2>
-                <p class="text-muted">Pilih perlombaan yang ingin kamu ikuti dan daftarkan dirimu secara online!</p>
-            </div>
+            @foreach($lombaList as $index => $item)
+                @php
+                    $id = is_object($item) ? $item->id : ($item['id'] ?? ($index + 1));
+                    $nama = is_object($item) ? ($item->nama_lomba ?? $item->nama) : $item['nama'];
+                    $kat = is_object($item) ? ($item->kategori ?? 'RT 012') : $item['kat'];
+                    $desc = is_object($item) ? ($item->deskripsi ?? 'Ayo meriahkan perlombaan Kemerdekaan RT 012!') : $item['desc'];
+                    $lokasi = is_object($item) ? ($item->lokasi ?? 'Lapangan RT 012') : $item['lokasi'];
+                    $peserta = is_object($item) ? ($item->peserta ?? 'Warga RT 012') : $item['peserta'];
+                    $icon = is_object($item) ? 'fa-trophy' : ($item['icon'] ?? 'fa-trophy');
+                @endphp
 
-            <div class="row g-4">
-
-                <!-- 1. MASUKIN BENDERA (ANAK-ANAK) -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-danger text-white p-4 text-center">
-                            <i class="bi bi-flag fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Masukin Bendera</h5>
-                            <small class="badge bg-white text-danger badge-kategori mt-2">Kategori: Anak-Anak</small>
+                <div class="bg-slate-900/90 border border-slate-800/90 hover:border-red-500/50 rounded-3xl p-6 sm:p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between group shadow-xl hover:shadow-red-950/20">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid {{ $icon }}"></i>
+                            </div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
+                                {{ $kat }}
+                            </span>
                         </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-danger me-2"></i> Lapangan Utama RT 012</li>
-                                <li><i class="bi bi-person-badge text-danger me-2"></i> Khusus Anak-Anak</li>
-                            </ul>
-                            <a href="/daftar-lomba/1" class="btn btn-danger w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
+
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">
+                            {{ $nama }}
+                        </h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            {{ $desc }}
+                        </p>
+
+                        <div class="space-y-2 mb-6 border-t border-slate-800/80 pt-4 text-xs text-slate-300">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-location-dot text-red-400 w-4"></i>
+                                <span>{{ $lokasi }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-users text-emerald-400 w-4"></i>
+                                <span>{{ $peserta }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 2. FUTSAL PAKE SARUNG -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-dark text-white p-4 text-center">
-                            <i class="bi bi-dribbble fs-1 text-warning"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Futsal Pake Sarung</h5>
-                            <small class="badge bg-warning text-dark badge-kategori mt-2">Kategori: Bapak / Umum</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-dark me-2"></i> Lapangan Bulutangkis</li>
-                                <li><i class="bi bi-people text-dark me-2"></i> Tim / Perorangan</li>
-                            </ul>
-                            <a href="/daftar-lomba/2" class="btn btn-dark w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
+                    <!-- Tombol Form Pendaftaran -->
+                    <a href="/daftar/{{ $id }}" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs transition-all text-center flex items-center justify-center gap-2 shadow-lg shadow-red-600/20 active:scale-[0.98]">
+                        <span>Daftar Sekarang</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
                 </div>
+            @endforeach
 
-                <!-- 3. SENDOK KELERENG (ANAK-ANAK) -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-warning text-dark p-4 text-center">
-                            <i class="bi bi-circle-fill fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Sendok Kelereng</h5>
-                            <small class="badge bg-dark text-white badge-kategori mt-2">Kategori: Anak-Anak</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-warning me-2"></i> Area Balai Warga</li>
-                                <li><i class="bi bi-person-badge text-warning me-2"></i> Khusus Anak-Anak</li>
-                            </ul>
-                            <a href="/daftar-lomba/3" class="btn btn-warning text-dark w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. TALI PING-PONG -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-danger text-white p-4 text-center">
-                            <i class="bi bi-trophy fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Tali Ping-Pong</h5>
-                            <small class="badge bg-white text-danger badge-kategori mt-2">Kategori: Umum / Remaja</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-danger me-2"></i> Lapangan Utama RT 012</li>
-                                <li><i class="bi bi-person-check text-danger me-2"></i> Terbuka untuk Umum</li>
-                            </ul>
-                            <a href="/daftar-lomba/4" class="btn btn-danger w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. MEWARNAI (ANAK-ANAK) -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-primary text-white p-4 text-center">
-                            <i class="bi bi-palette fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Mewarnai</h5>
-                            <small class="badge bg-white text-primary badge-kategori mt-2">Kategori: Anak PAUD / TK / SD</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-primary me-2"></i> Indoor Balai RT 012</li>
-                                <li><i class="bi bi-pencil-fill text-primary me-2"></i> Bawa Alat Mewarnai Sendiri</li>
-                            </ul>
-                            <a href="/daftar-lomba/5" class="btn btn-primary w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. JOGET KORAN -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-success text-white p-4 text-center">
-                            <i class="bi bi-music-note-beamed fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Joget Koran</h5>
-                            <small class="badge bg-white text-success badge-kategori mt-2">Kategori: Berpasangan / Umum</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-success me-2"></i> Panggung Utama RT 012</li>
-                                <li><i class="bi bi-people-fill text-success me-2"></i> Berpasangan (2 Orang)</li>
-                            </ul>
-                            <a href="/daftar-lomba/6" class="btn btn-success w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 7. MAKAN KERUPUK -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-danger text-white p-4 text-center">
-                            <i class="bi bi-emoji-smile fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Makan Kerupuk</h5>
-                            <small class="badge bg-white text-danger badge-kategori mt-2">Kategori: Anak-Anak / Umum</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-danger me-2"></i> Area Perlombaan RT 012</li>
-                                <li><i class="bi bi-person-check text-danger me-2"></i> Terbuka untuk Semua</li>
-                            </ul>
-                            <a href="/daftar-lomba/7" class="btn btn-danger w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 8. KARUNG HELM -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-dark text-white p-4 text-center">
-                            <i class="bi bi-shield-shaded fs-1 text-warning"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Karung Helm</h5>
-                            <small class="badge bg-warning text-dark badge-kategori mt-2">Kategori: Remaja / Dewasa</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-dark me-2"></i> Lapangan Utama RT 012</li>
-                                <li><i class="bi bi-person-fill text-dark me-2"></i> Wajib Helm (Disediakan)</li>
-                            </ul>
-                            <a href="/daftar-lomba/8" class="btn btn-dark w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 9. MASUKIN PAKU (ANAK-ANAK) -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-secondary text-white p-4 text-center">
-                            <i class="bi bi-bullseye fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Masukin Paku (Anak)</h5>
-                            <small class="badge bg-white text-dark badge-kategori mt-2">Kategori: Anak-Anak</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-secondary me-2"></i> Area Perlombaan RT 012</li>
-                                <li><i class="bi bi-person-badge text-secondary me-2"></i> Khusus Anak-Anak</li>
-                            </ul>
-                            <a href="/daftar-lomba/9" class="btn btn-secondary w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 10. MASUKIN PAKU (IBU-IBU) -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-info text-dark p-4 text-center">
-                            <i class="bi bi-flower1 fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Masukin Paku (Ibu)</h5>
-                            <small class="badge bg-dark text-white badge-kategori mt-2">Kategori: Khusus Ibu-Ibu</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-info me-2"></i> Area Perlombaan RT 012</li>
-                                <li><i class="bi bi-heart-fill text-info me-2"></i> Khusus Ibu-Ibu RT 012</li>
-                            </ul>
-                            <a href="/daftar-lomba/10" class="btn btn-info text-dark w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 11. TUSUK BALON -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-danger text-white p-4 text-center">
-                            <i class="bi bi-balloon fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Tusuk Balon</h5>
-                            <small class="badge bg-white text-danger badge-kategori mt-2">Kategori: Umum / Remaja</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-danger me-2"></i> Lapangan Utama RT 012</li>
-                                <li><i class="bi bi-person-check text-danger me-2"></i> Perorangan</li>
-                            </ul>
-                            <a href="/daftar-lomba/11" class="btn btn-danger w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 12. PANCING KERUPUK (IBU-IBU) -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-primary text-white p-4 text-center">
-                            <i class="bi bi-tsunami fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Pancing Kerupuk</h5>
-                            <small class="badge bg-white text-primary badge-kategori mt-2">Kategori: Khusus Ibu-Ibu</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-primary me-2"></i> Area Balai Warga</li>
-                                <li><i class="bi bi-heart-fill text-primary me-2"></i> Khusus Ibu-Ibu RT 012</li>
-                            </ul>
-                            <a href="/daftar-lomba/12" class="btn btn-primary w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 13. IKAN KIPAS (ANAK-ANAK) -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-warning text-dark p-4 text-center">
-                            <i class="bi bi-water fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Ikan Kipas</h5>
-                            <small class="badge bg-dark text-white badge-kategori mt-2">Kategori: Anak-Anak</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-warning me-2"></i> Area Perlombaan RT 012</li>
-                                <li><i class="bi bi-person-badge text-warning me-2"></i> Khusus Anak-Anak</li>
-                            </ul>
-                            <a href="/daftar-lomba/13" class="btn btn-warning text-dark w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 14. ESTAFET SPONS -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card-lomba h-100 overflow-hidden d-flex flex-column justify-content-between">
-                        <div class="bg-success text-white p-4 text-center">
-                            <i class="bi bi-moisture fs-1"></i>
-                            <h5 class="fw-bold mt-2 mb-0">Estafet Spons</h5>
-                            <small class="badge bg-white text-success badge-kategori mt-2">Kategori: Tim / Kelompok</small>
-                        </div>
-                        <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
-                            <ul class="list-unstyled small text-muted mb-4">
-                                <li class="mb-2"><i class="bi bi-geo-alt text-success me-2"></i> Lapangan Utama RT 012</li>
-                                <li><i class="bi bi-people-fill text-success me-2"></i> Berkelompok (3-5 Orang)</li>
-                            </ul>
-                            <a href="/daftar-lomba/14" class="btn btn-success w-100 fw-bold py-2 rounded-pill">Daftar Sekarang</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
-    </section>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-8 px-4 text-center z-10 mt-auto">
+        <p class="text-slate-500 text-xs">
+            Karang Taruna RT 012 &copy; {{ date('Y') }} &bull; Semangat Kemerdekaan & Kebersamaan
+        </p>
+    </footer>
+
 </body>
 </html>
