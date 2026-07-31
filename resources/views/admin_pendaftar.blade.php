@@ -38,19 +38,44 @@
                 </button>
             </div>
 
-            <!-- Menu Navigasi -->
+            <!-- Menu Navigasi Lengkap -->
             <nav class="p-4 space-y-1.5">
+                <!-- 1. Pendaftar Lomba (Aktif) -->
                 <a href="/admin/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-600/10 text-red-400 font-semibold border border-red-500/20 text-sm transition-all">
                     <i class="fa-solid fa-users w-5"></i>
                     <span>Pendaftar Lomba</span>
                 </a>
+
+                <!-- 2. Donasi & Data Anak -->
                 <a href="/admin/donasi" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 font-medium text-sm transition-all">
                     <i class="fa-solid fa-hand-holding-dollar w-5"></i>
                     <span>Donasi & Data Anak</span>
                 </a>
-                <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 font-medium text-sm transition-all">
+
+                <!-- 3. Spin Wheel / Doorprize -->
+                <a href="/doorprize" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 font-medium text-sm transition-all">
+                    <i class="fa-solid fa-dharmachakra w-5 text-amber-400"></i>
+                    <span>Spin Wheel (Doorprize)</span>
+                </a>
+
+                <!-- 4. Inventaris / Perlap -->
+                <a href="/inventaris" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 font-medium text-sm transition-all">
+                    <i class="fa-solid fa-boxes-stacked w-5 text-blue-400"></i>
+                    <span>Inventaris Perlap</span>
+                </a>
+
+                <!-- 5. Keuangan -->
+                <a href="/admin/keuangan" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 font-medium text-sm transition-all">
+                    <i class="fa-solid fa-wallet w-5 text-emerald-400"></i>
+                    <span>Laporan Keuangan</span>
+                </a>
+
+                <hr class="border-slate-800/80 my-2">
+
+                <!-- 6. Lihat Beranda Utama -->
+                <a href="/" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 font-medium text-sm transition-all">
                     <i class="fa-solid fa-globe w-5"></i>
-                    <span>Lihat Beranda Utama</span>
+                    <span>Lihat Web Utama</span>
                 </a>
             </nav>
         </div>
@@ -89,7 +114,7 @@
             <!-- Welcome Header & Quick Action -->
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 backdrop-blur-xl">
                 <div>
-                    <h1 class="text-xl sm:text-2xl font-bold text-white mb-1">Dashboard Panitia</h1>
+                    <h1 class="text-xl sm:text-2xl font-bold text-white mb-1">Dashboard Pendaftar Lomba</h1>
                     <p class="text-slate-400 text-xs sm:text-sm">Kelola informasi lomba dan pendaftaran warga RT 012.</p>
                 </div>
                 <a href="/" target="_blank" class="inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all">
@@ -131,7 +156,7 @@
                         <i class="fa-solid fa-list-check text-red-400 text-sm"></i>
                         <h3 class="font-bold text-white text-sm sm:text-base">Data Pendaftar Lomba</h3>
                     </div>
-                    <span class="text-xs text-slate-400">Geser ke samping jika kepotong &rarr;</span>
+                    <span class="text-xs text-slate-400">Geser ke samping &rarr;</span>
                 </div>
 
                 <!-- Wrapper Scroll Horizontal -->
