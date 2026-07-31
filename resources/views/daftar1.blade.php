@@ -58,127 +58,59 @@
             </p>
         </div>
 
-        <!-- Grid Kartu Lomba (Dinamis / Static Loop) -->
+        <!-- Grid Kartu Lomba (Perulangan Dinamis Database) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             
-            @if(isset($lombas) && count($lombas) > 0)
-                @foreach($lombas as $item)
-                    <div class="bg-slate-900/90 border border-slate-800/90 hover:border-red-500/50 rounded-3xl p-6 sm:p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between group shadow-xl hover:shadow-red-950/20">
-                        <div>
-                            <!-- Header Kartu -->
-                            <div class="flex items-center justify-between mb-5">
-                                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-red-600/20 to-rose-600/20 border border-red-500/30 flex items-center justify-center text-red-400 text-xl group-hover:scale-110 transition-transform">
-                                    <i class="fa-solid fa-trophy"></i>
-                                </div>
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
-                                    {{ $item->kategori ?? 'LOMBA RT 012' }}
-                                </span>
-                            </div>
-
-                            <!-- Judul & Deskripsi -->
-                            <h3 class="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">
-                                {{ $item->nama_lomba }}
-                            </h3>
-                            <p class="text-slate-400 text-xs leading-relaxed mb-6">
-                                {{ $item->deskripsi ?? 'Ayo daftarkan dirimu dan raih hadiah menarik di perlombaan Kemerdekaan RT 012!' }}
-                            </p>
-
-                            <!-- Detail Lokasi / Ketentuan -->
-                            <div class="space-y-2 mb-6 border-t border-slate-800/80 pt-4 text-xs text-slate-300">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-location-dot text-red-400 w-4"></i>
-                                    <span>{{ $item->lokasi ?? 'Lapangan RT 012' }}</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-users text-emerald-400 w-4"></i>
-                                    <span>{{ $item->peserta ?? 'Khusus Warga RT 012' }}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tombol Daftar -->
-                        <a href="/daftar-form/{{ $item->id ?? 1 }}" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs transition-all text-center flex items-center justify-center gap-2 shadow-lg shadow-red-600/20 active:scale-[0.98]">
-                            <span>Daftar Sekarang</span>
-                            <i class="fa-solid fa-arrow-right text-xs"></i>
-                        </a>
-                    </div>
-                @endforeach
-            @else
-                <!-- Template Default Jika Belum Ada Loop Backend (Hardcoded Keren) -->
-                
-                <!-- Lomba 1 -->
-                <div class="bg-slate-900/90 border border-slate-800/90 hover:border-red-500/50 rounded-3xl p-6 sm:p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between group shadow-xl">
+            @forelse($lomba ?? $lombas ?? [] as $item)
+                <div class="bg-slate-900/90 border border-slate-800/90 hover:border-red-500/50 rounded-3xl p-6 sm:p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between group shadow-xl hover:shadow-red-950/20">
                     <div>
+                        <!-- Header Kartu -->
                         <div class="flex items-center justify-between mb-5">
-                            <div class="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-flag"></i>
-                            </div>
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-red-400 bg-red-500/10 border border-red-500/20 px-3 py-1 rounded-full">
-                                KATEGORI: ANAK-ANAK
-                            </span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">Masukin Bendera</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed mb-6">Lomba adu kecepatan memasukkan bendera ke dalam botol untuk anak-anak.</p>
-                        
-                        <div class="space-y-2 mb-6 border-t border-slate-800/80 pt-4 text-xs text-slate-300">
-                            <div class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-red-400 w-4"></i> Lapangan Utama RT 012</div>
-                            <div class="flex items-center gap-2"><i class="fa-solid fa-child text-emerald-400 w-4"></i> Khusus Anak-Anak</div>
-                        </div>
-                    </div>
-                    <a href="/daftar-form/1" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs transition-all text-center flex items-center justify-center gap-2 shadow-lg shadow-red-600/20">
-                        <span>Daftar Sekarang</span> <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </a>
-                </div>
-
-                <!-- Lomba 2 -->
-                <div class="bg-slate-900/90 border border-slate-800/90 hover:border-amber-500/50 rounded-3xl p-6 sm:p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between group shadow-xl">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-futbol"></i>
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-red-600/20 to-rose-600/20 border border-red-500/30 flex items-center justify-center text-red-400 text-xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-trophy"></i>
                             </div>
                             <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
-                                KATEGORI: BAPAK / UMUM
+                                {{ $item->kategori ?? 'LOMBA RT 012' }}
                             </span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">Futsal Pake Sarung</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed mb-6">Pertandingan futsal ceria dengan menggunakan sarung antar bapak-bapak warga.</p>
-                        
-                        <div class="space-y-2 mb-6 border-t border-slate-800/80 pt-4 text-xs text-slate-300">
-                            <div class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-amber-400 w-4"></i> Lapangan Bulutangkis</div>
-                            <div class="flex items-center gap-2"><i class="fa-solid fa-user-group text-emerald-400 w-4"></i> Tim / Perorangan</div>
-                        </div>
-                    </div>
-                    <a href="/daftar-form/2" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs transition-all text-center flex items-center justify-center gap-2 shadow-lg shadow-red-600/20">
-                        <span>Daftar Sekarang</span> <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </a>
-                </div>
 
-                <!-- Lomba 3 -->
-                <div class="bg-slate-900/90 border border-slate-800/90 hover:border-emerald-500/50 rounded-3xl p-6 sm:p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between group shadow-xl">
-                    <div>
-                        <div class="flex items-center justify-between mb-5">
-                            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-xl group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-spoon"></i>
+                        <!-- Judul & Deskripsi -->
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">
+                            {{ $item->nama_lomba }}
+                        </h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6">
+                            {{ $item->deskripsi ?? 'Ayo daftarkan dirimu dan raih hadiah menarik di perlombaan Kemerdekaan RT 012!' }}
+                        </p>
+
+                        <!-- Detail Lokasi / Peserta -->
+                        <div class="space-y-2 mb-6 border-t border-slate-800/80 pt-4 text-xs text-slate-300">
+                            @if(isset($item->lokasi))
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-location-dot text-red-400 w-4"></i>
+                                <span>{{ $item->lokasi }}</span>
                             </div>
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
-                                KATEGORI: ANAK-ANAK
-                            </span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">Sendok Kelereng</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed mb-6">Uji keseimbangan membawa kelereng memakai sendok sampai garis finish.</p>
-                        
-                        <div class="space-y-2 mb-6 border-t border-slate-800/80 pt-4 text-xs text-slate-300">
-                            <div class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-emerald-400 w-4"></i> Area Balai Warga</div>
-                            <div class="flex items-center gap-2"><i class="fa-solid fa-child text-emerald-400 w-4"></i> Khusus Anak-Anak</div>
+                            @endif
+                            @if(isset($item->peserta))
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-users text-emerald-400 w-4"></i>
+                                <span>{{ $item->peserta }}</span>
+                            </div>
+                            @endif
                         </div>
                     </div>
-                    <a href="/daftar-form/3" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs transition-all text-center flex items-center justify-center gap-2 shadow-lg shadow-red-600/20">
-                        <span>Daftar Sekarang</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+
+                    <!-- Tombol Form Pendaftaran -->
+                    <a href="/daftar/{{ $item->id }}" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs transition-all text-center flex items-center justify-center gap-2 shadow-lg shadow-red-600/20 active:scale-[0.98]">
+                        <span>Daftar Sekarang</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
                     </a>
                 </div>
-
-            @endif
+            @empty
+                <div class="col-span-full text-center py-12 bg-slate-900/50 border border-slate-800 rounded-3xl p-8">
+                    <i class="fa-solid fa-trophy text-4xl text-slate-600 mb-3 block"></i>
+                    <p class="text-slate-400 text-sm">Belum ada data lomba yang tersedia di database.</p>
+                </div>
+            @endforelse
 
         </div>
 
