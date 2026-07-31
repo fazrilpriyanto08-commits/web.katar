@@ -32,9 +32,9 @@ Route::get('/daftar/{id}', [PendaftaranController::class, 'formDaftar']);
 Route::get('/daftar-lomba/{id}', [PendaftaranController::class, 'formDaftar']);
 Route::post('/proses-daftar', [PendaftaranController::class, 'prosesDaftar']);
 
-// Route untuk Halaman Admin Panitia
-Route::get('/admin/pendaftar', [\App\Http\Controllers\PendaftaranController::class, 'adminIndex']);
-Route::delete('/admin/pendaftar/{id}', [\App\Http\Controllers\PendaftaranController::class, 'destroyPendaftar']);
+// Route untuk Dashboard Admin Pendaftar Panitia
+Route::get('/admin/pendaftar', [PendaftaranController::class, 'adminIndex']);
+Route::delete('/admin/pendaftar/{id}', [PendaftaranController::class, 'destroyPendaftar']);
 
 // Route CRUD Pengumuman
 Route::post('/admin/pengumuman', [PengumumanController::class, 'store']);
@@ -45,12 +45,13 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
+// DASHBOARD UTAMA ADMIN
 Route::middleware(['web'])->group(function () {
     Route::get('/admin/dashboard', function () {
         if (!session('is_admin')) {
             return redirect('/login')->withErrors(['login_error' => 'BUKAN PANITIA YAA']);
         }
-        return app(LombaController::class)->adminIndex();
+        return app(PendaftaranController::class)->adminIndex();
     });
 });
 

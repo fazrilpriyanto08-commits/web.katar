@@ -10,22 +10,18 @@ use Google\Service\Sheets as GoogleSheets;
 
 class PendaftaranController extends Controller
 {
-    // Menampilkan Form Modal / View
     public function formDaftar($id)
     {
         $lomba = Lomba::find($id);
 
-        return view('daftar', [
+        return view('pendaftaran_form', [
             'id' => $id,
-            'lomba' => $lomba,
-            'showForm' => true
+            'lomba' => $lomba
         ]);
     }
 
-    // Memproses Simpan Pendaftaran
     public function prosesDaftar(Request $request)
     {
-        // Tangkap input nama & hp dari request (handling kalau ada beda nama atribut)
         $namaWarga = $request->input('nama') ?? $request->input('nama_pendaftar') ?? $request->input('nama_warga');
         $noHp      = $request->input('no_hp') ?? $request->input('nomor_hp');
         $lombaId   = $request->input('lomba_id');
@@ -86,20 +82,18 @@ class PendaftaranController extends Controller
             $service->spreadsheets_values->append($spreadsheetId, 'Pendaftar', $body, $params);
 
         } catch (\Exception $e) {
-            // Silently log or continue jika Google Sheets sedang tidak merespon
+            // Silently handle error if sheets fail
         }
 
         return redirect('/daftar-lomba')->with('success', 'Pendaftaran berhasil dikirim!');
     }
 
-    // Menampilkan Dashboard Admin Pendaftar Lomba
     public function adminIndex()
     {
         $pendaftar = Pendaftar::orderBy('created_at', 'desc')->get();
         return view('admin_pendaftar', compact('pendaftar'));
     }
 
-    // Hapus Data Pendaftar
     public function destroyPendaftar($id)
     {
         $pendaftar = Pendaftar::findOrFail($id);
