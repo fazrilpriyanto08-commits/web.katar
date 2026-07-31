@@ -38,7 +38,6 @@
                 <a href="/admin/keuangan" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/50 text-xs font-bold transition-all">
                     <i class="fa-solid fa-wallet text-sm"></i> <span>Laporan Keuangan</span>
                 </a>
-                <!-- Active Link Kelola User -->
                 <a href="/admin/users" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-red-600/10 text-red-400 border border-red-500/20 text-xs font-bold transition-all">
                     <i class="fa-solid fa-user-gear text-sm"></i> <span>Kelola User Panitia</span>
                 </a>
@@ -57,8 +56,14 @@
     <main class="flex-1 p-6 lg:p-10">
         <div class="mb-8">
             <h1 class="text-2xl sm:text-3xl font-black text-white">Kelola User Panitia</h1>
-            <p class="text-slate-400 text-xs mt-1">Atur siapa saja panitia Karang Taruna yang memiliki akses ke dashboard ini.</p>
+            <p class="text-slate-400 text-xs mt-1">Atur data akun panitia berdasarkan divisi masing-masing.</p>
         </div>
+
+        @if(session('success'))
+            <div class="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold">
+                {{ session('success') }}
+            </div>
+        @endif
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- FORM TAMBAH USER -->
@@ -70,12 +75,12 @@
                 <form action="/admin/users" method="POST" class="space-y-4">
                     @csrf
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Panitia</label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Lengkap</label>
                         <input type="text" name="name" required placeholder="Contoh: Budi Santoso" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-500">
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Email / Username</label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Email / Username Login</label>
                         <input type="email" name="email" required placeholder="panitia@katar012.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-500">
                     </div>
 
@@ -85,10 +90,16 @@
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Peran / Role</label>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pilih Divisi / Jabatan</label>
                         <select name="role" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-500">
-                            <option value="panitia">Panitia Lapangan</option>
-                            <option value="admin">Super Admin / Utama</option>
+                            <option value="Ketua">Ketua</option>
+                            <option value="Wakil">Wakil Ketua</option>
+                            <option value="Bendahara">Bendahara</option>
+                            <option value="Sekretaris">Sekretaris</option>
+                            <option value="PDD">PDD (Publikasi & Dokumentasi)</option>
+                            <option value="Konsum">Konsumsi</option>
+                            <option value="Perlap">Perlap (Peralatan & Perlengkapan)</option>
+                            <option value="Acara">Acara / Lomba</option>
                         </select>
                     </div>
 
@@ -101,7 +112,7 @@
             <!-- TABEL DAFTAR USER -->
             <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6">
                 <h3 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-users-gear text-red-400"></i> Daftar Akun Panitia Active
+                    <i class="fa-solid fa-users-gear text-red-400"></i> Daftar Akun Panitia Aktif
                 </h3>
 
                 <div class="overflow-x-auto">
@@ -110,8 +121,8 @@
                             <tr>
                                 <th class="p-3">#</th>
                                 <th class="p-3">Nama Panitia</th>
-                                <th class="p-3">Email</th>
-                                <th class="p-3">Role</th>
+                                <th class="p-3">Email / Login</th>
+                                <th class="p-3">Divisi / Jabatan</th>
                                 <th class="p-3 text-right">Aksi</th>
                             </tr>
                         </thead>
@@ -120,9 +131,9 @@
                                 <tr class="hover:bg-slate-800/30 transition-colors">
                                     <td class="p-3 text-slate-500">{{ $index + 1 }}</td>
                                     <td class="p-3 font-bold text-white">{{ $u->name }}</td>
-                                    <td class="p-3 text-slate-400">{{ $u->email }}</td>
+                                    <td class="p-3 text-slate-400 font-mono">{{ $u->email }}</td>
                                     <td class="p-3">
-                                        <span class="px-2 py-0.5 rounded-full font-bold text-[10px] uppercase {{ $u->role == 'admin' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-400' : 'bg-slate-800 border border-slate-700 text-slate-300' }}">
+                                        <span class="px-2.5 py-1 rounded-full font-bold text-[10px] uppercase bg-red-500/10 border border-red-500/20 text-red-400">
                                             {{ $u->role ?? 'Panitia' }}
                                         </span>
                                     </td>
@@ -130,15 +141,15 @@
                                         <form action="/admin/users/{{ $u->id }}" method="POST" onsubmit="return confirm('Hapus akun panitia ini?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-rose-400 hover:text-rose-300 p-1">
-                                                <i class="fa-solid fa-trash"></i>
+                                            <button type="submit" class="text-rose-400 hover:text-rose-300 p-1 font-bold">
+                                                <i class="fa-solid fa-trash"></i> Hapus
                                             </button>
                                         </form>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center py-6 text-slate-500">Belum ada akun panitia.</td>
+                                    <td colspan="5" class="text-center py-6 text-slate-500">Belum ada akun panitia yang terdaftar.</td>
                                 </tr>
                             @endforelse
                         </tbody>
