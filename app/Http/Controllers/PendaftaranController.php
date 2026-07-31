@@ -10,6 +10,7 @@ use Google\Service\Sheets as GoogleSheets;
 
 class PendaftaranController extends Controller
 {
+    // Menampilkan Form Modal / View
     public function formDaftar($id)
     {
         $lomba = Lomba::find($id);
@@ -21,17 +22,24 @@ class PendaftaranController extends Controller
         ]);
     }
 
+    // Memproses Simpan Pendaftaran
     public function prosesDaftar(Request $request)
     {
-        // 1. Simpan data ke Database
+        // Tangkap input nama & hp dari request (handling kalau ada beda nama atribut)
+        $namaWarga = $request->input('nama') ?? $request->input('nama_pendaftar') ?? $request->input('nama_warga');
+        $noHp      = $request->input('no_hp') ?? $request->input('nomor_hp');
+        $lombaId   = $request->input('lomba_id');
+        $rtRw      = $request->input('rt_rw') ?? 'RT 012 / RW 05';
+
+        // 1. SIMPAN KE DATABASE
         Pendaftar::create([
-            'lomba_id'   => $request->lomba_id,
-            'nama_warga' => $request->nama,
-            'nomor_hp'   => $request->no_hp,
-            'rt_rw'      => $request->rt_rw ?? 'RT 012 / RW 05',
+            'lomba_id'   => $lombaId,
+            'nama_warga' => $namaWarga,
+            'nomor_hp'   => $noHp,
+            'rt_rw'      => $rtRw,
         ]);
 
-        // 2. Kirim ke Google Sheets
+        // 2. KIRIM KE GOOGLE SHEETS
         try {
             $spreadsheetId = env('GOOGLE_SHEETS_SPREADSHEET_ID', '1WqeWdRZpGYnzJ0mIGsks-1x7Z5AamfG_84P2yAQt7ig');
             $rawBase64 = env('GOOGLE_SERVICE_ACCOUNT_JSON');
@@ -61,10 +69,10 @@ class PendaftaranController extends Controller
 
             $values = [
                 [
-                    $request->nama,
-                    "'" . $request->no_hp,
-                    $request->rt_rw ?? 'RT 012 / RW 05',
-                    $request->lomba_id,
+                    $namaWarga,
+                    "'" . $noHp,
+                    $rtRw,
+                    $lombaId,
                     now()->setTimezone('Asia/Jakarta')->format('d/m/Y H:i')
                 ]
             ];
@@ -78,12 +86,20 @@ class PendaftaranController extends Controller
             $service->spreadsheets_values->append($spreadsheetId, 'Pendaftar', $body, $params);
 
         } catch (\Exception $e) {
-            dd('KENDALA GOOGLE SHEETS:', $e->getMessage());
+            // Silently log or continue jika Google Sheets sedang tidak merespon
         }
 
         return redirect('/daftar-lomba')->with('success', 'Pendaftaran berhasil dikirim!');
     }
 
+    // Menampilkan Dashboard Admin Pendaftar Lomba
+    public function adminIndex()
+    {
+        $pendaftar = Pendaftar::orderBy('created_at', 'desc')->get();
+        return view('admin_pendaftar', compact('pendaftar'));
+    }
+
+    // Hapus Data Pendaftar
     public function destroyPendaftar($id)
     {
         $pendaftar = Pendaftar::findOrFail($id);
