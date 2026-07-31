@@ -1,261 +1,274 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karang Taruna RT 012 - Portal Resmi</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
+    <title>Karang Taruna RT 012 - Portal Resmi Kegiatan Warga</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --katar-red: #dc2626;
-            --katar-dark-red: #991b1b;
-            --katar-yellow: #f59e0b;
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
-        }
-
-        .navbar-katar {
-            background-color: #0f172a;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .navbar-brand {
-            font-weight: 800;
-        }
-
-        .nav-link {
-            font-weight: 500;
-            color: #cbd5e1 !important;
-            transition: all 0.2s;
-            padding: 0.5rem 1rem !important;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: #ffffff !important;
-        }
-
-        .hero-banner {
-            background: linear-gradient(135deg, var(--katar-red) 0%, var(--katar-dark-red) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .countdown-item {
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(8px);
-            border-radius: 12px;
-            padding: 0.75rem 1.25rem;
-            min-width: 75px;
-        }
-
-        .btn-warning-custom {
-            background-color: var(--katar-yellow);
-            color: #0f172a;
-            font-weight: 700;
-            border: none;
-            transition: all 0.2s ease;
-        }
-
-        .btn-warning-custom:hover {
-            background-color: #d97706;
-            color: #ffffff;
-            transform: translateY(-2px);
-        }
-
-        .card-custom {
-            border: none;
-            border-radius: 16px;
-            background: #ffffff;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        @media (max-width: 768px) {
-            .display-5 {
-                font-size: 2.1rem;
-            }
-            .countdown-item {
-                padding: 0.5rem 0.75rem;
-                min-width: 60px;
-            }
-            .countdown-num {
-                font-size: 1.5rem !important;
-            }
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden selection:bg-red-500 selection:text-white">
 
-    <!-- ========================================== -->
-    <!-- 1. NAVBAR RESPONSIF -->
-    <!-- ========================================== -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-katar sticky-top py-3">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="/">
-                <i class="bi bi-flag-fill text-danger fs-3 me-2"></i>
-                <span>KATAR <span class="text-warning">RT 012</span></span>
-            </a>
+    <!-- Ambient Glow Effects Background -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-red-600/15 via-rose-600/5 to-transparent blur-3xl pointer-events-none z-0"></div>
+    <div class="fixed top-1/3 -left-32 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none z-0"></div>
+    <div class="fixed bottom-10 right-0 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none z-0"></div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <!-- Logo Brand -->
+            <a href="/" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center text-white shadow-lg shadow-red-600/30 group-hover:scale-105 transition-all">
+                    <i class="fa-solid fa-flag text-base"></i>
+                </div>
+                <div>
+                    <span class="font-black text-xl tracking-tight text-white flex items-center gap-1.5">
+                        KATAR <span class="text-red-500">RT 012</span>
+                    </span>
+                    <p class="text-[10px] text-slate-400 font-medium tracking-widest uppercase">Portal Warga Resmi</p>
+                </div>
+            </a>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-lg-center gap-2 mt-3 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/"><i class="bi bi-house-door me-1"></i> Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/daftar-lomba"><i class="bi bi-trophy me-1"></i> Daftar Lomba</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/panitia"><i class="bi bi-people me-1"></i> Struktur Panitia</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/galeri"><i class="bi bi-images me-1"></i> Galeri Kegiatan</a>
-                    </li>
-                    <li class="nav-item ms-lg-2">
-                        <a href="/login" class="btn btn-outline-light btn-sm px-3 py-2 rounded-pill fw-bold w-100 w-lg-auto">
-                            <i class="bi bi-shield-lock me-1"></i> Portal Admin
-                        </a>
-                    </li>
-                </ul>
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-1 bg-slate-900/80 p-1.5 border border-slate-800/80 rounded-2xl backdrop-blur-md">
+                <a href="/" class="px-4 py-2 rounded-xl text-xs font-semibold bg-red-600 text-white shadow-md shadow-red-600/20 transition-all">
+                    <i class="fa-solid fa-house mr-1.5"></i> Beranda
+                </a>
+                <a href="#lomba" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all">
+                    <i class="fa-solid fa-trophy mr-1.5 text-amber-400"></i> Daftar Lomba
+                </a>
+                <a href="/donasi" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all">
+                    <i class="fa-solid fa-heart mr-1.5 text-rose-400"></i> Donasi
+                </a>
+                <a href="/panitia" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all">
+                    <i class="fa-solid fa-users mr-1.5 text-blue-400"></i> Struktur Panitia
+                </a>
+                <a href="/galeri" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all">
+                    <i class="fa-solid fa-images mr-1.5 text-emerald-400"></i> Galeri
+                </a>
+            </nav>
+
+            <!-- Portal Admin & Mobile Menu Button -->
+            <div class="flex items-center gap-3">
+                <a href="/admin/dashboard" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-200 text-xs font-bold transition-all hover:border-red-500/50">
+                    <i class="fa-solid fa-shield-halved text-red-400"></i>
+                    <span>Portal Admin</span>
+                </a>
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
             </div>
         </div>
-    </nav>
 
-    <!-- ========================================== -->
-    <!-- 2. HERO BANNER + COUNTDOWN TIMER -->
-    <!-- ========================================== -->
-    <section class="hero-banner text-white py-5">
-        <div class="container py-3">
-            <div class="row align-items-center g-4">
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-slate-900/95 border-b border-slate-800 px-4 py-4 space-y-2 backdrop-blur-2xl">
+            <a href="/" class="block px-4 py-3 rounded-xl text-sm font-semibold bg-red-600 text-white">
+                <i class="fa-solid fa-house mr-2"></i> Beranda
+            </a>
+            <a href="#lomba" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800">
+                <i class="fa-solid fa-trophy mr-2 text-amber-400"></i> Daftar Lomba
+            </a>
+            <a href="/donasi" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800">
+                <i class="fa-solid fa-heart mr-2 text-rose-400"></i> Donasi Acara
+            </a>
+            <a href="/panitia" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800">
+                <i class="fa-solid fa-users mr-2 text-blue-400"></i> Struktur Panitia
+            </a>
+            <a href="/galeri" class="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800">
+                <i class="fa-solid fa-images mr-2 text-emerald-400"></i> Galeri Kegiatan
+            </a>
+            <a href="/admin/dashboard" class="block px-4 py-3 rounded-xl text-sm font-semibold bg-slate-800 text-red-400 border border-slate-700">
+                <i class="fa-solid fa-shield-halved mr-2"></i> Portal Admin
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION MODERN (TANPA FOTO) -->
+    <main class="flex-1 z-10">
+        <section class="relative pt-12 pb-20 lg:pt-20 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
-                <!-- KIRI: TEKS UTAMA & COUNTDOWN -->
-                <div class="col-lg-7 text-center text-lg-start">
-                    <div class="d-inline-flex align-items-center bg-white bg-opacity-10 border border-white border-opacity-25 px-3 py-1 rounded-pill mb-3">
-                        <span class="spinner-grow spinner-grow-sm text-warning me-2"></span>
-                        <span class="small fw-bold text-uppercase text-warning">HUT RI KE-81 • SEMARAK RT 012</span>
+                <!-- Sisi Kiri: Informasi Utama & Hero Text -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    
+                    <!-- Tag Banner -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                        Semarak HUT RI Ke-81 &bull; RT 012
                     </div>
 
-                    <h1 class="display-5 fw-black text-white text-uppercase mb-3" style="font-weight: 900; line-height: 1.2;">
-                        Menyambut Hari <br><span class="text-warning">Kemerdekaan RI</span>
+                    <!-- Headline Utama -->
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+                        Sambut Kemerdekaan <br class="hidden sm:inline">
+                        Dengan <span class="bg-gradient-to-r from-red-500 via-rose-500 to-amber-400 bg-clip-text text-transparent">Kebersamaan!</span>
                     </h1>
 
-                    <p class="lead text-white-50 mb-4 pe-lg-4" style="font-size: 1.05rem;">
-                        Portal resmi informasi kegiatan, perlombaan warga, dan pendaftaran online Karang Taruna RT 012. Mari meriahkan hari kemerdekaan dengan kebersamaan!
+                    <!-- Deskripsi -->
+                    <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Portal resmi pendaftaran lomba, donasi partisipasi, dan informasi seluruh rangkaian kegiatan Karang Taruna RT 012. Mari semarakkan Hari Kemerdekaan Republik Indonesia!
                     </p>
 
-                    <!-- COUNTDOWN BOX -->
-                    <div class="mb-4">
-                        <small class="text-uppercase fw-bold text-white-50 d-block mb-2">Hitung Mundur Menuju 17 Agustus:</small>
-                        <div class="d-flex justify-content-center justify-content-lg-start gap-2 text-center">
-                            <div class="countdown-item">
-                                <span class="h2 fw-bold text-warning mb-0 d-block countdown-num" id="cd-days">00</span>
-                                <small class="text-white-50 text-uppercase" style="font-size: 0.65rem;">Hari</small>
-                            </div>
-                            <div class="countdown-item">
-                                <span class="h2 fw-bold text-white mb-0 d-block countdown-num" id="cd-hours">00</span>
-                                <small class="text-white-50 text-uppercase" style="font-size: 0.65rem;">Jam</small>
-                            </div>
-                            <div class="countdown-item">
-                                <span class="h2 fw-bold text-white mb-0 d-block countdown-num" id="cd-minutes">00</span>
-                                <small class="text-white-50 text-uppercase" style="font-size: 0.65rem;">Menit</small>
-                            </div>
-                            <div class="countdown-item">
-                                <span class="h2 fw-bold text-warning mb-0 d-block countdown-num" id="cd-seconds">00</span>
-                                <small class="text-white-50 text-uppercase" style="font-size: 0.65rem;">Detik</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TOMBOL AJAKAN -->
-                    <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
-                        <a href="/daftar-lomba" class="btn btn-warning-custom btn-lg px-4 py-3 rounded-pill">
-                            🔥 Lihat & Ikut Lomba
+                    <!-- Tombol Aksi Cepat (CTA) -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#lomba" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-sm shadow-xl shadow-red-600/30 hover:shadow-red-600/50 transition-all hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-fire text-amber-300"></i>
+                            <span>Daftar Lomba Sekarang</span>
                         </a>
-                        <a href="#pengumuman" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
-                            📢 Lihat Pengumuman
+                        <a href="/donasi" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 hover:border-slate-600 font-bold text-sm transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-hand-holding-heart text-rose-400"></i>
+                            <span>Partisipasi Donasi</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- KANAN: FOTO PANITIA -->
-                <div class="col-lg-5 text-center">
-                    <div class="card-custom p-2 bg-white text-dark shadow-lg">
-                        <img src="{{ asset('katar11.jpg') }}" alt="Panitia Karang Taruna" class="img-fluid rounded-3" style="max-height: 350px; width: 100%; object-fit: cover;">
-                        <div class="p-3 text-center">
-                            <h6 class="fw-bold mb-1 text-dark"><i class="bi bi-people-fill text-danger me-1"></i> Panitia Karang Taruna RT 012</h6>
-                            <small class="text-muted">Siap Mengabdi untuk Kemajuan Lingkungan</small>
-                        </div>
-                    </div>
-                </div>
+                <!-- Sisi Kanan: Live Countdown Timer Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-slate-900/90 border border-slate-800/90 backdrop-blur-2xl p-6 sm:p-8 rounded-3xl shadow-2xl shadow-red-950/20 relative overflow-hidden group">
+                        
+                        <!-- Top Accent Line -->
+                        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-red-500 via-rose-500 to-amber-500"></div>
 
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- 3. SEKSI PENGUMUMAN & INFO TERKINI -->
-    <!-- ========================================== -->
-    <section id="pengumuman" class="py-5">
-        <div class="container py-2">
-            <div class="d-flex justify-content-between align-items-end mb-4">
-                <div>
-                    <h3 class="fw-bold m-0"><i class="bi bi-megaphone-fill text-danger me-2"></i>Pengumuman & Info Terkini</h3>
-                    <p class="text-muted m-0 small">Informasi penting seputar kegiatan warga dan panitia</p>
-                </div>
-            </div>
-
-            <div class="row g-4">
-                @forelse($pengumumans ?? [] as $info)
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card-custom h-100 p-4 border-top border-4 border-danger">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill fw-bold" style="font-size:0.75rem">
-                                    {{ $info->kategori ?? 'Informasi' }}
-                                </span>
-                                <small class="text-muted">{{ $info->created_at ? $info->created_at->diffForHumans() : 'Baru saja' }}</small>
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-stopwatch text-red-500"></i>
+                                    Hitung Mundur Acara
+                                </h3>
+                                <p class="text-xs text-slate-400 mt-0.5">Puncak 17 Agustus 2026</p>
                             </div>
-                            <h5 class="fw-bold mb-2">{{ $info->judul }}</h5>
-                            <p class="text-muted small mb-0">{{ $info->isi }}</p>
+                            <span class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            </span>
                         </div>
-                    </div>
-                @empty
-                    <div class="col-12">
-                        <div class="card-custom p-5 text-center text-muted">
-                            <i class="bi bi-inbox fs-1 d-block mb-2 text-secondary"></i>
-                            <p class="mb-0">Belum ada pengumuman terbaru dari panitia.</p>
+
+                        <!-- Grid angka timer -->
+                        <div class="grid grid-cols-4 gap-2.5 sm:gap-3 text-center my-4">
+                            <div class="bg-slate-950/90 border border-slate-800 p-3 sm:p-4 rounded-2xl">
+                                <span id="days" class="block text-2xl sm:text-3xl font-black text-red-500 font-mono">00</span>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Hari</span>
+                            </div>
+                            <div class="bg-slate-950/90 border border-slate-800 p-3 sm:p-4 rounded-2xl">
+                                <span id="hours" class="block text-2xl sm:text-3xl font-black text-white font-mono">00</span>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Jam</span>
+                            </div>
+                            <div class="bg-slate-950/90 border border-slate-800 p-3 sm:p-4 rounded-2xl">
+                                <span id="minutes" class="block text-2xl sm:text-3xl font-black text-white font-mono">00</span>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Menit</span>
+                            </div>
+                            <div class="bg-slate-950/90 border border-slate-800 p-3 sm:p-4 rounded-2xl">
+                                <span id="seconds" class="block text-2xl sm:text-3xl font-black text-amber-400 font-mono">00</span>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Detik</span>
+                            </div>
                         </div>
+
+                        <!-- Card Info Tambahan -->
+                        <div class="mt-6 p-4 rounded-2xl bg-red-500/5 border border-red-500/10 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 text-lg shrink-0">
+                                <i class="fa-solid fa-bullhorn"></i>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Pendaftaran lomba dibuka untuk seluruh warga RT 012 & sekitarnya.
+                            </p>
+                        </div>
+
                     </div>
-                @endforelse
+                </div>
+
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- SECTION DAFTAR LOMBA -->
+        <section id="lomba" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-900">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-red-400 bg-red-500/10 px-3 py-1 rounded-full border border-red-500/20">
+                    Kategori Perlombaan
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-3">Pilih & Ikuti Lomba</h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-2">Klik tombol daftar pada kategori lomba yang ingin kamu ikuti!</p>
+            </div>
+
+            <!-- Grid Kartu Lomba -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Example Card Lomba 1 -->
+                <div class="bg-slate-900/80 border border-slate-800 hover:border-red-500/50 rounded-3xl p-6 transition-all hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Lomba Mobile Legends</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-4">Turnamen e-sports khusus remaja & pemuda RT 012. Tim terdiri dari 5 orang.</p>
+                    </div>
+                    <a href="/daftar/1" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-red-600 text-slate-200 hover:text-white font-semibold text-xs transition-all text-center flex items-center justify-center gap-2">
+                        <span>Daftar Lomba Ini</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Example Card Lomba 2 -->
+                <div class="bg-slate-900/80 border border-slate-800 hover:border-red-500/50 rounded-3xl p-6 transition-all hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-child-reaching"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Lomba Anak-Anak</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-4">Makan kerupuk, balap karung helm, dan kelereng sendok untuk usia 5-12 tahun.</p>
+                    </div>
+                    <a href="/daftar/2" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-red-600 text-slate-200 hover:text-white font-semibold text-xs transition-all text-center flex items-center justify-center gap-2">
+                        <span>Daftar Lomba Ini</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Example Card Lomba 3 -->
+                <div class="bg-slate-900/80 border border-slate-800 hover:border-red-500/50 rounded-3xl p-6 transition-all hover:-translate-y-1 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 text-xl mb-4 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-volleyball"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">Lomba Ibu-Ibu & Bapak</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-4">Voli ria sarung, joget balon, dan memasak antar RT untuk bapak & ibu warga.</p>
+                    </div>
+                    <a href="/daftar/3" class="w-full py-3 rounded-xl bg-slate-800 hover:bg-red-600 text-slate-200 hover:text-white font-semibold text-xs transition-all text-center flex items-center justify-center gap-2">
+                        <span>Daftar Lomba Ini</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
 
     <!-- FOOTER -->
-    <footer class="bg-dark text-white py-4 border-top border-secondary">
-        <div class="container text-center">
-            <p class="mb-1 fw-bold">Karang Taruna RT 012 / RW 05</p>
-            <small class="text-muted">Semarak Hari Kemerdekaan Republik Indonesia 2026</small>
+    <footer class="bg-slate-950 border-t border-slate-900 py-8 px-4 text-center z-10">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2 text-slate-400 text-xs">
+                <i class="fa-solid fa-flag text-red-500"></i>
+                <span>Karang Taruna RT 012 &copy; {{ date('Y') }}</span>
+            </div>
+            <p class="text-slate-500 text-xs">Semangat Kemerdekaan & Kebersamaan Warga RT 012 / RW 05</p>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- COUNTDOWN TIMER SCRIPT -->
+    <!-- SCRIPT TIMER COUNTDOWN & MOBILE NAV -->
     <script>
-        const targetDate = new Date("August 17, 2026 08:00:00").getTime();
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Live Countdown 17 Agustus 2026
+        const targetDate = new Date('August 17, 2026 00:00:00').getTime();
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -267,10 +280,10 @@
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-                document.getElementById("cd-days").innerText = days < 10 ? '0' + days : days;
-                document.getElementById("cd-hours").innerText = hours < 10 ? '0' + hours : hours;
-                document.getElementById("cd-minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
-                document.getElementById("cd-seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+                document.getElementById('days').innerText = String(days).padStart(2, '0');
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
             }
         }
 
