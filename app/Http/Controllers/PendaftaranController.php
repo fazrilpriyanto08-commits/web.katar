@@ -12,13 +12,12 @@ class PendaftaranController extends Controller
 {
     public function formDaftar($id)
     {
-        // Cari data lomba dari DB jika ada, jika tidak buat fallback data sederhana
         $lomba = Lomba::find($id);
 
-        // Arahkan ke view form pendaftaran warga (pendaftaran_form)
-        return view('pendaftaran_form', [
+        return view('daftar', [
             'id' => $id,
-            'lomba' => $lomba
+            'lomba' => $lomba,
+            'showForm' => true
         ]);
     }
 
@@ -79,7 +78,6 @@ class PendaftaranController extends Controller
             $service->spreadsheets_values->append($spreadsheetId, 'Pendaftar', $body, $params);
 
         } catch (\Exception $e) {
-            // JIKA GAGAL, TAMPILKAN DENGAN JELAS DI LAYAR BROWSER!
             dd('KENDALA GOOGLE SHEETS:', $e->getMessage());
         }
 
