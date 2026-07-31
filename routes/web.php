@@ -84,4 +84,5 @@ Route::delete('/admin/keuangan/{id}', [KeuanganController::class, 'destroy']);
 // Route Management User Panitia
 Route::get('/admin/users', [UserController::class, 'index']);
 Route::post('/admin/users', [UserController::class, 'store']);
+Route::put('/admin/users/{id}', [UserController::class, 'update']);
 Route::delete('/admin/users/{id}', [UserController::class, 'destroy']);

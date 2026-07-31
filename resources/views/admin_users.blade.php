@@ -56,7 +56,7 @@
     <main class="flex-1 p-6 lg:p-10">
         <div class="mb-8">
             <h1 class="text-2xl sm:text-3xl font-black text-white">Kelola User Panitia</h1>
-            <p class="text-slate-400 text-xs mt-1">Atur data akun panitia berdasarkan divisi masing-masing.</p>
+            <p class="text-slate-400 text-xs mt-1">Atur data akun panitia, divisi, dan pembaruan password.</p>
         </div>
 
         @if(session('success'))
@@ -122,7 +122,7 @@
                                 <th class="p-3">#</th>
                                 <th class="p-3">Nama Panitia</th>
                                 <th class="p-3">Email / Login</th>
-                                <th class="p-3">Divisi / Jabatan</th>
+                                <th class="p-3">Divisi</th>
                                 <th class="p-3 text-right">Aksi</th>
                             </tr>
                         </thead>
@@ -137,12 +137,18 @@
                                             {{ $u->role ?? 'Panitia' }}
                                         </span>
                                     </td>
-                                    <td class="p-3 text-right">
-                                        <form action="/admin/users/{{ $u->id }}" method="POST" onsubmit="return confirm('Hapus akun panitia ini?');">
+                                    <td class="p-3 text-right space-x-2">
+                                        <!-- Tombol Ganti Password -->
+                                        <button onclick="openPasswordModal('{{ $u->id }}', '{{ $u->name }}')" class="text-amber-400 hover:text-amber-300 font-bold p-1" title="Ganti Password">
+                                            <i class="fa-solid fa-key"></i>
+                                        </button>
+
+                                        <!-- Tombol Hapus -->
+                                        <form action="/admin/users/{{ $u->id }}" method="POST" class="inline-block" onsubmit="return confirm('Hapus akun panitia ini?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-rose-400 hover:text-rose-300 p-1 font-bold">
-                                                <i class="fa-solid fa-trash"></i> Hapus
+                                            <button type="submit" class="text-rose-400 hover:text-rose-300 p-1 font-bold" title="Hapus Akun">
+                                                <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </form>
                                     </td>
@@ -158,6 +164,53 @@
             </div>
         </div>
     </main>
+
+    <!-- MODAL GANTI PASSWORD -->
+    <div id="passwordModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-md shadow-2xl">
+            <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-key text-amber-400"></i> Ganti Password: <span id="modalUserName" class="text-red-400"></span>
+            </h3>
+            <p class="text-slate-400 text-xs mb-4">Masukkan password baru untuk akun panitia ini.</p>
+
+            <form id="passwordForm" method="POST" class="space-y-4">
+                @csrf
+                @method('PUT')
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Password Baru</label>
+                    <input type="password" name="password" required placeholder="Minimal 4 karakter" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-500">
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closePasswordModal()" class="w-1/2 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-all">
+                        Batal
+                    </button>
+                    <button type="submit" class="w-1/2 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition-all shadow-lg shadow-red-600/20">
+                        Simpan Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openPasswordModal(userId, userName) {
+            const modal = document.getElementById('passwordModal');
+            const form = document.getElementById('passwordForm');
+            const nameSpan = document.getElementById('modalUserName');
+
+            form.action = '/admin/users/' + userId;
+            nameSpan.innerText = userName;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closePasswordModal() {
+            const modal = document.getElementById('passwordModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+    </script>
 
 </body>
 </html>

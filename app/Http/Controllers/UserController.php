@@ -33,6 +33,20 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Akun panitia berhasil ditambahkan!');
     }
 
+    // Fungsi Ganti Password
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'password' => 'required|min:4',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password akun ' . $user->name . ' berhasil diperbarui!');
+    }
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);
