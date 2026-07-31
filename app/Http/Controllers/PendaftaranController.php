@@ -12,8 +12,14 @@ class PendaftaranController extends Controller
 {
     public function formDaftar($id)
     {
-        $lomba = Lomba::findOrFail($id);
-        return view('daftar1', compact('lomba'));
+        // Cari data lomba dari DB jika ada, jika tidak buat fallback data sederhana
+        $lomba = Lomba::find($id);
+
+        // Arahkan ke view form pendaftaran warga (pendaftaran_form)
+        return view('pendaftaran_form', [
+            'id' => $id,
+            'lomba' => $lomba
+        ]);
     }
 
     public function prosesDaftar(Request $request)
@@ -77,7 +83,7 @@ class PendaftaranController extends Controller
             dd('KENDALA GOOGLE SHEETS:', $e->getMessage());
         }
 
-        return redirect('/')->with('success', 'Pendaftaran berhasil dikirim!');
+        return redirect('/daftar-lomba')->with('success', 'Pendaftaran berhasil dikirim!');
     }
 
     public function destroyPendaftar($id)
