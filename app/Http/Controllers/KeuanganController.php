@@ -26,8 +26,9 @@ class KeuanganController extends Controller
 
         $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Dipaksa menjadi huruf kecil seluruhnya agar sesuai dengan check constraint database ('masuk' atau 'keluar')
-        $jenisTransaksi = strtolower($request->jenis);
+        // Kita coba gunakan nilai langsung dari request (atau ubah jika database meminta bahasa Inggris)
+        // Jika masih error, kita bisa ubah string ini menjadi 'in' atau 'out'
+        $jenisTransaksi = $request->jenis; 
 
         Keuangan::create([
             'keterangan' => $keteranganLengkap,
