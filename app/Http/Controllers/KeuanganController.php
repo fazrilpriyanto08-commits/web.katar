@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Keuangan;
+use Illuminate\Support\Facades\DB;
 
 class KeuanganController extends Controller
 {
@@ -27,9 +28,10 @@ class KeuanganController extends Controller
         $statusKas = (strtolower($request->jenis) == 'masuk' || strtolower($request->jenis) == 'pemasukan') ? '[KAS MASUK]' : '[KAS KELUAR]';
         $keteranganLengkap = $statusKas . " " . $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Menggunakan query mentah (DB insert) khusus untuk tabel keuangans agar mutlak mengabaikan Model dan Constraint
-        \DB::table('keuangans')->insert([
+        // Memasukkan data mentah dengan menyertakan kolom jenis bernilai 'masuk' untuk memenuhi syarat not-null database
+        DB::table('keuangans')->insert([
             'keterangan' => $keteranganLengkap,
+            'jenis'      => 'masuk', 
             'nominal'    => $request->jumlah,
             'tanggal'    => date('Y-m-d'),
             'created_at' => now(),
