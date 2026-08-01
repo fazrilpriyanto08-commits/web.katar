@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Keuangan;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class KeuanganController extends Controller
 {
@@ -25,18 +25,23 @@ class KeuanganController extends Controller
         $namaPanitia   = session('user_name', 'Panitia');
         $divisiPanitia = session('user_role', 'Umum');
 
-        $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
+        $statusKas = (strtolower($request->jenis) == 'masuk' || strtolower($request->jenis) == 'pemasukan') ? '[KAS MASUK]' : '[KAS KELUAR]';
+        $keteranganLengkap = $statusKas . " " . $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        DB::table('keuangans')->insert([
-            'keterangan' => $keteranganLengkap,
-            'jenis'      => 'masuk', 
-            'nominal'    => $request->jumlah,
-            'tanggal'    => date('Y-m-d'),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // ---- URL WEB APP GOOGLE SHEETS ----
+        $webAppUrl = 'https://script.google.com/macros/s/AKfycbx1LDcVbkBaOalenE0FfP8DRw3aME6GId4G5mQhKes-B6yhcrpWweWI4z5cgcqJ8nVt/exec'; 
 
-        return redirect()->back()->with('success', 'Catatan keuangan berhasil disimpan!');
+        try {
+            Http::post($webAppUrl, [
+                'type'       => 'keuangan',
+                'tanggal'    => date('Y-m-d H:i:s'),
+                'keterangan' => $keteranganLengkap,
+                'nominal'    => $request->jumlah,
+            ]);
+        } catch (\Exception $e) {}
+        // -----------------------------------
+
+        return redirect()->back()->with('success', 'Catatan keuangan berhasil dikirim ke Google Sheets!');
     }
 
     public function destroy($id)
