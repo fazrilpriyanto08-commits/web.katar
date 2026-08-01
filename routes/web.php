@@ -90,3 +90,24 @@ Route::delete('/admin/users/{id}', [UserController::class, 'destroy']);
 
 // Route Log Aktivitas Admin
 Route::get('/admin/logs', [ActivityLogController::class, 'index']);
+
+// Route yang HANYA bisa diakses oleh ADMIN
+Route::middleware(['role:admin'])->group(function () {
+    // Manajemen User Panitia
+    Route::get('/admin/users', [UserController::class, 'index']);
+    Route::post('/admin/users', [UserController::class, 'store']);
+    Route::put('/admin/users/{id}', [UserController::class, 'update']);
+    Route::delete('/admin/users/{id}', [UserController::class, 'destroy']);
+    
+    // Log Aktivitas (Opsional: kalau mau dikhususkan untuk admin saja)
+    Route::get('/admin/logs', [ActivityLogController::class, 'index']);
+});
+
+// Route yang bisa diakses oleh ADMIN maupun PANITIA
+Route::middleware(['role:admin,panitia'])->group(function () {
+    Route::get('/admin/pendaftar', [PendaftaranController::class, 'adminIndex']);
+    Route::get('/admin/donasi', [DonasiController::class, 'indexAdmin']);
+    Route::get('/admin/keuangan', [KeuanganController::class, 'index']);
+    Route::get('/admin/doorprize', function () { return view('doorprize'); });
+    Route::get('/admin/inventaris', function () { return view('inventaris'); });
+});

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pendaftar;
 use App\Models\Lomba;
+use App\Models\ActivityLog; // <-- Ditambahkan untuk mencatat log aktivitas
 use Illuminate\Http\Request;
 use Google\Client;
 use Google\Service\Sheets as GoogleSheets;
@@ -33,6 +34,12 @@ class PendaftaranController extends Controller
             'nama_warga' => $namaWarga,
             'nomor_hp'   => $noHp,
             'rt_rw'      => $rtRw,
+        ]);
+
+        // Catat ke Log Aktivitas bahwa ada warga mendaftar
+        ActivityLog::create([
+            'user_name' => 'Sistem / Publik',
+            'action'    => 'Warga atas nama ' . $namaWarga . ' mendaftarkan diri ke lomba.'
         ]);
 
         // 2. KIRIM KE GOOGLE SHEETS
@@ -97,7 +104,15 @@ class PendaftaranController extends Controller
     public function destroyPendaftar($id)
     {
         $pendaftar = Pendaftar::findOrFail($id);
+        $namaWarga = $pendaftar->nama_warga ?? 'Peserta';
+        
         $pendaftar->delete();
+
+        // Catat ke Log Aktivitas saat panitia menghapus data pendaftar
+        ActivityLog::create([
+            'user_name' => session('user_name', 'Admin Panitia'),
+            'action'    => 'Menghapus data pendaftar atas nama: ' . $namaWarga
+        ]);
 
         return redirect()->back()->with('success', 'Data pendaftar berhasil dihapus!');
     }
