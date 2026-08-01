@@ -24,24 +24,17 @@ class KeuanganController extends Controller
         $namaPanitia   = session('user_name', 'Panitia');
         $divisiPanitia = session('user_role', 'Umum');
 
-        // Menyatukan status jenis kas langsung ke keterangan agar tidak perlu bergantung pada kolom jenis
         $statusKas = (strtolower($request->jenis) == 'masuk' || strtolower($request->jenis) == 'pemasukan') ? '[KAS MASUK]' : '[KAS KELUAR]';
         $keteranganLengkap = $statusKas . " " . $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Menggunakan model tanpa menyentuh kolom jenis yang bermasalah di database Railway
-        $keuangan = new Keuangan();
-        $keuangan->keterangan = $keteranganLengkap;
-        $keuangan->nominal    = $request->jumlah;
-        $keuangan->tanggal    = date('Y-m-d');
-        
-        // Cek jika kolom jenis ada di fillable/tabel, kita isi dengan string yang dijamin netral
-        try {
-            $keuangan->jenis = 'masuk'; 
-        } catch (\Exception $e) {
-            // Abaikan jika kolom tidak diizinkan
-        }
-
-        $keuangan->save();
+        // Menggunakan query mentah (DB insert) khusus untuk tabel keuangans agar mutlak mengabaikan Model dan Constraint
+        \DB::table('keuangans')->insert([
+            'keterangan' => $keteranganLengkap,
+            'nominal'    => $request->jumlah,
+            'tanggal'    => date('Y-m-d'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         return redirect()->back()->with('success', 'Catatan keuangan berhasil disimpan!');
     }

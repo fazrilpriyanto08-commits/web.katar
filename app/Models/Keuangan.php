@@ -9,12 +9,12 @@ class Keuangan extends Model
 {
     use HasFactory;
 
+    protected $table = 'keuangans';
+
+    // Kita hanya mengizinkan kolom yang benar-benar aman disentuh agar kolom 'jenis' tidak ikut dikirim
     protected $fillable = [
         'keterangan',
-        'jenis',
         'nominal',
         'tanggal',
-        'kategori',
-        'catatan',
     ];
 }
