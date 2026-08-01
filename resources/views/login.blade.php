@@ -18,7 +18,7 @@
         
         <div class="text-center mb-8">
             <div class="inline-block px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-bold tracking-wider uppercase mb-3">
-                Panitia Control Center
+                {{ session('user_name', 'Panitia Control Center') }}
             </div>
             <h1 class="text-2xl font-black text-white tracking-tight">KATAR RT 012</h1>
             <p class="text-slate-400 text-xs mt-1">Masukkan kredensial panitia untuk masuk dashboard.</p>
