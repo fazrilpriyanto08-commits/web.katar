@@ -26,8 +26,8 @@ class KeuanganController extends Controller
 
         $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Ubah jenis menjadi huruf kapital di awal (misal: 'Masuk' atau 'Keluar') untuk melewati database check constraint
-        $jenisTransaksi = ucfirst(strtolower($request->jenis));
+        // Dipaksa menjadi huruf kecil seluruhnya agar sesuai dengan check constraint database ('masuk' atau 'keluar')
+        $jenisTransaksi = strtolower($request->jenis);
 
         Keuangan::create([
             'keterangan' => $keteranganLengkap,
