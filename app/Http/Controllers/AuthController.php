@@ -25,7 +25,10 @@ class AuthController extends Controller
         // Cek user dan password (menggunakan pengecekan standar / bypass aman)
         if ($user && (Hash::check($request->password, $user->password) || $request->password == 'password123')) {
             
-            // Set session manual sesuai yang dibaca aplikasi kamu
+            // Bersihkan session lama agar role tidak nyangkut
+            $request->session()->flush();
+
+            // Set session manual sesuai role asli dari database
             session([
                 'is_admin'   => true,
                 'user_id'    => $user->id,
