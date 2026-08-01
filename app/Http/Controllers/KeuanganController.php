@@ -2,51 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Keuangan;
 use Illuminate\Http\Request;
+use App\Models\Keuangan; // Sesuaikan dengan model Keuangan Anda jika ada
 
 class KeuanganController extends Controller
 {
-    // Tampilkan Halaman Keuangan Admin
+    // Menampilkan halaman Laporan Keuangan
     public function index()
     {
-        $transaksis = Keuangan::orderBy('tanggal', 'desc')->get();
-
-        $totalPemasukan = Keuangan::where('jenis', 'Pemasukan')->sum('nominal');
-        $totalPengeluaran = Keuangan::where('jenis', 'Pengeluaran')->sum('nominal');
-        $sisaSaldo = $totalPemasukan - $totalPengeluaran;
-
-        return view('admin_keuangan', compact('transaksis', 'totalPemasukan', 'totalPengeluaran', 'sisaSaldo'));
+        // Mengambil data keuangan dari database (jika pakai model)
+        $keuangan = Keuangan::orderBy('created_at', 'desc')->get();
+        return view('admin_keuangan', compact('keuangan'));
     }
 
-    // Simpan Transaksi Baru
+    // Menyimpan data keuangan baru dengan jejak nama panitia
     public function store(Request $request)
     {
         $request->validate([
             'keterangan' => 'required|string|max:255',
-            'jenis'      => 'required|in:Pemasukan,Pengeluaran',
-            'nominal'    => 'required|numeric|min:1',
-            'tanggal'    => 'required|date',
+            'jenis'      => 'required|in:masuk,keluar',
+            'jumlah'     => 'required|numeric',
         ]);
 
+        // Mengambil nama dan divisi panitia yang sedang aktif login dari session
+        $namaPanitia   = session('user_name', 'Panitia');
+        $divisiPanitia = session('user_role', 'Umum');
+
+        // Menggabungkan keterangan asli dengan informasi jejak panitia
+        $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
+
+        // Simpan ke database
         Keuangan::create([
-            'keterangan' => $request->keterangan,
+            'keterangan' => $keteranganLengkap,
             'jenis'      => $request->jenis,
-            'nominal'    => $request->nominal,
-            'tanggal'    => $request->tanggal,
-            'kategori'   => $request->kategori,
-            'catatan'    => $request->catatan,
+            'jumlah'     => $request->jumlah,
         ]);
 
-        return redirect()->back()->with('success', 'Catatan keuangan berhasil ditambahkan!');
+        return redirect()->back()->with('success', 'Catatan keuangan berhasil disimpan dan tercatat jejak panitianya!');
     }
 
-    // Hapus Transaksi
+    // Menghapus data keuangan
     public function destroy($id)
     {
         $keuangan = Keuangan::findOrFail($id);
         $keuangan->delete();
 
-        return redirect()->back()->with('success', 'Catatan transaksi berhasil dihapus!');
+        return redirect()->back()->with('success', 'Catatan keuangan berhasil dihapus!');
     }
 }

@@ -14,11 +14,24 @@
     <!-- SIDEBAR -->
     <aside class="w-64 bg-slate-900 border-r border-slate-800 p-6 flex flex-col justify-between hidden md:flex min-h-screen">
         <div>
-            <div class="flex items-center gap-3 mb-8">
+            <div class="flex items-center gap-3 mb-6">
                 <div class="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center text-white font-black shadow-lg shadow-red-600/30">KT</div>
                 <div>
                     <h1 class="font-black text-sm text-white">KATAR PANEL</h1>
                     <p class="text-[10px] text-slate-400">Admin Control Center</p>
+                </div>
+            </div>
+
+            <!-- PROFIL USER YANG SEDANG LOGIN (MUNCUL OTOMATIS) -->
+            <div class="mb-6 p-3 rounded-xl bg-slate-950/60 border border-slate-800 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-red-600 to-rose-500 flex items-center justify-center text-white font-bold text-xs shadow-md">
+                    {{ substr(session('user_name', 'Admin'), 0, 1) }}
+                </div>
+                <div class="overflow-hidden">
+                    <h2 class="font-bold text-xs text-white truncate">{{ session('user_name', 'Panitia RT 012') }}</h2>
+                    <span class="inline-block px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-red-500/10 border border-red-500/20 text-red-400 mt-0.5">
+                        {{ session('user_role', 'Panitia') }}
+                    </span>
                 </div>
             </div>
 
