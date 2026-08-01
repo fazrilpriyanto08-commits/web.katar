@@ -26,15 +26,9 @@ class KeuanganController extends Controller
 
         $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Mencegah error constraint dengan mengambil nilai apa adanya atau string aman
-        $jenisInput = strtolower(trim($request->jenis));
-        
-        // Jika database rewel, kita fallback langsung ke string 'masuk'
-        $jenisTransaksi = ($jenisInput == 'keluar' || $jenisInput == 'pengeluaran') ? 'keluar' : 'masuk';
-
+        // KOLOM 'jenis' KITA HAPUS DARI DATABASE CREATE AGAR TIDAK BENTROK DENGAN CHECK CONSTRAINT RAILWAY
         Keuangan::create([
             'keterangan' => $keteranganLengkap,
-            'jenis'      => $jenisTransaksi,
             'nominal'    => $request->jumlah,
             'tanggal'    => date('Y-m-d'), 
         ]);
