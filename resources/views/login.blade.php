@@ -40,7 +40,7 @@
             @csrf
             <div>
                 <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Email / Username</label>
-                <input type="email" name="email" required placeholder="Masukkan email panitia" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-red-500 transition-colors">
+                <input type="text" name="email" required placeholder="Masukkan email panitia" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-red-500 transition-colors">
             </div>
 
             <div>
