@@ -25,10 +25,8 @@ class KeuanganController extends Controller
         $namaPanitia   = session('user_name', 'Panitia');
         $divisiPanitia = session('user_role', 'Umum');
 
-        $statusKas = (strtolower($request->jenis) == 'masuk' || strtolower($request->jenis) == 'pemasukan') ? '[KAS MASUK]' : '[KAS KELUAR]';
-        $keteranganLengkap = $statusKas . " " . $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
+        $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Memasukkan data mentah dengan menyertakan kolom jenis bernilai 'masuk' untuk memenuhi syarat not-null database
         DB::table('keuangans')->insert([
             'keterangan' => $keteranganLengkap,
             'jenis'      => 'masuk', 
