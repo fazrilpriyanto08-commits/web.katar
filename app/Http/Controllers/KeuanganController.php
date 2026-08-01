@@ -26,9 +26,9 @@ class KeuanganController extends Controller
 
         $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Kita coba gunakan nilai langsung dari request (atau ubah jika database meminta bahasa Inggris)
-        // Jika masih error, kita bisa ubah string ini menjadi 'in' atau 'out'
-        $jenisTransaksi = $request->jenis; 
+        // Menerjemahkan pilihan ke format bahasa Inggris standar database (income/expense)
+        $inputJenis = strtolower($request->jenis);
+        $jenisTransaksi = ($inputJenis == 'masuk') ? 'income' : 'expense';
 
         Keuangan::create([
             'keterangan' => $keteranganLengkap,
