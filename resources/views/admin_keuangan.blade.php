@@ -96,8 +96,8 @@
                     <div>
                         <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Jenis Arus Kas</label>
                         <select name="jenis" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-500">
-                            <option value="masuk">Kas Masuk (Pemasukan)</option>
-                            <option value="keluar">Kas Keluar (Pengeluaran)</option>
+                            <option value="pemasukan">Kas Masuk (Pemasukan)</option>
+                            <option value="pengeluaran">Kas Keluar (Pengeluaran)</option>
                         </select>
                     </div>
 
@@ -137,14 +137,14 @@
                                         {{ $item->keterangan }}
                                     </td>
                                     <td class="p-3">
-                                        @if($item->jenis == 'masuk')
+                                        @if($item->jenis == 'pemasukan')
                                             <span class="px-2 py-0.5 rounded-full font-bold text-[10px] bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 uppercase">Masuk</span>
                                         @else
                                             <span class="px-2 py-0.5 rounded-full font-bold text-[10px] bg-rose-500/10 border border-rose-500/20 text-rose-400 uppercase">Keluar</span>
                                         @endif
                                     </td>
-                                    <td class="p-3 font-mono font-bold {{ $item->jenis == 'masuk' ? 'text-emerald-400' : 'text-rose-400' }}">
-                                        Rp {{ number_format($item->jumlah, 0, ',', '.') }}
+                                    <td class="p-3 font-mono font-bold {{ $item->jenis == 'pemasukan' ? 'text-emerald-400' : 'text-rose-400' }}">
+                                        Rp {{ number_format($item->nominal, 0, ',', '.') }}
                                     </td>
                                     <td class="p-3 text-right">
                                         <form action="/admin/keuangan/{{ $item->id }}" method="POST" onsubmit="return confirm('Hapus catatan transaksi ini?');">

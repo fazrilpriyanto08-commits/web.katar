@@ -26,12 +26,9 @@ class KeuanganController extends Controller
 
         $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Mengambil langsung nilai dari form dan menjadikannya huruf kecil (pemasukan / pengeluaran atau masuk / keluar)
-        $jenisTransaksi = strtolower(trim($request->jenis));
-
         Keuangan::create([
             'keterangan' => $keteranganLengkap,
-            'jenis'      => $jenisTransaksi,
+            'jenis'      => strtolower(trim($request->jenis)),
             'nominal'    => $request->jumlah,
             'tanggal'    => date('Y-m-d'), 
         ]);
