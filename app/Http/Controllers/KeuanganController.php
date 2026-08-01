@@ -26,11 +26,12 @@ class KeuanganController extends Controller
 
         $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Diubah dari 'jumlah' menjadi 'nominal' sesuai kolom asli database Railway
+        // Ditambahkan kolom 'tanggal' diisi hari ini secara otomatis
         Keuangan::create([
             'keterangan' => $keteranganLengkap,
             'jenis'      => $request->jenis,
-            'nominal'    => $request->jumlah, 
+            'nominal'    => $request->jumlah,
+            'tanggal'    => date('Y-m-d'), 
         ]);
 
         return redirect()->back()->with('success', 'Catatan keuangan berhasil disimpan dan tercatat jejak panitianya!');
