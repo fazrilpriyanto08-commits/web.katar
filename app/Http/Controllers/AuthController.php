@@ -3,48 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // Menampilkan halaman login
     public function showLoginForm()
     {
         return view('login');
     }
 
-    // Memproses Login
     public function login(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'email'    => 'required',
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
-
-        // Bypass pengecekan hash sementara agar pasti bisa masuk
-        if ($user && $request->password == 'password123') {
-            
-            session([
-                'is_admin'   => true,
-                'user_id'    => $user->id,
-                'user_name'  => $user->name,
-                'user_role'  => $user->role ?? 'panitia',
-            ]);
-
-            return redirect('/admin/pendaftar')->with('success', 'Berhasil masuk ke Dashboard!');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/admin/pendaftar')->with('success', 'Berhasil masuk ke Dashboard!');
         }
 
-        return redirect('/login')->withErrors(['login_error' => 'Email atau Password salah!']);
+        return back()->withErrors(['login_error' => 'Email atau Password salah!']);
     }
 
-    // Logout
     public function logout(Request $request)
     {
-        $request->session()->flush();
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/login')->with('success', 'Berhasil keluar!');
     }
 }
