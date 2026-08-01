@@ -26,13 +26,11 @@ class KeuanganController extends Controller
 
         $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // MEMAKSA NILAI JADI 'masuk' ATAU 'keluar' TANPA TAPI TANPA NANTI
-        $inputJenis = strtolower(trim($request->jenis));
-        if ($inputJenis == 'pemasukan' || $inputJenis == 'masuk') {
-            $jenisTransaksi = 'masuk';
-        } else {
-            $jenisTransaksi = 'keluar';
-        }
+        // Mencegah error constraint dengan mengambil nilai apa adanya atau string aman
+        $jenisInput = strtolower(trim($request->jenis));
+        
+        // Jika database rewel, kita fallback langsung ke string 'masuk'
+        $jenisTransaksi = ($jenisInput == 'keluar' || $jenisInput == 'pengeluaran') ? 'keluar' : 'masuk';
 
         Keuangan::create([
             'keterangan' => $keteranganLengkap,
