@@ -9,6 +9,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ActivityLogController;
 
 // 1. Halaman Beranda (Utama)
 Route::get('/', [LombaController::class, 'index']);
@@ -86,3 +87,6 @@ Route::get('/admin/users', [UserController::class, 'index']);
 Route::post('/admin/users', [UserController::class, 'store']);
 Route::put('/admin/users/{id}', [UserController::class, 'update']);
 Route::delete('/admin/users/{id}', [UserController::class, 'destroy']);
+
+// Route Log Aktivitas Admin
+Route::get('/admin/logs', [ActivityLogController::class, 'index']);
