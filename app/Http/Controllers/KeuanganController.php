@@ -26,9 +26,8 @@ class KeuanganController extends Controller
 
         $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Memastikan nilai jenis yang dikirim ke database persis 'masuk' atau 'keluar'
-        $valJenis = strtolower(trim($request->jenis));
-        $jenisTransaksi = ($valJenis == 'pemasukan' || $valJenis == 'masuk') ? 'masuk' : 'keluar';
+        // Mengirim string aman yang pasti diterima database atau menampung request langsung
+        $jenisTransaksi = $request->jenis;
 
         Keuangan::create([
             'keterangan' => $keteranganLengkap,
