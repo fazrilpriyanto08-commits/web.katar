@@ -17,7 +17,7 @@ class KeuanganController extends Controller
     {
         $request->validate([
             'keterangan' => 'required|string|max:255',
-            'jenis'      => 'required|in:masuk,keluar',
+            'jenis'      => 'required',
             'jumlah'     => 'required|numeric',
         ]);
 
@@ -26,10 +26,12 @@ class KeuanganController extends Controller
 
         $keteranganLengkap = $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // Ditambahkan kolom 'tanggal' diisi hari ini secara otomatis
+        // Ubah jenis menjadi huruf kapital di awal (misal: 'Masuk' atau 'Keluar') untuk melewati database check constraint
+        $jenisTransaksi = ucfirst(strtolower($request->jenis));
+
         Keuangan::create([
             'keterangan' => $keteranganLengkap,
-            'jenis'      => $request->jenis,
+            'jenis'      => $jenisTransaksi,
             'nominal'    => $request->jumlah,
             'tanggal'    => date('Y-m-d'), 
         ]);
