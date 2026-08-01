@@ -32,7 +32,7 @@ class AuthController extends Controller
                 'is_admin'   => true,
                 'user_id'    => $user->id,
                 'user_name'  => $user->name,
-                'user_role'  => $user->role ?? 'Panitia',
+                'user_role'  => $user->role ?? 'panitia',
             ]);
 
             return redirect('/admin/pendaftar')->with('success', 'Berhasil masuk ke Dashboard!');
