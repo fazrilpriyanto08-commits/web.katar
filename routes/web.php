@@ -10,6 +10,7 @@ use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\ProfileController;
 
 // 1. Halaman Beranda (Utama)
 Route::get('/', [LombaController::class, 'index']);
@@ -84,4 +85,10 @@ Route::middleware(['role:admin,panitia'])->group(function () {
     Route::post('/admin/pengumuman', [PengumumanController::class, 'store']);
     Route::put('/admin/pengumuman/{id}', [PengumumanController::class, 'update']);
     Route::delete('/admin/pengumuman/{id}', [PengumumanController::class, 'destroy']);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/profile', [ProfileController::class, 'edit'])->name('admin.profile');
+    Route::patch('/admin/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+    Route::patch('/admin/profile/password', [ProfileController::class, 'updatePassword'])->name('admin.profile.password');
 });
