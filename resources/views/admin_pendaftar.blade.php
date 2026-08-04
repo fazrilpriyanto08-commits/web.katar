@@ -22,20 +22,27 @@
                 </div>
             </div>
 
-            <!-- PROFIL USER & BADGE ROLE DINAMIS -->
-            <div class="flex items-center gap-3 p-3 mb-6 bg-slate-950/50 rounded-2xl border border-slate-800">
-                <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-sm">
-                    {{ strtoupper(substr(session('user_name', 'Admin'), 0, 1)) }}
+            <!-- PROFIL USER & BADGE ROLE DINAMIS + TOMBOL PROFIL -->
+            <div class="p-3 mb-6 bg-slate-950/50 rounded-2xl border border-slate-800 space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-sm shrink-0">
+                        {{ strtoupper(substr(session('user_name', 'Admin'), 0, 1)) }}
+                    </div>
+                    <div class="overflow-hidden">
+                        <h4 class="text-xs font-bold text-white capitalize truncate">
+                            {{ session('user_name', 'Administrator') }}
+                        </h4>
+                        <!-- Badge Role Diperkuat agar langsung mendeteksi admin -->
+                        <span class="inline-block mt-0.5 px-2 py-0.5 text-[9px] font-extrabold uppercase rounded-md tracking-wider {{ strtolower(session('user_role')) == 'admin' ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'bg-slate-800 text-slate-300' }}">
+                            {{ session('user_role') ?? 'panitia' }}
+                        </span>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="text-xs font-bold text-white capitalize truncate max-w-[120px]">
-                        {{ session('user_name', 'Administrator') }}
-                    </h4>
-                    <!-- Badge Role Diperkuat agar langsung mendeteksi admin -->
-                    <span class="inline-block mt-0.5 px-2 py-0.5 text-[9px] font-extrabold uppercase rounded-md tracking-wider {{ strtolower(session('user_role')) == 'admin' ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'bg-slate-800 text-slate-300' }}">
-                        {{ session('user_role') ?? 'panitia' }}
-                    </span>
-                </div>
+                <!-- Tombol ke Halaman Profil -->
+                <a href="/admin/profile" class="w-full flex items-center justify-center gap-2 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white text-[11px] font-semibold transition-all">
+                    <i class="fa-solid fa-user-gear text-red-400"></i>
+                    <span>Pengaturan Profil</span>
+                </a>
             </div>
 
             <nav class="space-y-2">
