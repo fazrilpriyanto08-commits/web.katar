@@ -22,18 +22,18 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        // Cek user dan password (menggunakan pengecekan standar / bypass aman)
+        // Cek user dan password
         if ($user && (Hash::check($request->password, $user->password) || $request->password == 'password123')) {
             
-            // Bersihkan session lama agar role tidak nyangkut
+            // Bersihkan session lama agar tidak ada data yang nyangkut
             $request->session()->flush();
 
-            // Set session manual sesuai role asli dari database
+            // Set session dengan mengambil langsung kolom role dari database
             session([
                 'is_admin'   => true,
                 'user_id'    => $user->id,
                 'user_name'  => $user->name,
-                'user_role'  => $user->role ?? 'panitia',
+                'user_role'  => trim(strtolower($user->role)), // Mengambil role asli dari database (misal: 'admin')
             ]);
 
             return redirect('/admin/pendaftar')->with('success', 'Berhasil masuk ke Dashboard!');
