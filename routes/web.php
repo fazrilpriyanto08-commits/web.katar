@@ -34,38 +34,10 @@ Route::get('/daftar/{id}', [PendaftaranController::class, 'formDaftar']);
 Route::get('/daftar-lomba/{id}', [PendaftaranController::class, 'formDaftar']);
 Route::post('/proses-daftar', [PendaftaranController::class, 'prosesDaftar']);
 
-// Route untuk Dashboard Admin Pendaftar Panitia
-Route::get('/admin/pendaftar', [PendaftaranController::class, 'adminIndex']);
-Route::delete('/admin/pendaftar/{id}', [PendaftaranController::class, 'destroyPendaftar']);
-
-// Route CRUD Pengumuman
-Route::post('/admin/pengumuman', [PengumumanController::class, 'store']);
-Route::put('/admin/pengumuman/{id}', [PengumumanController::class, 'update']);
-Route::delete('/admin/pengumuman/{id}', [PengumumanController::class, 'destroy']);
-
+// Auth Route
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
-
-// DASHBOARD UTAMA ADMIN
-Route::middleware(['web'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        if (!session('is_admin')) {
-            return redirect('/login')->withErrors(['login_error' => 'BUKAN PANITIA YAA']);
-        }
-        return app(PendaftaranController::class)->adminIndex();
-    });
-});
-
-// Route Roda Doorprize
-Route::get('/admin/doorprize', function () {
-    return view('doorprize');
-});
-
-// Route Inventaris Perlap
-Route::get('/admin/inventaris', function () {
-    return view('inventaris');
-});
 
 // Form Donasi Publik
 Route::get('/donasi', function () {
@@ -73,25 +45,10 @@ Route::get('/donasi', function () {
 });
 Route::post('/donasi', [DonasiController::class, 'store']);
 
-// Admin Donasi
-Route::get('/admin/donasi', [DonasiController::class, 'indexAdmin']);
-Route::post('/admin/donasi/{id}/status', [DonasiController::class, 'updateStatus']);
 
-// Admin Keuangan
-Route::get('/admin/keuangan', [KeuanganController::class, 'index']);
-Route::post('/admin/keuangan', [KeuanganController::class, 'store']);
-Route::delete('/admin/keuangan/{id}', [KeuanganController::class, 'destroy']);
-
-// Route Management User Panitia
-Route::get('/admin/users', [UserController::class, 'index']);
-Route::post('/admin/users', [UserController::class, 'store']);
-Route::put('/admin/users/{id}', [UserController::class, 'update']);
-Route::delete('/admin/users/{id}', [UserController::class, 'destroy']);
-
-// Route Log Aktivitas Admin
-Route::get('/admin/logs', [ActivityLogController::class, 'index']);
-
-// Route yang HANYA bisa diakses oleh ADMIN
+// ==========================================
+// AREA KHUSUS ADMIN (Hanya bisa diakses role 'admin')
+// ==========================================
 Route::middleware(['role:admin'])->group(function () {
     // Manajemen User Panitia
     Route::get('/admin/users', [UserController::class, 'index']);
@@ -99,15 +56,32 @@ Route::middleware(['role:admin'])->group(function () {
     Route::put('/admin/users/{id}', [UserController::class, 'update']);
     Route::delete('/admin/users/{id}', [UserController::class, 'destroy']);
     
-    // Log Aktivitas (Opsional: kalau mau dikhususkan untuk admin saja)
+    // Log Aktivitas
     Route::get('/admin/logs', [ActivityLogController::class, 'index']);
 });
 
-// Route yang bisa diakses oleh ADMIN maupun PANITIA
+
+// ==========================================
+// AREA ADMIN & PANITIA (Bisa diakses keduanya)
+// ==========================================
 Route::middleware(['role:admin,panitia'])->group(function () {
+    Route::get('/admin/dashboard', [PendaftaranController::class, 'adminIndex']);
     Route::get('/admin/pendaftar', [PendaftaranController::class, 'adminIndex']);
+    Route::delete('/admin/pendaftar/{id}', [PendaftaranController::class, 'destroyPendaftar']);
+
+    // Donasi & Keuangan
     Route::get('/admin/donasi', [DonasiController::class, 'indexAdmin']);
+    Route::post('/admin/donasi/{id}/status', [DonasiController::class, 'updateStatus']);
     Route::get('/admin/keuangan', [KeuanganController::class, 'index']);
+    Route::post('/admin/keuangan', [KeuanganController::class, 'store']);
+    Route::delete('/admin/keuangan/{id}', [KeuanganController::class, 'destroy']);
+
+    // Fitur Pendukung Admin
     Route::get('/admin/doorprize', function () { return view('doorprize'); });
     Route::get('/admin/inventaris', function () { return view('inventaris'); });
+
+    // CRUD Pengumuman
+    Route::post('/admin/pengumuman', [PengumumanController::class, 'store']);
+    Route::put('/admin/pengumuman/{id}', [PengumumanController::class, 'update']);
+    Route::delete('/admin/pengumuman/{id}', [PengumumanController::class, 'destroy']);
 });

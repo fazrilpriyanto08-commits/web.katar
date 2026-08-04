@@ -11,7 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Mendaftarkan alias middleware role untuk pembatasan akses
+        // Daftarkan alias middleware role di sini
         $middleware->alias([
             'role' => \App\Http\Middleware\CheckRole::class,
         ]);
