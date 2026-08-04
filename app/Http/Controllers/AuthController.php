@@ -22,21 +22,20 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        // Cek user dan password
         if ($user && (Hash::check($request->password, $user->password) || $request->password == 'password123')) {
             
-            // Bersihkan session lama agar tidak ada data yang nyangkut
+            // Hapus session lama sepenuhnya
             $request->session()->flush();
 
-            // Set session dengan mengambil langsung kolom role dari database
+            // SIMPAN ROLE BERDASARKAN DATABASE (Bukan hardcode panitia lagi)
             session([
                 'is_admin'   => true,
                 'user_id'    => $user->id,
                 'user_name'  => $user->name,
-                'user_role'  => trim(strtolower($user->role)), // Mengambil role asli dari database (misal: 'admin')
+                'user_role'  => $user->role, // Mengambil langsung nilai dari database
             ]);
 
-            return redirect('/admin/pendaftar')->with('success', 'Berhasil masuk ke Dashboard!');
+            return redirect('/admin/pendaftar')->with('success', 'Berhasil masuk!');
         }
 
         return redirect('/login')->withErrors(['login_error' => 'Email atau Password salah!']);
@@ -45,6 +44,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->session()->flush();
-        return redirect('/login')->with('success', 'Berhasil keluar!');
+        return redirect('/login');
     }
 }
