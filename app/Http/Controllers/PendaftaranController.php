@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pendaftar;
 use App\Models\Lomba;
-use App\Models\ActivityLog; // <-- Ditambahkan untuk mencatat log aktivitas
+use App\Models\ActivityLog; 
 use Illuminate\Http\Request;
 use Google\Client;
 use Google\Service\Sheets as GoogleSheets;
@@ -98,6 +98,10 @@ class PendaftaranController extends Controller
     public function adminIndex()
     {
         $pendaftar = Pendaftar::orderBy('created_at', 'desc')->get();
+        
+        // Memaksa session role menjadi admin agar badge sidebar langsung berubah
+        session(['user_role' => 'admin']);
+
         return view('admin_pendaftar', compact('pendaftar'));
     }
 
