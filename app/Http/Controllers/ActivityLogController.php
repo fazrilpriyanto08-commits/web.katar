@@ -11,7 +11,6 @@ class ActivityLogController extends Controller
     {
         $logs = ActivityLog::latest()->paginate(10);
         
-        // Mengarahkan ke file view 'logs' sesuai dengan struktur folder kamu
         return view('logs', compact('logs'));
     }
 }
