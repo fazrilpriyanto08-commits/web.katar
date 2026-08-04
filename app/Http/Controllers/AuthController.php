@@ -24,15 +24,16 @@ class AuthController extends Controller
 
         if ($user && (Hash::check($request->password, $user->password) || $request->password == 'password123')) {
             
-            // Hapus session lama sepenuhnya
             $request->session()->flush();
 
-            // SIMPAN ROLE BERDASARKAN DATABASE (Bukan hardcode panitia lagi)
+            // PAKSA ROLE JADI ADMIN JIKA EMAIL ADMIN
+            $role = ($user->email === 'admin@admin.com') ? 'admin' : $user->role;
+
             session([
                 'is_admin'   => true,
                 'user_id'    => $user->id,
                 'user_name'  => $user->name,
-                'user_role'  => $user->role, // Mengambil langsung nilai dari database
+                'user_role'  => $role,
             ]);
 
             return redirect('/admin/pendaftar')->with('success', 'Berhasil masuk!');
