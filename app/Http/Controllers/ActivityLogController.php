@@ -10,6 +10,8 @@ class ActivityLogController extends Controller
     public function index()
     {
         $logs = ActivityLog::latest()->paginate(10);
-        return view('admin.logs', compact('logs'));
+        
+        // Mengarahkan ke file view 'logs' sesuai dengan struktur folder kamu
+        return view('logs', compact('logs'));
     }
 }
