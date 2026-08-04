@@ -230,13 +230,30 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-950 border-t border-slate-900 py-8 px-4 text-center z-10">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <footer class="bg-slate-950 border-t border-slate-900 py-10 px-4 text-center z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <!-- Hak Cipta -->
             <div class="flex items-center gap-2 text-slate-400 text-xs">
                 <i class="fa-solid fa-flag text-red-500"></i>
-                <span>Karang Taruna RT 012 &copy; {{ date('Y') }}</span>
+                <span>Karang Taruna RT 012 &copy; {{ date('Y') }} &bull; Semangat Kemerdekaan</span>
             </div>
-            <p class="text-slate-500 text-xs">Semangat Kemerdekaan & Kebersamaan Warga RT 012 / RW 05</p>
+
+            <!-- Social Media Links (Instagram & TikTok) -->
+            <div class="flex items-center gap-3">
+                <span class="text-xs text-slate-400 font-semibold mr-1">Ikuti Kami:</span>
+                
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/karangtaruna012.official_?igsh=M2w5bGRkdHhyOWIw" target="_blank" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 hover:border-pink-500/50 hover:bg-pink-500/10 text-slate-300 hover:text-pink-400 flex items-center justify-center text-sm transition-all shadow-sm" title="Instagram Katar 012">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@katar12.05?_r=1&_t=ZS-98beawdUnw4" target="_blank" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-600 hover:bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center text-sm transition-all shadow-sm" title="TikTok Katar 012">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+            </div>
+
         </div>
     </footer>
 
