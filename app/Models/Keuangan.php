@@ -2,22 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Factories\HasFactory;
+use Illuminate\Database\Model;
 
 class Keuangan extends Model
 {
     use HasFactory;
 
-    protected $table = 'keuangans';
+    protected $table = 'kas_keuangan'; // Mengarah ke tabel baru yang bersih
 
     protected $fillable = [
         'keterangan',
         'jenis',
         'jumlah',
-        'nominal',
-        'tanggal',
-        'kategori',
-        'catatan',
     ];
 }
