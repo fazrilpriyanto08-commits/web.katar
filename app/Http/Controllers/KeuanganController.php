@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Keuangan;
-use App\Models\ActivityLog; // <-- 1. Import model ActivityLog
+use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Http;
 
 class KeuanganController extends Controller
@@ -23,16 +23,21 @@ class KeuanganController extends Controller
             'jumlah'     => 'required|numeric',
         ]);
 
-        // Simpan juga ke database lokal jika menggunakan model Keuangan
-        // Keuangan::create([...]); 
-
         $namaPanitia   = session('user_name', 'Panitia');
         $divisiPanitia = session('user_role', 'Umum');
 
-        $statusKas = (strtolower($request->jenis) == 'masuk' || strtolower($request->jenis) == 'pemasukan') ? '[KAS MASUK]' : '[KAS KELUAR]';
-        $keteranganLengkap = $statusKas . " " . $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
+        $statusKas = (strtolower($request->jenis) == 'masuk' || strtolower($request->jenis) == 'pemasukan') ? 'Masuk' : 'Keluar';
 
-        // 2. Catat otomatis ke Log Aktivitas saat panitia menambah catatan keuangan
+        // 1. SIMPAN KE DATABASE LOKAL AGAR MUNCUL DI TABEL RIWAYAT
+        Keuangan::create([
+            'keterangan' => $request->keterangan,
+            'jenis'      => $statusKas,
+            'jumlah'     => $request->jumlah,
+        ]);
+
+        $keteranganLengkap = "[" . strtoupper($statusKas) . "] " . $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
+
+        // 2. Catat otomatis ke Log Aktivitas
         ActivityLog::create([
             'user_name' => $namaPanitia,
             'action'    => 'Menambahkan catatan keuangan ' . $statusKas . ': ' . $request->keterangan . ' (Rp ' . number_format($request->jumlah, 0, ',', '.') . ')'
@@ -51,7 +56,7 @@ class KeuanganController extends Controller
         } catch (\Exception $e) {}
         // -----------------------------------
 
-        return redirect()->back()->with('success', 'Catatan keuangan berhasil dikirim dan dicatat!');
+        return redirect()->back()->with('success', 'Catatan keuangan berhasil disimpan!');
     }
 
     public function destroy($id)
@@ -62,7 +67,6 @@ class KeuanganController extends Controller
             $ket = $keuangan->keterangan ?? 'Catatan Keuangan';
             $keuangan->delete();
 
-            // 3. Catat otomatis ke Log Aktivitas saat panitia menghapus catatan keuangan
             ActivityLog::create([
                 'user_name' => session('user_name', 'Admin Panitia'),
                 'action'    => 'Menghapus catatan keuangan: ' . $ket
