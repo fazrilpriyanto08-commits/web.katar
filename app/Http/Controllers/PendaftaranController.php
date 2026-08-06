@@ -112,7 +112,7 @@ class PendaftaranController extends Controller
         
         $pendaftar->delete();
 
-        // Catat ke Log Aktivitas saat panitia menghapus data pendaftar
+        // Catat ke Log Aktivitas saat panitia menghapus data pendaftar (Terhubung ke session user admin yang login)
         ActivityLog::create([
             'user_name' => session('user_name', 'Admin Panitia'),
             'action'    => 'Menghapus data pendaftar atas nama: ' . $namaWarga
