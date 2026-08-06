@@ -28,7 +28,7 @@ class KeuanganController extends Controller
 
         $statusKas = (strtolower($request->jenis) == 'masuk' || strtolower($request->jenis) == 'pemasukan') ? 'Masuk' : 'Keluar';
 
-        // 1. SIMPAN KE DATABASE LOKAL AGAR MUNCUL DI TABEL RIWAYAT
+        // Simpan ke database lokal
         Keuangan::create([
             'keterangan' => $request->keterangan,
             'jenis'      => $statusKas,
@@ -37,7 +37,7 @@ class KeuanganController extends Controller
 
         $keteranganLengkap = "[" . strtoupper($statusKas) . "] " . $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
 
-        // 2. Catat otomatis ke Log Aktivitas
+        // Catat ke Log Aktivitas
         ActivityLog::create([
             'user_name' => $namaPanitia,
             'action'    => 'Menambahkan catatan keuangan ' . $statusKas . ': ' . $request->keterangan . ' (Rp ' . number_format($request->jumlah, 0, ',', '.') . ')'
