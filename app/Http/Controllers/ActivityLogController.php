@@ -9,9 +9,9 @@ class ActivityLogController extends Controller
 {
     public function index()
     {
-        // Ambil data log aktivitas diurutkan dari yang terbaru
         $logs = DB::table('activity_logs')->orderBy('created_at', 'desc')->get();
 
-        return view('admin.logs', compact('logs'));
+        // Diubah langsung ke 'logs' karena filenya ada di luar folder admin
+        return view('logs', compact('logs'));
     }
 }
