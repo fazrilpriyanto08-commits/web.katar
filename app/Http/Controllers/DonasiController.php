@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donasi;
+use App\Models\ActivityLog; // <-- 1. Import model ActivityLog
 use Illuminate\Http\Request;
 use Google\Client;
 use Google\Service\Sheets as GoogleSheets;
@@ -31,6 +32,12 @@ class DonasiController extends Controller
             'nominal_donasi' => $request->nominal_donasi,
             'bukti_transfer' => $buktiPath,
             'catatan'        => $request->catatan,
+        ]);
+
+        // Catat otomatis ke Log Aktivitas saat ada donasi baru masuk
+        ActivityLog::create([
+            'user_name' => 'Donatur / Publik (' . $request->nama_orang_tua . ')',
+            'action'    => 'Mengirim donasi baru sebesar Rp ' . number_format($request->nominal_donasi, 0, ',', '.')
         ]);
 
         // Auto-sync ke Google Sheets
@@ -98,6 +105,12 @@ class DonasiController extends Controller
     {
         $donasi = Donasi::findOrFail($id);
         $donasi->update(['status' => $request->status]);
+
+        // Catat otomatis ke Log Aktivitas saat panitia mengubah status donasi
+        ActivityLog::create([
+            'user_name' => session('user_name', 'Admin Panitia'),
+            'action'    => 'Memperbarui status donasi ' . $donasi->nama_orang_tua . ' menjadi: ' . $request->status
+        ]);
 
         return redirect()->back()->with('success', 'Status donasi berhasil diperbarui!');
     }
