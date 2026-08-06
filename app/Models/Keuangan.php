@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Factories\HasFactory;
-use Illuminate\Database\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Keuangan extends Model
 {
