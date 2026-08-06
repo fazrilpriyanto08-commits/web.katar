@@ -28,11 +28,13 @@ class KeuanganController extends Controller
 
         $statusKas = (strtolower($request->jenis) == 'masuk' || strtolower($request->jenis) == 'pemasukan') ? 'Masuk' : 'Keluar';
 
-        // Simpan ke database lokal
+        // Simpan ke database dengan mencakup kolom 'jumlah' dan 'nominal' sekaligus
         Keuangan::create([
             'keterangan' => $request->keterangan,
             'jenis'      => $statusKas,
             'jumlah'     => $request->jumlah,
+            'nominal'    => $request->jumlah, // Mengisi kolom nominal agar tidak error not-null
+            'tanggal'    =>(new \DateTime())->format('Y-m-d H:i:s'), // Mengisi kolom tanggal jika wajib
         ]);
 
         $keteranganLengkap = "[" . strtoupper($statusKas) . "] " . $request->keterangan . " (Oleh: " . $namaPanitia . " [" . $divisiPanitia . "])";
