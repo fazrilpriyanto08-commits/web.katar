@@ -11,7 +11,7 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex">
 
-    <!-- SIDEBAR (Gunakan sidebar standar admin yang sama) -->
+    <!-- SIDEBAR -->
     <aside class="w-64 bg-slate-900 border-r border-slate-800 p-6 flex flex-col justify-between hidden md:flex min-h-screen">
         <div>
             <div class="flex items-center gap-3 mb-6">
@@ -79,7 +79,7 @@
                     </thead>
                     <tbody class="divide-y divide-slate-800/60 text-slate-300">
                         @php 
-                            $logs = DB::table('activity_logs')->orderBy('created_at', 'desc')->get(); 
+                            $logs = isset($logs) ? $logs : DB::table('activity_logs')->orderBy('created_at', 'desc')->get(); 
                         @endphp
                         @forelse($logs as $index => $log)
                             <tr class="hover:bg-slate-800/30 transition-colors">
@@ -87,16 +87,16 @@
                                 <td class="p-3 text-slate-400 font-mono">{{ $log->created_at }}</td>
                                 <td class="p-3 font-bold text-white flex items-center gap-2">
                                     <div class="w-6 h-6 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-[10px]">
-                                        {{ strtoupper(substr($log->nama_panitia, 0, 1)) }}
+                                        {{ strtoupper(substr($log->nama_panitia ?? $log->user_name ?? 'A', 0, 1)) }}
                                     </div>
-                                    {{ $log->nama_panitia }}
+                                    {{ $log->nama_panitia ?? $log->user_name ?? 'Admin' }}
                                 </td>
                                 <td class="p-3">
-                                    <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase {{ $log->role == 'admin' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-slate-800 text-slate-300' }}">
-                                        {{ $log->role }}
+                                    <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase {{ ($log->role ?? 'admin') == 'admin' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-slate-800 text-slate-300' }}">
+                                        {{ $log->role ?? 'admin' }}
                                     </span>
                                 </td>
-                                <td class="p-3 text-emerald-400 font-medium">{{ $log->aktivitas }}</td>
+                                <td class="p-3 text-emerald-400 font-medium">{{ $log->aktivitas ?? $log->action }}</td>
                                 <td class="p-3 text-slate-500 font-mono text-[10px]">{{ $log->ip_address ?? '-' }}</td>
                             </tr>
                         @empty
