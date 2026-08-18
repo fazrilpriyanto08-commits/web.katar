@@ -11,6 +11,7 @@ use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\InventarisController;
 
 // 1. Halaman Beranda (Utama)
 Route::get('/', [LombaController::class, 'index']);
@@ -91,3 +92,7 @@ Route::middleware(['role:admin,panitia'])->group(function () {
     Route::patch('/admin/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
     Route::patch('/admin/profile/password', [ProfileController::class, 'updatePassword'])->name('admin.profile.password');
 });
+
+Route::get('/admin/inventaris', [InventarisController::class, 'index']);
+Route::post('/admin/inventaris', [InventarisController::class, 'store']);
+Route::delete('/admin/inventaris/{id}', [InventarisController::class, 'destroy']);
