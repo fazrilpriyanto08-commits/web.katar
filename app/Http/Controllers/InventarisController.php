@@ -12,7 +12,7 @@ class InventarisController extends Controller
     public function index()
     {
         $inventaris = Inventaris::orderBy('created_at', 'desc')->get();
-        return view('admin_inventaris', compact('inventaris'));
+        return view('admin.admin_inventaris', compact('inventaris'));
     }
 
     public function store(Request $request)
@@ -44,7 +44,7 @@ class InventarisController extends Controller
             'action'    => 'Menambahkan inventaris: ' . $request->nama_barang . ' (' . $request->jumlah . ' ' . $request->satuan . ')'
         ]);
 
-        // Kirim data otomatis ke Google Sheets Web App
+        // URL Web App Google Apps Script kamu
         $webAppUrl = 'https://script.google.com/macros/s/AKfycbx1LDcVbkBaOalenE0FfP8DRw3aME6GId4G5mQhKes-B6yhcrpWweWI4z5cgcqJ8nVt/exec'; 
 
         try {
@@ -59,7 +59,7 @@ class InventarisController extends Controller
             ]);
         } catch (\Exception $e) {}
 
-        return redirect()->back()->with('success', 'Barang inventaris berhasil disimpan!');
+        return redirect()->back()->with('success', 'Barang inventaris berhasil disimpan & disinkronkan!');
     }
 
     public function destroy($id)
