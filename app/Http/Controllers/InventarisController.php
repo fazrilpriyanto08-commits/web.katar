@@ -12,7 +12,7 @@ class InventarisController extends Controller
     public function index()
     {
         $inventaris = Inventaris::orderBy('created_at', 'desc')->get();
-        return view('admin.admin_inventaris', compact('inventaris'));
+        return view('admin_inventaris', compact('inventaris'));
     }
 
     public function store(Request $request)
