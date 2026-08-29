@@ -3,7 +3,9 @@
     "framework": null,
     "outputDirectory": "",
     "functions": {
-    "api/index.php": { "runtime": "vercel-php@0.7.3" }
+    "api/index.php": { 
+    "runtime": "vercel-php@0.7.3" 
+    }
     },
     "routes": [
     { "src": "/css/(.*)", "dest": "/public/css/$1" },
