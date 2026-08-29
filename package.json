@@ -2,6 +2,7 @@
     "$schema": "https://www.schemastore.org/package.json",
     "private": true,
     "scripts": {
+        "vercel-build": "echo 'No build'",
         "build": "vite build",
         "dev": "vite"
     },
